@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2018
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCS.DSS.AzureSearchUtility", "NCS.DSS.AzureSearchUtility\NCS.DSS.AzureSearchUtility.csproj", "{5C8764B4-6AD3-4A4F-A936-D7FC9C20A23A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5C8764B4-6AD3-4A4F-A936-D7FC9C20A23A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C8764B4-6AD3-4A4F-A936-D7FC9C20A23A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C8764B4-6AD3-4A4F-A936-D7FC9C20A23A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C8764B4-6AD3-4A4F-A936-D7FC9C20A23A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {17CB3767-0CEF-4500-8D83-AF6FF63F0738}
+	EndGlobalSection
+EndGlobal
