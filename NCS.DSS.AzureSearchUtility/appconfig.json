@@ -1,0 +1,9 @@
+{
+  "SearchServiceName": "__SearchServiceName__",
+  "CustomerSearchIndexName": "customer-search-index",
+  "CustomerSearchIndexerName": "customer-search-indexer",
+  "CustomerSearchDataSourceName": "customer-search-data-source",
+  "CustomerSearchDataSourceQuery": "SELECT * FROM c WHERE c._ts >= @HighWaterMark Order By c._ts",
+  "CustomerCollectionId": "customers",
+  "CustomerDatabaseId": "customers"
+}
