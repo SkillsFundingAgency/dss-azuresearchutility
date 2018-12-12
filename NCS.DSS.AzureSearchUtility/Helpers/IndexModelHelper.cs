@@ -14,7 +14,7 @@ namespace NCS.DSS.AzureSearchUtilities.Helpers
                 Name = indexName,
                 Fields = new[]
                 {
-                    new Field("CustomerId", DataType.String) { IsKey = true},
+                    new Field("id", DataType.String) { IsKey = true},
                     new Field("DateOfRegistration", DataType.DateTimeOffset),
                     new Field("Title", DataType.Int64),
                     new Field("GivenName", DataType.String) { IsSearchable = true, IsFilterable = true, Analyzer = AnalyzerName.EnLucene},

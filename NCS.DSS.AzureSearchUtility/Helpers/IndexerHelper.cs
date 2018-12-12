@@ -20,7 +20,7 @@ namespace NCS.DSS.AzureSearchUtilities.Helpers
                 customerSearchIndexerName,
                 dataSourceName,
                 index.Name,
-                fieldMappings: new List<FieldMapping> { new FieldMapping("id", "CustomerId") },
+                fieldMappings: new List<FieldMapping> { new FieldMapping("id", "id") },
                 schedule: new IndexingSchedule(TimeSpan.FromHours(2)));
 
             DeleteIndexer(searchService, indexer);
