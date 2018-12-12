@@ -8,13 +8,11 @@ namespace NCS.DSS.AzureSearchUtilities
 {
     public class RunIndex
     {
-        /// <param name="args"> Command line arguments: /SearchAdminKey:blah /CosmosAccount:dss-at-shared-cdb /CosmosAccountKey:blah /SearchConfigFile:pathtoblah</param>
+        /// <param name="args"> Command line arguments: /SearchAdminKey:blah /CosmosConnString:"AccounEndpoint=https://proj-env-shared-cdb.documents.azure.com:443/;AccountKey=secretblah;Database=customers;"  /SearchConfigFile:pathtoblah</param>
         public static void Main(string[] args)
         {
             var searchAdminKey = string.Empty;
-            var cosmosAccount = string.Empty;
-            var cosmosAccountKey = string.Empty;
-            string cosmosConnectionString;
+            string cosmosConnectionString = string.Empty;
             string searchConfigFile = string.Empty;
 
             if (args.Length == 0)
@@ -26,13 +24,9 @@ namespace NCS.DSS.AzureSearchUtilities
                 {
                     searchAdminKey = arg.Split(':')[1];
                 }
-                else if (arg.StartsWith("/CosmosAccount:"))
+                else if (arg.StartsWith("/CosmosConnString:"))
                 {
-                    cosmosAccount = arg.Split(':')[1];
-                }
-                else if (arg.StartsWith("/CosmosAccountKey:"))
-                {
-                    cosmosAccountKey = arg.Split(':')[1];
+                    cosmosConnectionString = arg.Split(new char[] { ':' }, 2)[1];
                 }
                 else if (arg.StartsWith("/SearchConfigFile:"))
                 {
@@ -44,17 +38,11 @@ namespace NCS.DSS.AzureSearchUtilities
                 }
             }
 
-            if (cosmosAccount.Length > 0 && cosmosAccountKey.Length > 0)
-            {
-                cosmosConnectionString = $"AccountEndpoint=https://{cosmosAccount}.documents.azure.com:443/;AccountKey={cosmosAccountKey};Database=customers;";
-            }
-            else
-            {
-                throw new ArgumentNullException("Connection string not created, check /CosmosAccount: and /CosmosAccountKey both have valid values");
-            }
-
             if (String.IsNullOrEmpty(searchAdminKey))
                 throw new ArgumentNullException("Check /SearchAdminKey: has a valid value");
+
+            if (String.IsNullOrEmpty(cosmosConnectionString))
+                throw new ArgumentNullException("Check /CosmosConnString: has a valid value");
 
             if (String.IsNullOrEmpty(searchConfigFile))
                 throw new ArgumentNullException("Check /SearchConfigFile: is a valid path");
