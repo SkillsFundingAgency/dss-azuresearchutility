@@ -99,11 +99,11 @@ namespace NCS.DSS.AzureSearchUtilities.CreateIndex
                 {
                     switch (lastResult.Status)
                     {
+                        case IndexerExecutionStatus.Reset:
                         case IndexerExecutionStatus.InProgress:
                             Console.WriteLine("{0} Status: {1}, Item Count: {2}", "Synchronization running...\n", lastResult.Status, lastResult.ItemCount);
                             Thread.Sleep(1000);
                             break;
-                        case IndexerExecutionStatus.Reset:
                         case IndexerExecutionStatus.Success:
                             running = false;
                             Console.WriteLine("Synchronized {0} rows...\n", lastResult.ItemCount.ToString());
