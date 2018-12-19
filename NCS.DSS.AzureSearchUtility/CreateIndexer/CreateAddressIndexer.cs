@@ -25,9 +25,11 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndexer
             }
 
             Console.WriteLine("{0}", "Creating Address Data Source object...\n");
-            var dataSource = DataSourceHelper.CreateDataSource(searchConfig.AddressSearchDataSourceQuery,
-                searchConfig.AddressCollectionId, searchConfig.CustomerSearchIndexName,
-                searchConfig.AddressSearchDataSourceName, searchConfig.AddressConnectionString);
+            var dataSource = DataSourceHelper.CreateDataSource(searchConfig.AddressSearchConfig.SearchDataSourceQuery,
+                searchConfig.AddressSearchConfig.CollectionId,
+                searchConfig.SearchIndexName,
+                searchConfig.AddressSearchConfig.SearchDataSourceName,
+                searchConfig.AddressSearchConfig.ConnectionString);
 
             try
             {
@@ -46,8 +48,8 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndexer
             {
                 indexer = IndexerHelper.CreateIndexer(azureSearchService,
                     customerSearchIndex,
-                    searchConfig.AddressSearchIndexerName,
-                    searchConfig.AddressSearchDataSourceName,
+                    searchConfig.AddressSearchConfig.SearchIndexerName,
+                    searchConfig.AddressSearchConfig.SearchDataSourceName,
                     new List<FieldMapping> { new FieldMapping("CustomerId", "CustomerId") });
             }
             catch (Exception e)

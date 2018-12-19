@@ -27,8 +27,11 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndexer
             }
 
             Console.WriteLine("{0}", "Creating Customer Data Source object...\n");
-            var dataSource = DataSourceHelper.CreateDataSource(searchConfig.CustomerSearchDataSourceQuery, searchConfig.CustomerCollectionId,
-                searchConfig.CustomerSearchIndexName, searchConfig.CustomerSearchDataSourceName, searchConfig.CustomerConnectionString);
+            var dataSource = DataSourceHelper.CreateDataSource(searchConfig.CustomerSearchConfig.SearchDataSourceQuery,
+                searchConfig.CustomerSearchConfig.CollectionId,
+                searchConfig.SearchIndexName,
+                searchConfig.CustomerSearchConfig.SearchDataSourceName,
+                searchConfig.CustomerSearchConfig.ConnectionString);
 
             try
             {
@@ -46,8 +49,10 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndexer
             try
             {
                 Console.WriteLine("{0}", "Attempting to Create Indexer...\n");
-                indexer = IndexerHelper.CreateIndexer(azureSearchService, customerSearchIndex,
-                    searchConfig.CustomerSearchIndexerName, searchConfig.CustomerSearchDataSourceName,
+                indexer = IndexerHelper.CreateIndexer(azureSearchService,
+                    customerSearchIndex,
+                    searchConfig.CustomerSearchConfig.SearchIndexerName,
+                    searchConfig.CustomerSearchConfig.SearchDataSourceName,
                     new List<FieldMapping> {new FieldMapping("id", "CustomerId")});
             }
             catch (CloudException e)

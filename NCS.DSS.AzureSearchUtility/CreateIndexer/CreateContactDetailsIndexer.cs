@@ -25,9 +25,11 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndexer
             }
 
             Console.WriteLine("{0}", "Creating Contact Details Data Source object...\n");
-            var dataSource = DataSourceHelper.CreateDataSource(searchConfig.ContactDetailsSearchDataSourceQuery,
-                searchConfig.ContactDetailsCollectionId, searchConfig.CustomerSearchIndexName,
-                searchConfig.ContactDetailsSearchDataSourceName, searchConfig.ContactDetailsConnectionString);
+            var dataSource = DataSourceHelper.CreateDataSource(searchConfig.ContactDetailsSearchConfig.SearchDataSourceQuery,
+                searchConfig.ContactDetailsSearchConfig.CollectionId,
+                searchConfig.SearchIndexName,
+                searchConfig.ContactDetailsSearchConfig.SearchDataSourceName,
+                searchConfig.ContactDetailsSearchConfig.ConnectionString);
 
             try
             {
@@ -47,8 +49,8 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndexer
                 indexer = IndexerHelper.CreateIndexer(
                     azureSearchService,
                     customerSearchIndex,
-                    searchConfig.ContactDetailsSearchIndexerName,
-                    searchConfig.ContactDetailsSearchDataSourceName,
+                    searchConfig.ContactDetailsSearchConfig.SearchIndexerName,
+                    searchConfig.ContactDetailsSearchConfig.SearchDataSourceName,
                     new List<FieldMapping> { new FieldMapping("CustomerId", "CustomerId") });
             }
             catch (Exception e)

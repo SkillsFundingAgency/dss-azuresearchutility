@@ -97,6 +97,10 @@
     <Compile Include="Helpers\IndexerHelper.cs" />
     <Compile Include="Helpers\IndexModelHelper.cs" />
     <Compile Include="Helpers\SearchHelper.cs" />
+    <Compile Include="Models\AddressSearchConfig.cs" />
+    <Compile Include="Models\IConfigSettings.cs" />
+    <Compile Include="Models\ContactDetailsSearchConfig.cs" />
+    <Compile Include="Models\CustomerSearchConfig.cs" />
     <Compile Include="Models\SearchConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RunIndex.cs" />

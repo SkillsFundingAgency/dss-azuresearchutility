@@ -62,61 +62,78 @@ namespace NCS.DSS.AzureSearchUtility
                 Console.WriteLine(e.Message);
             }
 
-            if (string.IsNullOrEmpty(config.SearchServiceName))
+            if (string.IsNullOrWhiteSpace(config.SearchServiceName))
                 throw new ArgumentNullException("SearchServiceName is missing from /SearchConfigFile file");
 
-            if (string.IsNullOrEmpty(config.CustomerSearchIndexName))
-                throw new ArgumentNullException("CustomerSearchIndexName is missing from /SearchConfigFile file");
+            if (string.IsNullOrWhiteSpace(config.SearchIndexName))
+                throw new ArgumentNullException("SearchIndexName is missing from /SearchConfigFile file");
 
-            if (string.IsNullOrEmpty(config.CustomerSearchIndexerName))
-                throw new ArgumentNullException("CustomerSearchIndexerName is missing from /SearchConfigFile file");
-
-            if (string.IsNullOrEmpty(config.CustomerSearchDataSourceName))
-                throw new ArgumentNullException("CustomerSearchDataSourceName is missing from /SearchConfigFile file");
-
-            if (string.IsNullOrEmpty(config.CustomerSearchDataSourceQuery))
-                throw new ArgumentNullException("CustomerSearchDataSourceQuery is missing from /SearchConfigFile file");
-
-            if (string.IsNullOrEmpty(config.CustomerCollectionId))
-                throw new ArgumentNullException("CustomerCollectionId is missing from /SearchConfigFile file");
-
-            if (string.IsNullOrEmpty(config.CustomerConnectionString))
-                throw new ArgumentNullException("CustomerConnectionString is missing from /SearchConfigFile file");
+            if (string.IsNullOrWhiteSpace(config.CosmosDbConnectionString))
+                throw new ArgumentNullException("CosmosDBConnectionString is missing from /SearchConfigFile file");
 
 
-            if (string.IsNullOrEmpty(config.AddressSearchIndexerName))
-                throw new ArgumentNullException("AddressSearchIndexerName is missing from /SearchConfigFile file");
+            if (string.IsNullOrWhiteSpace(config.CustomerSearchConfig.SearchIndexerName))
+                throw new ArgumentNullException("CustomerSearchConfig.SearchIndexerName is missing from /SearchConfigFile file");
 
-            if (string.IsNullOrEmpty(config.AddressSearchDataSourceName))
-                throw new ArgumentNullException("AddressSearchDataSourceName is missing from /SearchConfigFile file");
+            if (string.IsNullOrWhiteSpace(config.CustomerSearchConfig.SearchDataSourceName))
+                throw new ArgumentNullException("CustomerSearchConfig.SearchDataSourceName is missing from /SearchConfigFile file");
 
-            if (string.IsNullOrEmpty(config.AddressSearchDataSourceQuery))
-                throw new ArgumentNullException("AddressSearchDataSourceQuery is missing from /SearchConfigFile file");
+            if (string.IsNullOrWhiteSpace(config.CustomerSearchConfig.SearchDataSourceQuery))
+                throw new ArgumentNullException("CustomerSearchConfig.SearchDataSourceQuery is missing from /SearchConfigFile file");
 
-            if (string.IsNullOrEmpty(config.AddressCollectionId))
-                throw new ArgumentNullException("AddressCollectionId is missing from /SearchConfigFile file");
+            if (string.IsNullOrEmpty(config.CustomerSearchConfig.CollectionId))
+                throw new ArgumentNullException("CustomerSearchConfig.CollectionId is missing from /SearchConfigFile file");
 
-            if (string.IsNullOrEmpty(config.AddressConnectionString))
-                throw new ArgumentNullException("AddressConnectionString is missing from /SearchConfigFile file");
+            if (string.IsNullOrEmpty(config.CustomerSearchConfig.DatabaseId))
+                throw new ArgumentNullException("CustomerSearchConfig.DatabaseId is missing from /SearchConfigFile file");
+            
+
+            if (string.IsNullOrEmpty(config.AddressSearchConfig.SearchIndexerName))
+                throw new ArgumentNullException("AddressSearchConfig.SearchIndexerName is missing from /SearchConfigFile file");
+
+            if (string.IsNullOrEmpty(config.AddressSearchConfig.SearchDataSourceName))
+                throw new ArgumentNullException("AddressSearchConfig.SearchDataSourceName is missing from /SearchConfigFile file");
+
+            if (string.IsNullOrEmpty(config.AddressSearchConfig.SearchDataSourceQuery))
+                throw new ArgumentNullException("AddressSearchConfig.SearchDataSourceQuery is missing from /SearchConfigFile file");
+
+            if (string.IsNullOrEmpty(config.AddressSearchConfig.CollectionId))
+                throw new ArgumentNullException("AddressSearchConfig.CollectionId is missing from /SearchConfigFile file");
+
+            if (string.IsNullOrEmpty(config.AddressSearchConfig.DatabaseId))
+                throw new ArgumentNullException("AddressSearchConfig.DatabaseId is missing from /SearchConfigFile file");
 
 
-            if (string.IsNullOrEmpty(config.ContactDetailsSearchIndexerName))
-                throw new ArgumentNullException("ContactDetailsSearchIndexerName is missing from /SearchConfigFile file");
+            if (string.IsNullOrEmpty(config.ContactDetailsSearchConfig.SearchIndexerName))
+                throw new ArgumentNullException("ContactDetailsSearchConfig.SearchIndexerName is missing from /SearchConfigFile file");
 
-            if (string.IsNullOrEmpty(config.ContactDetailsSearchDataSourceName))
-                throw new ArgumentNullException("ContactDetailsSearchDataSourceName is missing from /SearchConfigFile file");
+            if (string.IsNullOrEmpty(config.ContactDetailsSearchConfig.SearchDataSourceName))
+                throw new ArgumentNullException("ContactDetailsSearchConfig.SearchDataSourceName is missing from /SearchConfigFile file");
 
-            if (string.IsNullOrEmpty(config.ContactDetailsSearchDataSourceQuery))
-                throw new ArgumentNullException("ContactDetailsSearchDataSourceQuery is missing from /SearchConfigFile file");
+            if (string.IsNullOrEmpty(config.ContactDetailsSearchConfig.SearchDataSourceQuery))
+                throw new ArgumentNullException("ContactDetailsSearchConfig.SearchDataSourceQuery is missing from /SearchConfigFile file");
 
-            if (string.IsNullOrEmpty(config.ContactDetailsCollectionId))
-                throw new ArgumentNullException("ContactDetailsCollectionId is missing from /SearchConfigFile file");
+            if (string.IsNullOrEmpty(config.ContactDetailsSearchConfig.CollectionId))
+                throw new ArgumentNullException("ContactDetailsSearchConfig.CollectionId is missing from /SearchConfigFile file");
 
-            if (string.IsNullOrEmpty(config.ContactDetailsConnectionString))
-                throw new ArgumentNullException("ContactDetailsConnectionString is missing from /SearchConfigFile file");
+            if (string.IsNullOrEmpty(config.ContactDetailsSearchConfig.DatabaseId))
+                throw new ArgumentNullException("ContactDetailsSearchConfig.DatabaseId is missing from /SearchConfigFile file");
 
+            PopulateConnectionStrings(config);
 
             return config;
+        }
+
+        private static void PopulateConnectionStrings(SearchConfig config)
+        {
+            var cosmosDbConnectionString = config.CosmosDbConnectionString;
+            var addressDatabaseId = config.AddressSearchConfig.DatabaseId;
+            var customerDatabaseId = config.CustomerSearchConfig.DatabaseId;
+            var contactDetailsDatabaseId = config.ContactDetailsSearchConfig.DatabaseId;
+
+            config.AddressSearchConfig.ConnectionString = string.Format("{0}Database={1};", cosmosDbConnectionString, addressDatabaseId);
+            config.CustomerSearchConfig.ConnectionString = string.Format("{0}Database={1};", cosmosDbConnectionString, customerDatabaseId);
+            config.ContactDetailsSearchConfig.ConnectionString = string.Format("{0}Database={1};", cosmosDbConnectionString, contactDetailsDatabaseId);
         }
     }
 }

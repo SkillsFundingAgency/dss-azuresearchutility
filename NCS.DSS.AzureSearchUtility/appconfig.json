@@ -1,26 +1,31 @@
 {
+
   "SearchServiceName": "__SearchServiceName__",
-  "CustomerSearchIndexName": "customer-search-index-v2",
-  "CustomerSearchIndexerName": "customer-search-indexer-v2",
-  "CustomerSearchDataSourceName": "customer-search-data-source",
-  "CustomerSearchDataSourceQuery": "SELECT * FROM c WHERE c._ts >= @HighWaterMark Order By c._ts",
-  "CustomerCollectionId": "customers",
-  "CustomerDatabaseId": "customers",
-  "CustomerConnectionString": "__CustomerConnectionString__",
+  "SearchIndexName": "customer-search-index-v2",
+  "CosmosDBConnectionString": "__CosmosDBConnectionString__",
 
+  "CustomerSearchConfig": {
+    "SearchIndexerName": "customer-search-indexer-v2",
+    "SearchDataSourceName": "customer-search-data-source",
+    "SearchDataSourceQuery": "SELECT * FROM c WHERE c._ts >= @HighWaterMark Order By c._ts",
+    "CollectionId": "customers",
+    "DatabaseId": "customers"
+  },
 
-  "AddressSearchIndexerName": "address-search-indexer-v2",
-  "AddressSearchDataSourceName": "address-search-data-source-v2",
-  "AddressSearchDataSourceQuery": "SELECT a.CustomerId, a.Address1, a.Postcode, a._ts FROM a WHERE a._ts >= @HighWaterMark Order By a._ts",
-  "AddressCollectionId": "addresses",
-  "AddressDatabaseId": "addresses",
-  "AddressConnectionString": "__AddressConnectionString__",
+  "AddressSearchConfig": {
+    "SearchIndexerName": "address-search-indexer-v2",
+    "SearchDataSourceName": "address-search-data-source-v2",
+    "SearchDataSourceQuery": "SELECT a.CustomerId, a.Address1, a.Postcode, a._ts FROM a WHERE a._ts >= @HighWaterMark Order By a._ts",
+    "CollectionId": "addresses",
+    "DatabaseId": "addresses"
+  },
 
-  "ContactDetailsSearchIndexerName": "contacts-search-indexer-v2",
-  "ContactDetailsSearchDataSourceName": "contacts-search-data-source-v2",
-  "ContactDetailsSearchDataSourceQuery": "SELECT c.CustomerId, c.EmailAddress, c.MobileNumber, c.HomeNumber, c.AlternativeNumber, c._ts  FROM c WHERE c._ts >= @HighWaterMark Order By c._ts",
-  "ContactDetailsCollectionId": "contacts",
-  "ContactDetailsDatabaseId": "contacts",
-  "ContactDetailsConnectionString": "__ContactDetailsConnectionString__"
+  "ContactDetailsSearchConfig": {
+    "SearchIndexerName": "contacts-search-indexer-v2",
+    "SearchDataSourceName": "contacts-search-data-source-v2",
+    "SearchDataSourceQuery": "SELECT c.CustomerId, c.EmailAddress, c.MobileNumber, c.HomeNumber, c.AlternativeNumber, c._ts  FROM c WHERE c._ts >= @HighWaterMark Order By c._ts",
+    "CollectionId": "contacts",
+    "DatabaseId": "contacts"
+  }
 
 }
