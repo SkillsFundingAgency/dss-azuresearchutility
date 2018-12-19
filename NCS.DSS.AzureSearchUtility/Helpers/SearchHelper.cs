@@ -2,7 +2,7 @@
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 
-namespace NCS.DSS.AzureSearchUtilities.Helpers
+namespace NCS.DSS.AzureSearchUtility.Helpers
 {
     public static class SearchHelper
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Azure.Search.Models;
 
-namespace NCS.DSS.AzureSearchUtilities.Helpers
+namespace NCS.DSS.AzureSearchUtility.Helpers
 {
     public static class IndexModelHelper
     {
@@ -14,7 +14,7 @@ namespace NCS.DSS.AzureSearchUtilities.Helpers
                 Name = indexName,
                 Fields = new[]
                 {
-                    new Field("id", DataType.String) { IsKey = true},
+                    new Field("CustomerId", DataType.String) { IsKey = true},
                     new Field("DateOfRegistration", DataType.DateTimeOffset),
                     new Field("Title", DataType.Int64),
                     new Field("GivenName", DataType.String) { IsSearchable = true, IsFilterable = true, Analyzer = AnalyzerName.EnLucene},
@@ -30,6 +30,12 @@ namespace NCS.DSS.AzureSearchUtilities.Helpers
                     new Field("IntroducedByAdditionalInfo", DataType.String),
                     new Field("LastModifiedDate", DataType.DateTimeOffset),
                     new Field("LastModifiedTouchpointId", DataType.String),
+                    new Field("Address1", DataType.String) { IsSearchable = true, Analyzer = AnalyzerName.EnLucene},
+                    new Field("PostCode", DataType.String) { IsSearchable = true, Analyzer = AnalyzerName.EnLucene},
+                    new Field("MobileNumber", DataType.String) { IsSearchable = true, Analyzer = AnalyzerName.EnLucene},
+                    new Field("HomeNumber", DataType.String) { IsSearchable = true, Analyzer = AnalyzerName.EnLucene},
+                    new Field("AlternativeNumber", DataType.String) {IsSearchable = true, Analyzer = AnalyzerName.EnLucene},
+                    new Field("EmailAddress", DataType.String) { IsSearchable = true, Analyzer = AnalyzerName.EnLucene}
                 }
             };
 

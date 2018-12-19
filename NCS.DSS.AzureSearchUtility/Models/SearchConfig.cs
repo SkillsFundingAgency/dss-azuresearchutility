@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NCS.DSS.AzureSearchUtilities.Models
+﻿namespace NCS.DSS.AzureSearchUtility.Models
 {
     public class SearchConfig
     {
@@ -15,5 +9,22 @@ namespace NCS.DSS.AzureSearchUtilities.Models
         public string CustomerSearchDataSourceQuery { get; set; }
         public string CustomerCollectionId { get; set; }
         public string CustomerDatabaseId { get; set; }
+        public string CustomerConnectionString { get; set; }
+
+
+        public string AddressSearchIndexerName { get; set; }
+        public string AddressSearchDataSourceName { get; set; }
+        public string AddressSearchDataSourceQuery { get; set; }
+        public string AddressCollectionId { get; set; }
+        public string AddressDatabaseId { get; set; }
+        public string AddressConnectionString { get; set; }
+
+
+        public string ContactDetailsSearchIndexerName { get; set; }
+        public string ContactDetailsSearchDataSourceName { get; set; }
+        public string ContactDetailsSearchDataSourceQuery { get; set; }
+        public string ContactDetailsCollectionId { get; set; }
+        public string ContactDetailsDatabaseId { get; set; }
+        public string ContactDetailsConnectionString { get; set; }
     }
 }

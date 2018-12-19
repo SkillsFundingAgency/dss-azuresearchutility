@@ -1,9 +1,26 @@
 {
   "SearchServiceName": "__SearchServiceName__",
-  "CustomerSearchIndexName": "customer-search-index",
-  "CustomerSearchIndexerName": "customer-search-indexer",
+  "CustomerSearchIndexName": "customer-search-index-v2",
+  "CustomerSearchIndexerName": "customer-search-indexer-v2",
   "CustomerSearchDataSourceName": "customer-search-data-source",
   "CustomerSearchDataSourceQuery": "SELECT * FROM c WHERE c._ts >= @HighWaterMark Order By c._ts",
   "CustomerCollectionId": "customers",
-  "CustomerDatabaseId": "customers"
+  "CustomerDatabaseId": "customers",
+  "CustomerConnectionString": "__CustomerConnectionString__",
+
+
+  "AddressSearchIndexerName": "address-search-indexer-v2",
+  "AddressSearchDataSourceName": "address-search-data-source-v2",
+  "AddressSearchDataSourceQuery": "SELECT a.CustomerId, a.Address1, a.Postcode, a._ts FROM a WHERE a._ts >= @HighWaterMark Order By a._ts",
+  "AddressCollectionId": "addresses",
+  "AddressDatabaseId": "addresses",
+  "AddressConnectionString": "__AddressConnectionString__",
+
+  "ContactDetailsSearchIndexerName": "contacts-search-indexer-v2",
+  "ContactDetailsSearchDataSourceName": "contacts-search-data-source-v2",
+  "ContactDetailsSearchDataSourceQuery": "SELECT c.CustomerId, c.EmailAddress, c.MobileNumber, c.HomeNumber, c.AlternativeNumber, c._ts  FROM c WHERE c._ts >= @HighWaterMark Order By c._ts",
+  "ContactDetailsCollectionId": "contacts",
+  "ContactDetailsDatabaseId": "contacts",
+  "ContactDetailsConnectionString": "__ContactDetailsConnectionString__"
+
 }
