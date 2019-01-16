@@ -1,4 +1,5 @@
-﻿using Microsoft.Azure.Search.Models;
+﻿using System.Linq;
+using Microsoft.Azure.Search.Models;
 
 namespace NCS.DSS.AzureSearchUtility.Helpers
 {
@@ -40,6 +41,12 @@ namespace NCS.DSS.AzureSearchUtility.Helpers
             };
 
             return indexModel;
+        }
+
+        public static Index AddSynonymMapsToFields(Index index)
+        {
+            index.Fields.First(f => f.Name == "GivenName").SynonymMaps = new[] { "givenname-synonymmap" };
+            return index;
         }
     }
 }

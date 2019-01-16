@@ -32,6 +32,12 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndex
                 throw new NullReferenceException("indexModelForCustomer");
             }
 
+            Console.WriteLine("{0}", "Attempting to Create Customer Synonym Map...\n");
+            IndexModelHelper.AddSynonymMapsToFields(indexModelForCustomer);
+
+            Console.WriteLine("{0}", "Add Customer Synonym Map to service client...\n");
+            SearchHelper.UploadSynonymsForGivenName();
+
             Console.WriteLine("{0}", "Creating Index for Customer Search...\n");
             SearchHelper.CreateIndex(indexModelForCustomer);
 
