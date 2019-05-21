@@ -12,7 +12,7 @@ namespace NCS.DSS.AzureSearchUtility.Helpers
                 Name = dataSourceName,
                 Container = CreateDataSourceContainer(sqlQuery, collectionName),
                 Credentials = new DataSourceCredentials(dataSourceConnectionString),
-                Type = DataSourceType.DocumentDb,
+                Type = DataSourceType.CosmosDb,
                 DataChangeDetectionPolicy = new HighWaterMarkChangeDetectionPolicy { HighWaterMarkColumnName = "_ts"}
             };
             return dataSource;

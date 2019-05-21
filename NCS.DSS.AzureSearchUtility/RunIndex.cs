@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using NCS.DSS.AzureSearchUtility.CreateIndex;
+using NCS.DSS.AzureSearchUtility.Helpers;
 using NCS.DSS.AzureSearchUtility.Models;
 using Newtonsoft.Json;
 
@@ -8,11 +9,12 @@ namespace NCS.DSS.AzureSearchUtility
 {
     public class RunIndex
     {
-        /// <param name="args"> Command line arguments: /SearchAdminKey:blah /SearchConfigFile:pathtoblah</param>
+        /// <param name="args"> Command line arguments: /SearchAdminKey:blah /SearchConfigFile:pathtoblah /EnvironmentName:AT</param>
         public static void Main(string[] args)
         {
             var searchAdminKey = string.Empty;
             var searchConfigFile = string.Empty;
+            var environmentName = string.Empty;
 
             if (args.Length == 0)
                 throw (new NotSupportedException("Missing arguments"));
@@ -27,6 +29,10 @@ namespace NCS.DSS.AzureSearchUtility
                 {
                     searchConfigFile = arg.Split(':')[1];
                 }
+                else if (arg.StartsWith("/EnvironmentName:"))
+                {
+                    environmentName = arg.Split(':')[1];
+                }
                 else
                 {
                     throw (new NotSupportedException(string.Format("Argument: {0} is invalid", arg)));
@@ -39,10 +45,24 @@ namespace NCS.DSS.AzureSearchUtility
             if (string.IsNullOrEmpty(searchConfigFile))
                 throw new ArgumentNullException("Check /SearchConfigFile: is a valid path");
 
+            if (string.IsNullOrEmpty(environmentName))
+                throw new ArgumentNullException("Check /environmentName: is supplied");
+
             var searchConfig = RunIndex.GetAppConfig(searchConfigFile);
 
             new CreateCustomerSearchIndex().CreateIndex(searchAdminKey, searchConfig).GetAwaiter().GetResult();
 
+            Console.WriteLine("Generate Swagger File Name");
+            var fileName = FileHelper.GenerateSwaggerFileName(environmentName);
+
+            Console.WriteLine(string.Format("Generate File Path for Swagger Doc:{0}", fileName));
+            var destPath = FileHelper.GenerateFilePath(fileName);
+
+            Console.WriteLine("Generating Swagger Doc");
+            var swaggerDoc = APIDefinition.GenerateAzureSearchSwaggerDoc.GenerateSwaggerDoc(searchConfig.SearchServiceName);
+
+            Console.WriteLine(string.Format("Generate File for Swagger Doc: {0}", destPath));
+            FileHelper.GenerateFileOnServer(destPath, swaggerDoc);
         }
 
         private static SearchConfig GetAppConfig(string filePath)

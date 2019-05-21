@@ -70,7 +70,7 @@ namespace NCS.DSS.AzureSearchUtility.Helpers
             var synonymMap = new SynonymMap()
             {
                 Name = "givenname-synonymmap",
-                Format = "solr",
+                ETag = "solr",
                 Synonyms = synonymData
             };
 
