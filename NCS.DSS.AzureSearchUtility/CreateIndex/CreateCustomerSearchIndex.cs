@@ -9,7 +9,7 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndex
 {
     public class CreateCustomerSearchIndex
     {
-        public async Task CreateIndex(string searchAdminKey, SearchConfig searchConfig)
+        public async Task CreateIndex(string searchAdminKey, SearchConfig searchConfig, string synonymPath)
         {
 
             Console.WriteLine("{0}", "Retrieving Search Service\n");
@@ -36,7 +36,7 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndex
             IndexModelHelper.AddSynonymMapsToFields(indexModelForCustomer);
 
             Console.WriteLine("{0}", "Add Customer Synonym Map to service client...\n");
-            SearchHelper.UploadSynonymsForGivenName(searchConfig.SynonymPath);
+            SearchHelper.UploadSynonymsForGivenName(synonymPath);
 
             Console.WriteLine("{0}", "Creating Index for Customer Search...\n");
             SearchHelper.CreateIndex(indexModelForCustomer);

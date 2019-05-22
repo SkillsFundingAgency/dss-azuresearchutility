@@ -15,6 +15,7 @@ namespace NCS.DSS.AzureSearchUtility
             var searchAdminKey = string.Empty;
             var searchConfigFile = string.Empty;
             var environmentName = string.Empty;
+            var synonymPath = string.Empty;
 
             if (args.Length == 0)
                 throw (new NotSupportedException("Missing arguments"));
@@ -33,6 +34,10 @@ namespace NCS.DSS.AzureSearchUtility
                 {
                     environmentName = arg.Split(':')[1];
                 }
+                else if (arg.StartsWith("/SynonymPath:"))
+                {
+                    synonymPath = arg.Split(':')[1];
+                }
                 else
                 {
                     throw (new NotSupportedException(string.Format("Argument: {0} is invalid", arg)));
@@ -46,11 +51,14 @@ namespace NCS.DSS.AzureSearchUtility
                 throw new ArgumentNullException("Check /SearchConfigFile: is a valid path");
 
             if (string.IsNullOrEmpty(environmentName))
-                throw new ArgumentNullException("Check /environmentName: is supplied");
+                throw new ArgumentNullException("Check /EnvironmentName: is supplied");
+
+            if (string.IsNullOrEmpty(synonymPath))
+                throw new ArgumentNullException("Check /SynonymPath: is supplied");
 
             var searchConfig = RunIndex.GetAppConfig(searchConfigFile);
 
-            new CreateCustomerSearchIndex().CreateIndex(searchAdminKey, searchConfig).GetAwaiter().GetResult();
+            new CreateCustomerSearchIndex().CreateIndex(searchAdminKey, searchConfig, synonymPath).GetAwaiter().GetResult();
 
             Console.WriteLine("Generate Swagger File Name");
             var fileName = FileHelper.GenerateSwaggerFileName(environmentName);
@@ -90,10 +98,6 @@ namespace NCS.DSS.AzureSearchUtility
 
             if (string.IsNullOrWhiteSpace(config.CosmosDbConnectionString))
                 throw new ArgumentNullException("CosmosDBConnectionString is missing from /SearchConfigFile file");
-
-            if (string.IsNullOrWhiteSpace(config.SynonymPath))
-                throw new ArgumentNullException("SynonymPath is missing from /SearchConfigFile file");
-
 
             if (string.IsNullOrWhiteSpace(config.CustomerSearchConfig.SearchIndexerName))
                 throw new ArgumentNullException("CustomerSearchConfig.SearchIndexerName is missing from /SearchConfigFile file");
