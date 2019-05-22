@@ -71,6 +71,9 @@ namespace NCS.DSS.AzureSearchUtility
             if (string.IsNullOrWhiteSpace(config.CosmosDbConnectionString))
                 throw new ArgumentNullException("CosmosDBConnectionString is missing from /SearchConfigFile file");
 
+            if (string.IsNullOrWhiteSpace(config.SynonymPath))
+                throw new ArgumentNullException("SynonymPath is missing from /SearchConfigFile file");
+
 
             if (string.IsNullOrWhiteSpace(config.CustomerSearchConfig.SearchIndexerName))
                 throw new ArgumentNullException("CustomerSearchConfig.SearchIndexerName is missing from /SearchConfigFile file");

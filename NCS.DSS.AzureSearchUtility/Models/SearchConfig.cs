@@ -4,6 +4,7 @@
     {
         public string SearchServiceName { get; set; }
         public string SearchIndexName { get; set; }
+        public string SynonymPath { get; set; }
         public string CosmosDbConnectionString { get; set; }
         public CustomerSearchConfig CustomerSearchConfig { get; set; }
         public AddressSearchConfig AddressSearchConfig { get; set; }

@@ -50,13 +50,13 @@ namespace NCS.DSS.AzureSearchUtility.Helpers
             }
         }
 
-        public static void UploadSynonymsForGivenName()
+        public static void UploadSynonymsForGivenName(string synonymPath)
         {
             string synonymData;
 
             try
             {
-                using (var sr = new StreamReader(@"..\..\Data\GivenNameSynonym.txt"))
+                using (var sr = new StreamReader(synonymPath))
                 {
                     synonymData = sr.ReadToEnd();
                 }

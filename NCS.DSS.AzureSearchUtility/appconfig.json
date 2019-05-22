@@ -3,6 +3,7 @@
   "SearchServiceName": "__SearchServiceName__",
   "SearchIndexName": "customer-search-index-v2",
   "CosmosDBConnectionString": "__CosmosDBConnectionString__",
+  "SynonymPath": "__SynonymPath__",
 
   "CustomerSearchConfig": {
     "SearchIndexerName": "customer-search-indexer-v2",
