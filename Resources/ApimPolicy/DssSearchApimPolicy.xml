@@ -144,8 +144,7 @@
             </when>
             <otherwise>
                 <set-header name="api-key" exists-action="override">
-                    <!-- TO DO: parameterise this value -->
-                    <value></value>
+                    <value>__SearchQueryKey__</value>
                 </set-header>
                 <set-query-parameter name="api-version" exists-action="override">
                     <value>2017-11-11</value>
