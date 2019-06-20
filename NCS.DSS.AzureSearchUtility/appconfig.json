@@ -7,7 +7,7 @@
 
   "CustomerSearchConfig": {
     "SearchIndexerName": "customer-search-indexer-v2",
-    "SearchDataSourceName": "customer-search-data-source",
+    "SearchDataSourceName": "customer-search-data-source-v2",
     "SearchDataSourceQuery": "SELECT * FROM c WHERE c._ts >= @HighWaterMark Order By c._ts",
     "CollectionId": "customers",
     "DatabaseId": "customers"
