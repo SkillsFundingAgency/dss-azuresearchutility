@@ -17,12 +17,11 @@ if((Get-Module $ModuleName)) {
 else {
 
     Write-Verbose "Installing $ModuleName module for current user"
-    Install-Module -Name $ModuleName -Scope CurrentUser -Force
+    Install-Module -Name $ModuleName -Scope CurrentUser
     Write-Verbose "Importing $ModuleName module"
     Import-Module $ModuleName
 
 }
-
 
 $QueryKeyBaseName = "dss-$Environment-searchapimapi-qk"
 
@@ -60,7 +59,7 @@ elseif ($SecondayKey -and !$PrimaryKey) {
 
     # remove secondary key
 }
-elseif ($!$PrimaryKey -and !$SecondayKey){
+elseif (!$PrimaryKey -and !$SecondayKey){
 
     Write-Verbose -Message "No query key exists, creating primary key."
     # create secondary key
