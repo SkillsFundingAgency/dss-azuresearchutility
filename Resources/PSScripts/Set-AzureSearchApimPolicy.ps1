@@ -72,7 +72,7 @@ elseif (!$PrimaryKey -and !$SecondayKey){
     # apply policy
     $Context = New-AzureRmApiManagementContext -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-apim"
     $ApiId = "search-$DssApiVersion" #$([RegEx]::Replace($("$(ApiResourceName)-$(DssApiVersion)"), "-$", ""))
-    $PolicyFilePath = "$(System.DefaultWorkingDirectory)/_SkillsFundingAgency_dss-devops/ApimPolicy/DssSearchApimPolicy.xml"
+    $PolicyFilePath = "$(System.DefaultWorkingDirectory)/_SkillsFundingAgency_dss-devops/Azure/ApimPolicy/DssSearchApimPolicy.xml"
     Write-Host "Filepath: $PolicyFilePath"
     Set-AzureRmApiManagementPolicy -Context $Context -Format application/vnd.ms-azure-apim.policy.raw+xml -ApiId $ApiId -PolicyFilePath $PolicyFilePath  -Verbose
 
