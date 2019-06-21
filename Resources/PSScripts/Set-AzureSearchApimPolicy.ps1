@@ -7,7 +7,22 @@ param(
     $Environment
 )
 
-Import-Module Az.Search
+$ModuleName = "Az.Search"
+if((Get-Module $ModuleName)) {
+
+    Write-Verbose "Importing $ModuleName module"
+    Import-Module $ModuleName
+
+}
+else {
+
+    Write-Verbose "Installing $ModuleName module for current user"
+    Install-Module -Name $ModuleName -Scope CurrentUser
+    Write-Verbose "Importing $ModuleName module"
+    Import-Module $ModuleName
+
+}
+
 
 $QueryKeyBaseName = "dss-$Environment-searchapimapi-qk"
 
