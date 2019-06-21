@@ -50,7 +50,7 @@ function Set-AzureSearchApimPolicyKey {
     }
     elseif ($KeyToDelete -eq "none") {
 
-        # no action
+        $KeyToCreate = "primary"
 
     }
     else {
