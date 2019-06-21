@@ -92,17 +92,17 @@ $SecondaryKey = $QueryKeys | Where-Object { $_.Name -eq "$QueryKeyBaseName-secon
 
 Write-Verbose "Filepath: $PolicyFilePath"
 
-if ($PrimaryKey -and !$SecondayKey) {
+if ($PrimaryKey -and !$SecondaryKey) {
     
     Set-AzureSearchApimPolicyKey -KeyToDelete "primary"
 
 }
-elseif ($SecondayKey -and !$PrimaryKey) {
+elseif ($SecondaryKey -and !$PrimaryKey) {
 
     Set-AzureSearchApimPolicyKey -KeyToDelete "secondary"
 
 }
-elseif (!$PrimaryKey -and !$SecondayKey){
+elseif (!$PrimaryKey -and !$SecondaryKey){
 
     Set-AzureSearchApimPolicyKey -KeyToDelete "none"
 
