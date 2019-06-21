@@ -87,8 +87,8 @@ Use-PowerShellModule -ModuleName "Az.ApiManagement"
 $QueryKeyBaseName = "dss-$($Environment.ToLower())-searchapimapi-qk"
 
 $QueryKeys = Get-AzSearchQueryKey -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-sch"
-$PrimaryKey = $QueryKeys | Where-Object { $_.Name -eq "$QueryKeyBaseName-primary" }
-$SecondaryKey = $QueryKeys | Where-Object { $_.Name -eq "$QueryKeyBaseName-secondary" }
+$PrimaryKey = ($QueryKeys | Where-Object { $_.Name -eq "$QueryKeyBaseName-primary" }).Key
+$SecondaryKey = ($QueryKeys | Where-Object { $_.Name -eq "$QueryKeyBaseName-secondary" }).Key
 
 Write-Verbose "Filepath: $PolicyFilePath"
 
