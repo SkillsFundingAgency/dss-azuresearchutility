@@ -62,8 +62,8 @@ elseif ($SecondayKey -and !$PrimaryKey) {
 elseif (!$PrimaryKey -and !$SecondayKey){
 
     Write-Verbose -Message "No query key exists, creating primary key."
-    # create secondary key
-    $NewQueryKey = New-AzSearchQueryKey -Name "$QueryKeyBaseName-secondary" -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-sch"
+    # create primary key
+    $NewQueryKey = New-AzSearchQueryKey -Name "$QueryKeyBaseName-primary" -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-sch"
 
     # tokenise policy with new key
     $ApimPolicyXml = Get-Content -Path $PSScriptRoot\..\..\ApimPolicy\DssSearchApimPolicy.xml
