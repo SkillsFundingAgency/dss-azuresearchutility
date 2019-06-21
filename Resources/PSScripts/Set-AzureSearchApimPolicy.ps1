@@ -9,21 +9,31 @@ param(
     $PolicyFilePath
 )
 
-$ModuleName = "Az.Search"
-if((Get-Module $ModuleName)) {
+function Use-PowerShellModule {
+    param(
+        [Parameter(Mandatory=$true)]    
+        $ModuleName
+    )
 
-    Write-Verbose "Importing $ModuleName module"
-    Import-Module $ModuleName
+    if((Get-Module $ModuleName)) {
 
+        Write-Verbose "Importing $ModuleName module"
+        Import-Module $ModuleName
+    
+    }
+    else {
+    
+        Write-Verbose "Installing $ModuleName module for current user"
+        Install-Module -Name $ModuleName -Scope CurrentUser -AllowClobber
+        Write-Verbose "Importing $ModuleName module"
+        Import-Module $ModuleName
+    
+    }
 }
-else {
 
-    Write-Verbose "Installing $ModuleName module for current user"
-    Install-Module -Name $ModuleName -Scope CurrentUser
-    Write-Verbose "Importing $ModuleName module"
-    Import-Module $ModuleName
+Use-PowerShellModule -ModuleName "Az.Search"
+Use-PowerShellModule -ModuleName "Az.ApiManagement"
 
-}
 
 $QueryKeyBaseName = "dss-$($Environment.ToLower())-searchapimapi-qk"
 
@@ -44,9 +54,9 @@ if ($PrimaryKey -and !$SecondayKey) {
     Set-Content -Path $PolicyFilePath -Value $ApimPolicyXml
 
     # apply policy
-    $Context = New-AzureRmApiManagementContext -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-apim"
+    $Context = New-AzApiManagementContext -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-apim"
     $ApiId = "search-$DssApiVersion" #$([RegEx]::Replace($("$(ApiResourceName)-$(DssApiVersion)"), "-$", ""))
-    Set-AzureRmApiManagementPolicy -Context $Context -Format application/vnd.ms-azure-apim.policy.raw+xml -ApiId $ApiId -PolicyFilePath $PolicyFilePath  -Verbose
+    Set-AzApiManagementPolicy -Context $Context -Format application/vnd.ms-azure-apim.policy.raw+xml -ApiId $ApiId -PolicyFilePath $PolicyFilePath  -Verbose
 
     # remove primary key
     Write-Verbose -Message "Removing Primary query key."
@@ -74,9 +84,9 @@ elseif (!$PrimaryKey -and !$SecondayKey){
     Set-Content -Path $PolicyFilePath -Value $ApimPolicyXml
 
     # apply policy
-    $Context = New-AzureRmApiManagementContext -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-apim"
+    $Context = New-AzApiManagementContext -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-apim"
     $ApiId = "search-$DssApiVersion" #$([RegEx]::Replace($("$(ApiResourceName)-$(DssApiVersion)"), "-$", ""))
-    Set-AzureRmApiManagementPolicy -Context $Context -Format application/vnd.ms-azure-apim.policy.raw+xml -ApiId $ApiId -PolicyFilePath $PolicyFilePath  -Verbose
+    Set-AzApiManagementPolicy -Context $Context -Format application/vnd.ms-azure-apim.policy.raw+xml -ApiId $ApiId -PolicyFilePath $PolicyFilePath  -Verbose
 
 }
 else {
