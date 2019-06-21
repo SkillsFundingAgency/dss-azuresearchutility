@@ -4,7 +4,9 @@ param(
     $DssApiVersion,
     [Parameter(Mandatory=$true)]
     [ValidateSet("at", "test", "pp", "prd", "oat")]
-    $Environment
+    $Environment,
+    [Parameter(Mandatory=$true)]
+    $PolicyFilePath
 )
 
 $ModuleName = "Az.Search"
@@ -29,7 +31,6 @@ $QueryKeys = Get-AzSearchQueryKey -ResourceGroupName "dss-$Environment-shared-rg
 $PrimaryKey = $QueryKeys | Where-Object { $_.Name -eq "$QueryKeyBaseName-primary" }
 $SecondayKey = $QueryKeys | Where-Object { $_.Name -eq "$QueryKeyBaseName-secondary" }
 
-$PolicyFilePath = "$(System.DefaultWorkingDirectory)/_SkillsFundingAgency_dss-devops/Azure/ApimPolicy/DssSearchApimPolicy.xml"
 Write-Verbose "Filepath: $PolicyFilePath"
 
 if ($PrimaryKey -and !$SecondayKey) {
@@ -49,7 +50,7 @@ if ($PrimaryKey -and !$SecondayKey) {
 
     # remove primary key
     Write-Verbose -Message "Removing Primary query key."
-    Remove-AzSearchQueryKey -KeyValue $PrimaryKey.Key -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-sch"
+    Remove-AzSearchQueryKey -KeyValue $PrimaryKey.Key -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-sch" -Force
 
 }
 elseif ($SecondayKey -and !$PrimaryKey) {
