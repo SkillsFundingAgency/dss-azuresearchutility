@@ -69,7 +69,7 @@ function Set-AzureSearchApimPolicyKey {
 
     # apply policy
     $Context = New-AzApiManagementContext -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-apim"
-    $ApiId = "search-$DssApiVersion" #$([RegEx]::Replace($("$(ApiResourceName)-$(DssApiVersion)"), "-$", ""))
+    $ApiId = "search-$DssApiVersion"
     Set-AzApiManagementPolicy -Context $Context -Format application/vnd.ms-azure-apim.policy.raw+xml -ApiId $ApiId -PolicyFilePath $PolicyFilePath  -Verbose
 
     if ($KeyToDelete -ne "none") {
