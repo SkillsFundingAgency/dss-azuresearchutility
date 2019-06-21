@@ -17,7 +17,7 @@ if((Get-Module $ModuleName)) {
 else {
 
     Write-Verbose "Installing $ModuleName module for current user"
-    Install-Module -Name $ModuleName -Scope CurrentUser
+    Install-Module -Name $ModuleName -Scope CurrentUser -Force
     Write-Verbose "Importing $ModuleName module"
     Import-Module $ModuleName
 
