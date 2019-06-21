@@ -31,62 +31,80 @@ function Use-PowerShellModule {
     }
 }
 
+function Set-AzureSearchApimPolicyKey {
+    param(
+        [Parameter(Mandatory=$true)]
+        [ValidateSet("primary", "secondary", "none")]
+        $KeyToDelete
+    )
+
+    if ($KeyToDelete -eq "primary"){
+
+        $KeyToCreate = "secondary"
+
+    }
+    elseif ($KeyToDelete -eq "secondary") {
+
+        $KeyToCreate = "primary"
+
+    }
+    elseif ($KeyToDelete -eq "none") {
+
+        # no action
+
+    }
+    else {
+
+        throw "KeyToReplace parameter is not a valid value, must be either 'primary' or 'seconday'."
+
+    }
+
+    Write-Verbose -Message "$KeyToDelete query key exists, creating $KeyToCreate key."
+    $NewQueryKey = New-AzSearchQueryKey -Name "$QueryKeyBaseName-$KeyToCreate" -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-sch"
+
+    # tokenise policy with new key
+    $ApimPolicyXml = Get-Content -Path $PolicyFilePath
+    $ApimPolicyXml = $ApimPolicyXml.Replace("__SearchQueryKey__", $NewQueryKey.Key)
+    Set-Content -Path $PolicyFilePath -Value $ApimPolicyXml
+
+    # apply policy
+    $Context = New-AzApiManagementContext -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-apim"
+    $ApiId = "search-$DssApiVersion" #$([RegEx]::Replace($("$(ApiResourceName)-$(DssApiVersion)"), "-$", ""))
+    Set-AzApiManagementPolicy -Context $Context -Format application/vnd.ms-azure-apim.policy.raw+xml -ApiId $ApiId -PolicyFilePath $PolicyFilePath  -Verbose
+
+    if ($KeyToDelete -ne "none") {
+
+        Write-Verbose -Message "Removing $KeyToDelete query key."
+        Remove-AzSearchQueryKey -KeyValue $(Get-Variable -Name "$($KeyToDelete)Key").value -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-sch" -Force
+
+    }
+
+}
+
 Use-PowerShellModule -ModuleName "Az.Search"
 Use-PowerShellModule -ModuleName "Az.ApiManagement"
-
 
 $QueryKeyBaseName = "dss-$($Environment.ToLower())-searchapimapi-qk"
 
 $QueryKeys = Get-AzSearchQueryKey -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-sch"
 $PrimaryKey = $QueryKeys | Where-Object { $_.Name -eq "$QueryKeyBaseName-primary" }
-$SecondayKey = $QueryKeys | Where-Object { $_.Name -eq "$QueryKeyBaseName-secondary" }
+$SecondaryKey = $QueryKeys | Where-Object { $_.Name -eq "$QueryKeyBaseName-secondary" }
 
 Write-Verbose "Filepath: $PolicyFilePath"
 
 if ($PrimaryKey -and !$SecondayKey) {
     
-    Write-Verbose -Message "Primary query key exists, creating secondary key."
-    $NewQueryKey = New-AzSearchQueryKey -Name "$QueryKeyBaseName-secondary" -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-sch"
-
-    # tokenise policy with new key
-    $ApimPolicyXml = Get-Content -Path $PolicyFilePath
-    $ApimPolicyXml = $ApimPolicyXml.Replace("__SearchQueryKey__", $NewQueryKey.Key)
-    Set-Content -Path $PolicyFilePath -Value $ApimPolicyXml
-
-    # apply policy
-    $Context = New-AzApiManagementContext -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-apim"
-    $ApiId = "search-$DssApiVersion" #$([RegEx]::Replace($("$(ApiResourceName)-$(DssApiVersion)"), "-$", ""))
-    Set-AzApiManagementPolicy -Context $Context -Format application/vnd.ms-azure-apim.policy.raw+xml -ApiId $ApiId -PolicyFilePath $PolicyFilePath  -Verbose
-
-    # remove primary key
-    Write-Verbose -Message "Removing Primary query key."
-    Remove-AzSearchQueryKey -KeyValue $PrimaryKey.Key -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-sch" -Force
+    Set-AzureSearchApimPolicyKey -KeyToDelete "primary"
 
 }
 elseif ($SecondayKey -and !$PrimaryKey) {
-    # create primary key
 
-    # tokenise policy with new key
+    Set-AzureSearchApimPolicyKey -KeyToDelete "secondary"
 
-    # apply policy
-
-    # remove secondary key
 }
 elseif (!$PrimaryKey -and !$SecondayKey){
 
-    Write-Verbose -Message "No query key exists, creating primary key."
-    # create primary key
-    $NewQueryKey = New-AzSearchQueryKey -Name "$QueryKeyBaseName-primary" -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-sch"
-
-    # tokenise policy with new key
-    $ApimPolicyXml = Get-Content -Path $PolicyFilePath
-    $ApimPolicyXml = $ApimPolicyXml.Replace("__SearchQueryKey__", $NewQueryKey.Key)
-    Set-Content -Path $PolicyFilePath -Value $ApimPolicyXml
-
-    # apply policy
-    $Context = New-AzApiManagementContext -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-apim"
-    $ApiId = "search-$DssApiVersion" #$([RegEx]::Replace($("$(ApiResourceName)-$(DssApiVersion)"), "-$", ""))
-    Set-AzApiManagementPolicy -Context $Context -Format application/vnd.ms-azure-apim.policy.raw+xml -ApiId $ApiId -PolicyFilePath $PolicyFilePath  -Verbose
+    Set-AzureSearchApimPolicyKey -KeyToDelete "none"
 
 }
 else {
