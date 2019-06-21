@@ -29,20 +29,22 @@ $QueryKeys = Get-AzSearchQueryKey -ResourceGroupName "dss-$Environment-shared-rg
 $PrimaryKey = $QueryKeys | Where-Object { $_.Name -eq "$QueryKeyBaseName-primary" }
 $SecondayKey = $QueryKeys | Where-Object { $_.Name -eq "$QueryKeyBaseName-secondary" }
 
+$PolicyFilePath = "$(System.DefaultWorkingDirectory)/_SkillsFundingAgency_dss-devops/Azure/ApimPolicy/DssSearchApimPolicy.xml"
+Write-Verbose "Filepath: $PolicyFilePath"
+
 if ($PrimaryKey -and !$SecondayKey) {
     
     Write-Verbose -Message "Primary query key exists, creating secondary key."
     $NewQueryKey = New-AzSearchQueryKey -Name "$QueryKeyBaseName-secondary" -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-sch"
 
     # tokenise policy with new key
-    $ApimPolicyXml = Get-Content -Path $PSScriptRoot\..\..\ApimPolicy\DssSearchApimPolicy.xml
+    $ApimPolicyXml = Get-Content -Path $PolicyFilePath
     $ApimPolicyXml = $ApimPolicyXml.Replace("__SearchQueryKey__", $NewQueryKey.Key)
+    Set-Content -Path $PolicyFilePath -Value $ApimPolicyXml
 
     # apply policy
     $Context = New-AzureRmApiManagementContext -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-apim"
     $ApiId = "search-$DssApiVersion" #$([RegEx]::Replace($("$(ApiResourceName)-$(DssApiVersion)"), "-$", ""))
-    $PolicyFilePath = "$(System.DefaultWorkingDirectory)/_SkillsFundingAgency_dss-devops/Azure/ApimPolicy/DssSearchApimPolicy.xml"
-    Write-Host "Filepath: $PolicyFilePath"
     Set-AzureRmApiManagementPolicy -Context $Context -Format application/vnd.ms-azure-apim.policy.raw+xml -ApiId $ApiId -PolicyFilePath $PolicyFilePath  -Verbose
 
     # remove primary key
@@ -66,14 +68,13 @@ elseif (!$PrimaryKey -and !$SecondayKey){
     $NewQueryKey = New-AzSearchQueryKey -Name "$QueryKeyBaseName-primary" -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-sch"
 
     # tokenise policy with new key
-    $ApimPolicyXml = Get-Content -Path $PSScriptRoot\..\..\ApimPolicy\DssSearchApimPolicy.xml
+    $ApimPolicyXml = Get-Content -Path $PolicyFilePath
     $ApimPolicyXml = $ApimPolicyXml.Replace("__SearchQueryKey__", $NewQueryKey.Key)
+    Set-Content -Path $PolicyFilePath -Value $ApimPolicyXml
 
     # apply policy
     $Context = New-AzureRmApiManagementContext -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-apim"
     $ApiId = "search-$DssApiVersion" #$([RegEx]::Replace($("$(ApiResourceName)-$(DssApiVersion)"), "-$", ""))
-    $PolicyFilePath = "$(System.DefaultWorkingDirectory)/_SkillsFundingAgency_dss-devops/Azure/ApimPolicy/DssSearchApimPolicy.xml"
-    Write-Host "Filepath: $PolicyFilePath"
     Set-AzureRmApiManagementPolicy -Context $Context -Format application/vnd.ms-azure-apim.policy.raw+xml -ApiId $ApiId -PolicyFilePath $PolicyFilePath  -Verbose
 
 }
