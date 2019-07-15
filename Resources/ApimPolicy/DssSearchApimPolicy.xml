@@ -1,5 +1,6 @@
 <policies>
     <inbound>
+        <rewrite-uri template="/indexes/customer-search-index-v2/docs" />
         <set-variable name="searchString" value="@{
             string[] value = new List<string>().ToArray();
             string searchValue;
