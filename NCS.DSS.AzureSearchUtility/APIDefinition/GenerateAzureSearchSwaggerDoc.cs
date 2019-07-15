@@ -14,7 +14,7 @@ namespace NCS.DSS.AzureSearchUtility.APIDefinition
 {
     public static class GenerateAzureSearchSwaggerDoc
     {
-        public const string APITitle = "search-v2";
+        public const string APITitle = "search";
         public const string APIDefRoute = APITitle;
         public const string APIDescription = "National Careers Service " + APITitle + " Service";
 
