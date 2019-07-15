@@ -14,7 +14,7 @@ namespace NCS.DSS.AzureSearchUtility.APIDefinition
 {
     public static class GenerateAzureSearchSwaggerDoc
     {
-        public const string APITitle = "Customer Search";
+        public const string APITitle = "search-v2";
         public const string APIDefRoute = APITitle;
         public const string APIDescription = "National Careers Service " + APITitle + " Service";
 
@@ -26,7 +26,7 @@ namespace NCS.DSS.AzureSearchUtility.APIDefinition
             doc.swagger = "2.0";
             doc.info = new ExpandoObject();
             doc.info.title = APITitle;
-            doc.info.version = "1.0.0";
+            doc.info.version = "v2";
             doc.info.description = APIDescription;
             doc.host = !string.IsNullOrEmpty(hostName) ? hostName + ".search.windows.net" : string.Empty;
             doc.basePath = "/";
