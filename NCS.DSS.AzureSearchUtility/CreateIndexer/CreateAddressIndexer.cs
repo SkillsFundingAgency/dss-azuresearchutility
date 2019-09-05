@@ -24,6 +24,21 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndexer
                 throw new WebException("Unable to find Search Service");
             }
 
+            Console.WriteLine("{0}", "Deleting old Address Data Source ...\n");
+
+            try
+            {
+                if (await azureSearchService.DataSources.ExistsAsync(searchConfig.AddressSearchConfig.SearchDataSourceName))
+                {
+                    await azureSearchService.DataSources.DeleteAsync(searchConfig.AddressSearchConfig.SearchDataSourceName);
+                }
+            }
+            catch (CloudException e)
+            {
+                Console.WriteLine(e.ToString());
+                throw;
+            }
+
             Console.WriteLine("{0}", "Creating Address Data Source object...\n");
             var dataSource = DataSourceHelper.CreateDataSource(searchConfig.AddressSearchConfig.SearchDataSourceQuery,
                 searchConfig.AddressSearchConfig.CollectionId,

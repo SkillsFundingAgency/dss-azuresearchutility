@@ -26,6 +26,22 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndexer
                 throw new WebException("Unable to find Search Service");
             }
 
+
+            Console.WriteLine("{0}", "Deleting old Customer Data Source ...\n");
+
+            try
+            {
+                if (await azureSearchService.DataSources.ExistsAsync(searchConfig.CustomerSearchConfig.SearchDataSourceName))
+                {
+                    await azureSearchService.DataSources.DeleteAsync(searchConfig.CustomerSearchConfig.SearchDataSourceName);
+                }
+            }
+            catch (CloudException e)
+            {
+                Console.WriteLine(e.ToString());
+                throw;
+            }
+
             Console.WriteLine("{0}", "Creating Customer Data Source object...\n");
             var dataSource = DataSourceHelper.CreateDataSource(searchConfig.CustomerSearchConfig.SearchDataSourceQuery,
                 searchConfig.CustomerSearchConfig.CollectionId,
@@ -53,7 +69,7 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndexer
                     customerSearchIndex,
                     searchConfig.CustomerSearchConfig.SearchIndexerName,
                     searchConfig.CustomerSearchConfig.SearchDataSourceName,
-                    new List<FieldMapping> {new FieldMapping("id", "CustomerId")});
+                    new List<FieldMapping> {new FieldMapping("id", "CustomerId") });
             }
             catch (CloudException e)
             {

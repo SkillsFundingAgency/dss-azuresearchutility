@@ -24,6 +24,21 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndexer
                 throw new WebException("Unable to find Search Service");
             }
 
+            Console.WriteLine("{0}", "Deleting old Contact Data Source ...\n");
+
+            try
+            {
+                if (await azureSearchService.DataSources.ExistsAsync(searchConfig.ContactDetailsSearchConfig.SearchDataSourceName))
+                {
+                    await azureSearchService.DataSources.DeleteAsync(searchConfig.ContactDetailsSearchConfig.SearchDataSourceName);
+                }
+            }
+            catch (CloudException e)
+            {
+                Console.WriteLine(e.ToString());
+                throw;
+            }
+
             Console.WriteLine("{0}", "Creating Contact Details Data Source object...\n");
             var dataSource = DataSourceHelper.CreateDataSource(searchConfig.ContactDetailsSearchConfig.SearchDataSourceQuery,
                 searchConfig.ContactDetailsSearchConfig.CollectionId,

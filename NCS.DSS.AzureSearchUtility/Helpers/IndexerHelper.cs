@@ -40,7 +40,7 @@ namespace NCS.DSS.AzureSearchUtility.Helpers
             var exists = searchService.Indexers.ExistsAsync(indexer.Name).GetAwaiter().GetResult();
             if (exists)
             {
-                searchService.Indexers.ResetAsync(indexer.Name).Wait();
+                searchService.Indexers.DeleteWithHttpMessagesAsync(indexer.Name).Wait();
             }
         }
 
