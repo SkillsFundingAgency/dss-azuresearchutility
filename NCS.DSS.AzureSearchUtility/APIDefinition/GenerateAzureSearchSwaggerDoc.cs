@@ -73,7 +73,27 @@ namespace NCS.DSS.AzureSearchUtility.APIDefinition
                     // Summary is title
                     operation.summary = "Customer Search";
                     // Verbose description
-                    operation.description = "This is the description for Customer Search";
+                    operation.description =
+                        "Improved search facility that supports searching by an increased number of fields including email address, telephone numbers and postcodes. " +
+                        "As customer numbers have increased we have also added a paging facility.\n" +
+                        
+                        "\n Examples:" +
+
+                        "\n&$top=100&search=GivenName: John FamilyName: Smith &$filter=DateofBirth eq 1999-09-09" +
+                        "<ul><li>This search will bring back 100 customers where the given name is 'John' and family name is 'Smith' " +
+                        "and where the DateofBirth equals 1999-09-09. All fields that will be returned for this search</li></ul>" + 
+
+                        "\n&$top=10&search=GivenName: John FamilyName: Smith &$filter=DateofBirth le 1999-09-09&$select=CustomerId, GivenName, FamilyName" +
+                        "<ul><li>This search will bring back 10 customers where the given name is 'John' and family name is 'Smith' " +
+                        "and where the DateofBirth less than or equal to 1999-09-09. CustomerId, GivenName, FamilyName are the only fields that will be returned for this search</li></ul>" +
+
+                        "\n&search=GivenName:John FamilyName:Smith UniqueLearnerNumber:0123456789 &$filter=DateofBirth gt 1999-09-09" +
+                        "<ul><li>This search will bring all customers where the given name is 'John', family name is 'Smith', unique learner number is 0123456789" +
+                        "and where the DateofBirth greater than 1999-09-09. All fields that will be returned for this search</li></ul>" + 
+                        
+                        "\n&$skip=10&search=GivenName:John FamilyName:Smith UniqueLearnerNumber:0123456789 &$filter=DateofBirth gt 1999-09-09" +
+                        "<ul><li>This search will skip the first 10 results and bring all customers where the given name is 'John', family name is 'Smith', unique learner number is 0123456789" +
+                        "and where the DateofBirth greater than 1999-09-09. All fields that will be returned for this search</li></ul>";
 
                     operation.responses = GenerateResponseParameterSignature(doc);
                     operation.tags = new[] { APITitle };
@@ -123,9 +143,6 @@ namespace NCS.DSS.AzureSearchUtility.APIDefinition
 
                 if (returnType.Namespace == "System")
                 {
-                    // Warning:
-                    // Allthough valid, it's always better to wrap single values in an object
-                    // Returning { Value = "foo" } is better than just "foo"
                     SetParameterType(returnType, responseDef.schema, null);
                 }
                 else
@@ -189,37 +206,47 @@ namespace NCS.DSS.AzureSearchUtility.APIDefinition
             opApiKeyParam.required = true;
             parameterSignatures.Add(opApiKeyParam);
 
-            //dynamic eoCount = new ExpandoObject();
-            //var opCountParam = (IDictionary<string, object>) eoCount;
-
-            //opCountParam.Add("in", "query");
-            //opCountParam.Add("name", "$count");
-            //opCountParam.Add("required", false);
-            //opCountParam.Add("description", "Specifies whether to fetch the total count of results.");
-            //SetParameterType(typeof(Boolean), opCountParam, null);
-            //parameterSignatures.Add(opCountParam);
-            
             var eoTop = new ExpandoObject();
             var opTopParam = (IDictionary<string, object>) eoTop;
             opTopParam.Add("in", "query");
-            opTopParam.Add("name", "$top");
+            opTopParam.Add("name", "&$top");
             opTopParam.Add("required", false);
             opTopParam.Add("description", "The number of search results to retrieve.");
-            opTopParam.Add("x-example", "$top=100");
+            opTopParam.Add("x-example", "100");
             SetParameterType(typeof(int), opTopParam, null);
             parameterSignatures.Add(opTopParam);
-
-
+            
             dynamic eoSearch = new ExpandoObject();
             var opSearchParam = (IDictionary<string, object>) eoSearch;
             opSearchParam.Add("in", "query");
-            opSearchParam.Add("name", "search");
+            opSearchParam.Add("name", "&search");
             opSearchParam.Add("required", false);
+
             opSearchParam.Add("description", "search=GivenName:John\n" +
-                                        $"This search result will bring back all the customers which have a GivenName equal to 'John' \n" +
-                                    "search = GivenName:Joh *" +
-                                    $"this search result will bring back any names that start with 'Joh' \n");
-            opSearchParam.Add("x-example", "search=*");
+
+            "Using the wildcard character * will allow you to find documents containing the words with the prefix 'Joh', such as 'John' or 'Johnson' or 'Johan', specify 'Joh*'.\n" +
+            "\n&search = John" +
+            "<ul><li>This search will bring back all customers which contain 'John' within the searchable fields</li></ul>" +
+            "&search = Joh *" +
+            "<ul><li>This search will bring back all customers which start with 'Joh'</ul></li>" +
+            "&search = Joh * Smith" +
+            "<ul><li>This search will bring back all customers which start with 'Joh' AND 'Smith' within the searchable fields</ul></li>" +
+            "&search = 0123456789" +
+            "<ul><li>This search will bring back all customers which contain '0123456789' within the searchable fields</ul></li>" +
+            "&search = GivenName = John" +
+            "<ul><li>This search result will bring back all the customers which have a GivenName equal to 'John'</ul></li>" +
+            "&search = GivenName:Joh*" +
+            "<ul><li>This search result will bring back any names that start with 'Joh'</ul></li>" +
+            "&search = GivenName:Joh * FamilyName:Smith" +
+            "<ul><li>This search will bring back any customers with a given name that starts with 'Joh' and where FamilyName equals 'Smith'</ul></li>" +
+            "&search = GivenName:John UniqueLearnerNumber: 0123456789" +
+            "<ul><li>This search will bring back any customers with a given name equal to 'John' and where FamilyName equals 'Smith'</ul></li>" +
+            "&search = GivenName:John FamilyName: Smith UniqueLearnerNumber: 0123456789" +
+            "<ul><li>This search will bring back any customers with a given name equal to 'John' and FamilyName equals 'Smith' and UniqueLearnerNumber equals '0123456789'</ul></li>"  
+
+            );
+            
+            opSearchParam.Add("x-example", "John");
             SetParameterType(typeof(string), opSearchParam, null);
             parameterSignatures.Add(opSearchParam);
             
@@ -227,53 +254,67 @@ namespace NCS.DSS.AzureSearchUtility.APIDefinition
             dynamic eoFilter = new ExpandoObject();
             var opFilterParam = (IDictionary<string, object>) eoFilter;
             opFilterParam.Add("in", "query");
-            opFilterParam.Add("name", "$filter");
+            opFilterParam.Add("name", "&$filter");
             opFilterParam.Add("required", false);
-            opFilterParam.Add("description", "To search DOB you need to preform a filter on the index.");
-            opFilterParam.Add("x-example", "$filter=DateofBirth eq 2005-07-26");
+            opFilterParam.Add("description", "To search DOB you need to preform a filter on the index.\n" +
+                                             "search=*&$filter=DateofBirth eq 2005-07-26\n" +
+                                             "<ul><li>This search will bring back all customers which have a Date Of Birth Equal To '2005-07-26'</ul></li>\n" +
+
+                                             "search=*&$filter=DateofBirth lt 2010-10-10\n" +
+                                             "<ul><li>This search will bring back all customers which have a Date Of Birth Less Than '2010-10-10'</ul></li>" +
+
+                                             "search=*&$filter=DateofBirth le 2010-10-10\n" +
+                                             "<ul><li>This search will bring back all customers which have a Date Of Birth Less Than or Equal To '2010-10-10'</ul></li>" +
+
+                                             "search=*&$filter=DateofBirth gt 2000-01-01\n" +
+                                             "<ul><li>This search will bring back all customers which have a Date Of Birth Greater Than '2000-01-01'</ul></li>" +
+
+                                             "search=*&$filter=DateofBirth ge 2000-01-01\n" +
+                                             "<ul><li>This search will bring back all customers which have a Date Of Birth Greater Than or Equal To '2000-01-01'</ul></li>" +
+
+                                             "search=*&$filter=GivenName eq John\n" +
+                                             "<ul><li>This search will bring back all customers which a Given Name Equal To 'John'</ul></li>\n" +
+
+                                             "search=*&$filter=GivenName ne John\n" +
+                                             "<ul><li>This search will bring back all customers which a Given Name Not Equal To 'John'</ul></li>\n" +
+
+                                             "search=*&$filter=FamilyName eq Smith" +
+                                            "<ul><li>This search will bring back all customers which a Family Name Equal To 'Smith'</ul></li>\n");
+
+            opFilterParam.Add("x-example", "DateofBirth eq 2005-07-26");
             SetParameterType(typeof(string), opFilterParam, null);
             parameterSignatures.Add(opFilterParam);
 
             dynamic eoOrderBy = new ExpandoObject();
             var opOrderByParam = (IDictionary<string, object>) eoOrderBy;
             opOrderByParam.Add("in", "query");
-            opOrderByParam.Add("name", "$orderby");
+            opOrderByParam.Add("name", "&$orderby");
             opOrderByParam.Add("required", false);
             opOrderByParam.Add("description", "A list of comma-separated expressions to sort the results by.");
-            opOrderByParam.Add("x-example", "$orderby=");
+            opOrderByParam.Add("x-example", "GivenName");
             SetParameterType(typeof(string), opOrderByParam, null);
             parameterSignatures.Add(opOrderByParam);
 
             dynamic eoSelect = new ExpandoObject();
             var opSelectParam = (IDictionary<string, object>) eoSelect;
             opSelectParam.Add("in", "query");
-            opSelectParam.Add("name", "$select");
+            opSelectParam.Add("name", "&$select");
             opSelectParam.Add("required", false);
             opSelectParam.Add("description", "A list of comma-separated fields to include in the result set.");
-            opSelectParam.Add("x-example", "$select=CustomerId, GivenName, FamilyName");
+            opSelectParam.Add("x-example", "CustomerId, GivenName, FamilyName");
             SetParameterType(typeof(string), opSelectParam, null);
             parameterSignatures.Add(opSelectParam);
 
             dynamic eoSkip = new ExpandoObject();
             var opSkipParam = (IDictionary<string, object>) eoSkip;
             opSkipParam.Add("in", "query");
-            opSkipParam.Add("name","$skip");
+            opSkipParam.Add("name", "&$skip");
             opSkipParam.Add("required", false);
             opSkipParam.Add("description", "The number of search results to skip.");
-            opSkipParam.Add("x-example", "$skip=100");
+            opSkipParam.Add("x-example", "100");
             SetParameterType(typeof(int), opSkipParam, null);
             parameterSignatures.Add(opSkipParam);
-
-            //dynamic eoScoringProfile = new ExpandoObject();
-            //var opScoringProfileParam = (IDictionary<string, object>) eoScoringProfile;
-            //opScoringProfileParam.Add("in", "query");
-            //opScoringProfileParam.Add("name", "scoringProfile");
-            //opScoringProfileParam.Add("required", false);
-            //opScoringProfileParam.Add("description", "The name of a scoring profile to evaluate match scores for matching documents in order to sort the results.");
-            //opScoringProfileParam.Add("x-example", "scoringProfile=CustomerScoringProfile");
-            //SetParameterType(typeof(string), opScoringProfileParam, null);
-            //parameterSignatures.Add(opScoringProfileParam);
-
+            
             return parameterSignatures;
         }
 
