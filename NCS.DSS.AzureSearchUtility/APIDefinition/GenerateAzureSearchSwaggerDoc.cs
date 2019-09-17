@@ -14,7 +14,7 @@ namespace NCS.DSS.AzureSearchUtility.APIDefinition
 {
     public static class GenerateAzureSearchSwaggerDoc
     {
-        public const string APITitle = "search";
+        public const string APITitle = "Search";
         public const string APIDefRoute = APITitle;
         public const string APIDescription = "National Careers Service " + APITitle + " Service";
 
@@ -75,27 +75,131 @@ namespace NCS.DSS.AzureSearchUtility.APIDefinition
                     // Verbose description
                     operation.description =
                         "Improved search facility that supports searching by an increased number of fields including email address, telephone numbers and postcodes. " +
-                        "As customer numbers have increased we have also added a paging facility.\n" +
-                        
-                        "\n Examples:" +
+                        "As customer numbers have increased we have also added a paging facility. \n" +
 
-                        "\n&$top=100&search=GivenName: John FamilyName: Smith &$filter=DateofBirth eq 1999-09-09" +
+                        "\n <b>Searchable Fields:</b> \n" +
+                        "<ul>" +
+                            "<li>GivenName</li>" +
+                            "<li>FamilyName</li>" +
+                            "<li>UniqueLearnerNumber</li>" +
+                            "<li>Address1</li>" +
+                            "<li>PostCode</li>" +
+                            "<li>MobileNumber</li>" +
+                            "<li>HomeNumber</li>" +
+                            "<li>AlternativeNumber</li>" +
+                            "<li>EmailAddress</li>" + 
+                        "</ul>" +
+                        
+                        "\n <b>Filterable Fields:</b> \n" +
+
+                        "\n <ul>" +
+                            "<li>DateOfRegistration</li>" +
+                            "<li>GivenName</li>" +
+                            "<li>FamilyName</li>" +
+                            "<li>DateofBirth</li>" +
+                            "<li>Gender</li>" +
+                            "<li>OptInUserResearch</li>" +
+                            "<li>OptInMarketResearch</li>" +
+                            "<li>DateOfTermination</li>" +
+                            "<li>ReasonForTermination</li>" +
+                            "<li>IntroducedBy</li>" +
+                            "<li>LastModifiedTouchpointId</li>" +
+                        "</ul>" +
+
+                        "\n <b>Sortable Fields:</b> \n" +
+                        "\n <ul>" +
+                            "<li>DateOfRegistration</li>" +
+                            "<li>GivenName</li>" +
+                            "<li>FamilyName</li>" +
+                            "<li>DateofBirth</li>" +
+                            "<li>IntroducedBy</li>" +
+                        "</ul> \n" +
+
+                        "\n <b>Examples:</b> \n" +
+
+                        "\n &$top=100&search=GivenName: John FamilyName: Smith &$filter=DateofBirth eq 1999-09-09 \n" +
                         "<ul><li>This search will bring back 100 customers where the given name is 'John' and family name is 'Smith' " +
-                        "and where the DateofBirth equals 1999-09-09. All fields that will be returned for this search</li></ul>" + 
+                        "and where the DateofBirth equals 1999-09-09. All fields will be returned for this search</li></ul> \n" +
 
-                        "\n&$top=10&search=GivenName: John FamilyName: Smith &$filter=DateofBirth le 1999-09-09&$select=CustomerId, GivenName, FamilyName" +
+                        "\n &$top=10&search=GivenName: John FamilyName: Smith &$filter=DateofBirth le 1999-09-09&$select=CustomerId, GivenName, FamilyName \n" +
                         "<ul><li>This search will bring back 10 customers where the given name is 'John' and family name is 'Smith' " +
-                        "and where the DateofBirth less than or equal to 1999-09-09. CustomerId, GivenName, FamilyName are the only fields that will be returned for this search</li></ul>" +
+                        "and where the DateofBirth less than or equal to 1999-09-09. CustomerId, GivenName, FamilyName are the only fields that will be returned for this search</li></ul> \n" +
 
-                        "\n&search=GivenName:John FamilyName:Smith UniqueLearnerNumber:0123456789 &$filter=DateofBirth gt 1999-09-09" +
+                        "\n &search=GivenName:John FamilyName:Smith UniqueLearnerNumber:0123456789 &$filter=DateofBirth gt 1999-09-09 \n" +
                         "<ul><li>This search will bring all customers where the given name is 'John', family name is 'Smith', unique learner number is 0123456789" +
-                        "and where the DateofBirth greater than 1999-09-09. All fields that will be returned for this search</li></ul>" + 
-                        
-                        "\n&$skip=10&search=GivenName:John FamilyName:Smith UniqueLearnerNumber:0123456789 &$filter=DateofBirth gt 1999-09-09" +
-                        "<ul><li>This search will skip the first 10 results and bring all customers where the given name is 'John', family name is 'Smith', unique learner number is 0123456789" +
-                        "and where the DateofBirth greater than 1999-09-09. All fields that will be returned for this search</li></ul>";
+                        "and where the DateofBirth greater than 1999-09-09. All fields that will be returned for this search</li></ul> \n" +
 
-                    operation.responses = GenerateResponseParameterSignature(doc);
+                        "\n &$skip=10&search=GivenName:John FamilyName:Smith UniqueLearnerNumber:0123456789 &$filter=DateofBirth gt 1999-09-09 \n" +
+                        "<ul><li>This search will skip the first 10 results and bring all customers where the given name is 'John', family name is 'Smith', unique learner number is 0123456789" +
+                        "and where the DateofBirth greater than 1999-09-09. All fields that will be returned for this search</li></ul> \n" +
+
+
+                        "\n <b>Search Term Examples:</b> \n" +
+
+                        "\n Using the wildcard character * will allow you to find documents containing the words with the prefix 'Joh', such as 'John' or 'Johnson' or 'Johan', specify 'Joh*'. There is a minimum of two characters when using a wildcard(*) search \n" +
+                        "\n &search = John \n" +
+                        "<ul><li>This search will bring back all customers which contain 'John' within the searchable fields</li></ul> \n" +
+
+                        "\n &search = Joh* \n" +
+                        "<ul><li>This search will bring back all customers which start with 'Joh'</ul></li> \n" +
+
+                        "\n &search = Joh* Smith \n" +
+                        "<ul><li>This search will bring back all customers which start with 'Joh' AND 'Smith' within the searchable fields</ul></li> \n" +
+
+                        "\n &search = 0123456789 \n" +
+                        "<ul><li>This search will bring back all customers which contain '0123456789' within the searchable fields</ul></li> \n" +
+
+                        "\n &search = GivenName = John \n" +
+                        "<ul><li>This search result will bring back all the customers which have a GivenName equal to 'John'</ul></li> \n" +
+
+                        "\n &search = GivenName:Joh* \n" +
+                        "<ul><li>This search result will bring back any names that start with 'Joh'</ul></li> \n" +
+
+                        "\n &search = GivenName:Joh * FamilyName:Smith \n" +
+                        "<ul><li>This search will bring back any customers with a given name that starts with 'Joh' and where FamilyName equals 'Smith'</ul></li> \n" +
+
+                        "\n &search = GivenName:John UniqueLearnerNumber: 0123456789 \n" +
+                        "<ul><li>This search will bring back any customers with a given name equal to 'John' and where FamilyName equals 'Smith'</ul></li> \n" +
+
+                        "\n &search = GivenName:John FamilyName: Smith UniqueLearnerNumber: 0123456789 \n" +
+                        "<ul><li>This search will bring back any customers with a given name equal to 'John' and FamilyName equals 'Smith' and UniqueLearnerNumber equals '0123456789'</ul></li> \n" +
+
+                        "\n <b>Filter Term Examples:</b> \n" +
+
+                        "\n search=Joh*&$filter=DateofBirth eq 2005-07-26 \n" +
+                        "<ul><li>This search will bring back all customers where the searchable fields contain 'Joh' and have a Date Of Birth Equal To '2005-07-26'</ul></li> \n" +
+
+                        "\n search=Jon&$filter=DateofBirth lt 2010-10-10 \n" +
+                        "<ul><li>This search will bring back all customers where the searchable fields equals 'Jon' and have a Date Of Birth Less Than '2010-10-10'</ul></li>\n" +
+
+                        "\n search=John&$filter=DateofBirth le 2010-10-10 \n" +
+                        "<ul><li>This search will bring back all customers where the searchable fields equals 'John' and have a Date Of Birth Less Than or Equal To '2010-10-10'</ul></li>\n" +
+
+                        "\n search=Jo*&$filter=DateofBirth gt 2000-01-01 \n" +
+                        "<ul><li>This search will bring back all customers where the searchable fields contain 'Jo' and have a Date Of Birth Greater Than '2000-01-01'</ul></li>\n" +
+
+                        "\n search=Jo*&$filter=DateofBirth ge 2000-01-01 \n" +
+                        "<ul><li>This search will bring back all customers where the searchable fields contain 'Jo' and have a Date Of Birth Greater Than or Equal To '2000-01-01'</ul></li>\n" +
+
+                        "\n search=Jo*&$filter=GivenName eq John \n" +
+                        "<ul><li>This search will bring back all customers where the searchable fields contain 'Jo' and a Given Name Equal To 'John'</ul></li> \n" +
+
+                        "\n search=Jo*&$filter=GivenName ne John \n" +
+                        "<ul><li>This search will bring back all customers where the searchable fields contain 'Jo' and a Given Name Not Equal To 'John'</ul></li> \n" +
+
+                        "\n search=John&$filter=FamilyName eq Smith \n" +
+                        "<ul><li>This search will bring back all customers where the searchable fields equals 'John' and a Family Name Equal To 'Smith'</ul></li> \n" + 
+
+
+                        "\n <b>Order By Examples:</b> \n" +
+
+                        "\n search=John&$orderby=IntroducedBy asc \n" +
+                        "<ul><li>This search will bring back all customers where the searchable fields equals 'John' and is ordered by Introduced By ascending</ul></li> \n" +
+
+                        "\n search=John&$filter=FamilyName eq Smith&$orderby=DateofBirth desc \n" +
+                        "<ul><li>This search will bring back all customers where the searchable fields equals 'John' and a Family Name Equal To 'Smith', ordered by Date of Birth descending</ul></li> \n";
+
+                operation.responses = GenerateResponseParameterSignature(doc);
                     operation.tags = new[] { APITitle };
 
                     dynamic keyQuery = new ExpandoObject();
@@ -222,30 +326,10 @@ namespace NCS.DSS.AzureSearchUtility.APIDefinition
             opSearchParam.Add("name", "&search");
             opSearchParam.Add("required", false);
 
-            opSearchParam.Add("description", "search=GivenName:John\n" +
+            opSearchParam.Add("description", "The text to search for. All searchable fields are searched by default unless searchFields is specified. " +
+                                             "When searching searchable fields, the search text itself is tokenized, " +
+                                             "so multiple terms can be separated by white space (e.g.: &search=john smith). \n");
 
-            "Using the wildcard character * will allow you to find documents containing the words with the prefix 'Joh', such as 'John' or 'Johnson' or 'Johan', specify 'Joh*'.\n" +
-            "\n&search = John" +
-            "<ul><li>This search will bring back all customers which contain 'John' within the searchable fields</li></ul>" +
-            "&search = Joh *" +
-            "<ul><li>This search will bring back all customers which start with 'Joh'</ul></li>" +
-            "&search = Joh * Smith" +
-            "<ul><li>This search will bring back all customers which start with 'Joh' AND 'Smith' within the searchable fields</ul></li>" +
-            "&search = 0123456789" +
-            "<ul><li>This search will bring back all customers which contain '0123456789' within the searchable fields</ul></li>" +
-            "&search = GivenName = John" +
-            "<ul><li>This search result will bring back all the customers which have a GivenName equal to 'John'</ul></li>" +
-            "&search = GivenName:Joh*" +
-            "<ul><li>This search result will bring back any names that start with 'Joh'</ul></li>" +
-            "&search = GivenName:Joh * FamilyName:Smith" +
-            "<ul><li>This search will bring back any customers with a given name that starts with 'Joh' and where FamilyName equals 'Smith'</ul></li>" +
-            "&search = GivenName:John UniqueLearnerNumber: 0123456789" +
-            "<ul><li>This search will bring back any customers with a given name equal to 'John' and where FamilyName equals 'Smith'</ul></li>" +
-            "&search = GivenName:John FamilyName: Smith UniqueLearnerNumber: 0123456789" +
-            "<ul><li>This search will bring back any customers with a given name equal to 'John' and FamilyName equals 'Smith' and UniqueLearnerNumber equals '0123456789'</ul></li>"  
-
-            );
-            
             opSearchParam.Add("x-example", "John");
             SetParameterType(typeof(string), opSearchParam, null);
             parameterSignatures.Add(opSearchParam);
@@ -256,30 +340,7 @@ namespace NCS.DSS.AzureSearchUtility.APIDefinition
             opFilterParam.Add("in", "query");
             opFilterParam.Add("name", "&$filter");
             opFilterParam.Add("required", false);
-            opFilterParam.Add("description", "To search DOB you need to preform a filter on the index.\n" +
-                                             "search=*&$filter=DateofBirth eq 2005-07-26\n" +
-                                             "<ul><li>This search will bring back all customers which have a Date Of Birth Equal To '2005-07-26'</ul></li>\n" +
-
-                                             "search=*&$filter=DateofBirth lt 2010-10-10\n" +
-                                             "<ul><li>This search will bring back all customers which have a Date Of Birth Less Than '2010-10-10'</ul></li>" +
-
-                                             "search=*&$filter=DateofBirth le 2010-10-10\n" +
-                                             "<ul><li>This search will bring back all customers which have a Date Of Birth Less Than or Equal To '2010-10-10'</ul></li>" +
-
-                                             "search=*&$filter=DateofBirth gt 2000-01-01\n" +
-                                             "<ul><li>This search will bring back all customers which have a Date Of Birth Greater Than '2000-01-01'</ul></li>" +
-
-                                             "search=*&$filter=DateofBirth ge 2000-01-01\n" +
-                                             "<ul><li>This search will bring back all customers which have a Date Of Birth Greater Than or Equal To '2000-01-01'</ul></li>" +
-
-                                             "search=*&$filter=GivenName eq John\n" +
-                                             "<ul><li>This search will bring back all customers which a Given Name Equal To 'John'</ul></li>\n" +
-
-                                             "search=*&$filter=GivenName ne John\n" +
-                                             "<ul><li>This search will bring back all customers which a Given Name Not Equal To 'John'</ul></li>\n" +
-
-                                             "search=*&$filter=FamilyName eq Smith" +
-                                            "<ul><li>This search will bring back all customers which a Family Name Equal To 'Smith'</ul></li>\n");
+            opFilterParam.Add("description", "A structured search expression in standard OData syntax. To search DOB you need to preform a filter on the index. \n");
 
             opFilterParam.Add("x-example", "DateofBirth eq 2005-07-26");
             SetParameterType(typeof(string), opFilterParam, null);
