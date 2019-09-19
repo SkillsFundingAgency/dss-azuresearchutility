@@ -181,13 +181,13 @@ namespace NCS.DSS.AzureSearchUtility.APIDefinition
                         "\n search=Jo*&$filter=DateofBirth ge 2000-01-01 \n" +
                         "<ul><li>This search will bring back all customers where the searchable fields contain 'Jo' and have a Date Of Birth Greater Than or Equal To '2000-01-01'</ul></li>\n" +
 
-                        "\n search=Jo*&$filter=GivenName eq John \n" +
+                        "\n search=Jo*&$filter=GivenName eq 'John' \n" +
                         "<ul><li>This search will bring back all customers where the searchable fields contain 'Jo' and a Given Name Equal To 'John'</ul></li> \n" +
 
-                        "\n search=Jo*&$filter=GivenName ne John \n" +
+                        "\n search=Jo*&$filter=GivenName ne 'John' \n" +
                         "<ul><li>This search will bring back all customers where the searchable fields contain 'Jo' and a Given Name Not Equal To 'John'</ul></li> \n" +
 
-                        "\n search=John&$filter=FamilyName eq Smith \n" +
+                        "\n search=John&$filter=FamilyName eq 'Smith' \n" +
                         "<ul><li>This search will bring back all customers where the searchable fields equals 'John' and a Family Name Equal To 'Smith'</ul></li> \n" + 
 
 
@@ -196,7 +196,7 @@ namespace NCS.DSS.AzureSearchUtility.APIDefinition
                         "\n search=John&$orderby=IntroducedBy asc \n" +
                         "<ul><li>This search will bring back all customers where the searchable fields equals 'John' and is ordered by Introduced By ascending</ul></li> \n" +
 
-                        "\n search=John&$filter=FamilyName eq Smith&$orderby=DateofBirth desc \n" +
+                        "\n search=John&$filter=FamilyName eq 'Smith'&$orderby=DateofBirth desc \n" +
                         "<ul><li>This search will bring back all customers where the searchable fields equals 'John' and a Family Name Equal To 'Smith', ordered by Date of Birth descending</ul></li> \n";
 
                 operation.responses = GenerateResponseParameterSignature(doc);
