@@ -123,80 +123,80 @@ namespace NCS.DSS.AzureSearchUtility.APIDefinition
 
                         "\n &$top=10&search=GivenName: John FamilyName: Smith &$filter=DateofBirth le 1999-09-09&$select=CustomerId, GivenName, FamilyName \n" +
                         "<ul><li>This search will bring back 10 customers where the given name is 'John' and family name is 'Smith' " +
-                        "and where the DateofBirth less than or equal to 1999-09-09. CustomerId, GivenName, FamilyName are the only fields that will be returned for this search</li></ul> \n" +
+                        "and where the DateofBirth is less than or equal to 1999-09-09. CustomerId, GivenName, FamilyName are the only fields that will be returned for this search</li></ul> \n" +
 
                         "\n &search=GivenName:John FamilyName:Smith UniqueLearnerNumber:0123456789 &$filter=DateofBirth gt 1999-09-09 \n" +
-                        "<ul><li>This search will bring all customers where the given name is 'John', family name is 'Smith', unique learner number is 0123456789" +
-                        "and where the DateofBirth greater than 1999-09-09. All fields that will be returned for this search</li></ul> \n" +
+                        "<ul><li>This search will bring back all customers where the given name is 'John', family name is 'Smith', unique learner number is 0123456789" +
+                        "and where the DateofBirth is greater than 1999-09-09. All fields will be returned for this search</li></ul> \n" +
 
                         "\n &$skip=10&search=GivenName:John FamilyName:Smith UniqueLearnerNumber:0123456789 &$filter=DateofBirth gt 1999-09-09 \n" +
                         "<ul><li>This search will skip the first 10 results and bring all customers where the given name is 'John', family name is 'Smith', unique learner number is 0123456789" +
-                        "and where the DateofBirth greater than 1999-09-09. All fields that will be returned for this search</li></ul> \n" +
+                        "and where the DateofBirth is greater than 1999-09-09. All fields will be returned for this search</li></ul> \n" +
 
 
                         "\n <b>Search Term Examples:</b> \n" +
 
                         "\n Using the wildcard character * will allow you to find documents containing the words with the prefix 'Joh', such as 'John' or 'Johnson' or 'Johan', specify 'Joh*'. There is a minimum of two characters when using a wildcard(*) search \n" +
-                        "\n &search = John \n" +
+                        "\n &search=John \n" +
                         "<ul><li>This search will bring back all customers which contain 'John' within the searchable fields</li></ul> \n" +
 
-                        "\n &search = Joh* \n" +
+                        "\n &search=Joh* \n" +
                         "<ul><li>This search will bring back all customers which start with 'Joh'</ul></li> \n" +
 
-                        "\n &search = Joh* Smith \n" +
+                        "\n &search=Joh* Smith \n" +
                         "<ul><li>This search will bring back all customers which start with 'Joh' AND 'Smith' within the searchable fields</ul></li> \n" +
 
-                        "\n &search = 0123456789 \n" +
+                        "\n &search=0123456789 \n" +
                         "<ul><li>This search will bring back all customers which contain '0123456789' within the searchable fields</ul></li> \n" +
 
-                        "\n &search = GivenName = John \n" +
+                        "\n &search=GivenName=John \n" +
                         "<ul><li>This search result will bring back all the customers which have a GivenName equal to 'John'</ul></li> \n" +
 
-                        "\n &search = GivenName:Joh* \n" +
+                        "\n &search=GivenName:Joh* \n" +
                         "<ul><li>This search result will bring back any names that start with 'Joh'</ul></li> \n" +
 
-                        "\n &search = GivenName:Joh * FamilyName:Smith \n" +
+                        "\n &search=GivenName:Joh* FamilyName:Smith \n" +
                         "<ul><li>This search will bring back any customers with a given name that starts with 'Joh' and where FamilyName equals 'Smith'</ul></li> \n" +
 
-                        "\n &search = GivenName:John UniqueLearnerNumber: 0123456789 \n" +
-                        "<ul><li>This search will bring back any customers with a given name equal to 'John' and where FamilyName equals 'Smith'</ul></li> \n" +
+                        "\n &search=GivenName:John UniqueLearnerNumber:0123456789 \n" +
+                        "<ul><li>This search will bring back any customers with a given name equal to 'John' and where UniqueLearnerNumber equals '0123456789'</ul></li> \n" +
 
-                        "\n &search = GivenName:John FamilyName: Smith UniqueLearnerNumber: 0123456789 \n" +
+                        "\n &search=GivenName:John FamilyName:Smith UniqueLearnerNumber:0123456789 \n" +
                         "<ul><li>This search will bring back any customers with a given name equal to 'John' and FamilyName equals 'Smith' and UniqueLearnerNumber equals '0123456789'</ul></li> \n" +
 
                         "\n <b>Filter Term Examples:</b> \n" +
 
-                        "\n search=Joh*&$filter=DateofBirth eq 2005-07-26 \n" +
+                        "\n &search=Joh*&$filter=DateofBirth eq 2005-07-26 \n" +
                         "<ul><li>This search will bring back all customers where the searchable fields contain 'Joh' and have a Date Of Birth Equal To '2005-07-26'</ul></li> \n" +
 
-                        "\n search=Jon&$filter=DateofBirth lt 2010-10-10 \n" +
+                        "\n &search=Jon&$filter=DateofBirth lt 2010-10-10 \n" +
                         "<ul><li>This search will bring back all customers where the searchable fields equals 'Jon' and have a Date Of Birth Less Than '2010-10-10'</ul></li>\n" +
 
-                        "\n search=John&$filter=DateofBirth le 2010-10-10 \n" +
+                        "\n &search=John&$filter=DateofBirth le 2010-10-10 \n" +
                         "<ul><li>This search will bring back all customers where the searchable fields equals 'John' and have a Date Of Birth Less Than or Equal To '2010-10-10'</ul></li>\n" +
 
-                        "\n search=Jo*&$filter=DateofBirth gt 2000-01-01 \n" +
+                        "\n &search=Jo*&$filter=DateofBirth gt 2000-01-01 \n" +
                         "<ul><li>This search will bring back all customers where the searchable fields contain 'Jo' and have a Date Of Birth Greater Than '2000-01-01'</ul></li>\n" +
 
-                        "\n search=Jo*&$filter=DateofBirth ge 2000-01-01 \n" +
+                        "\n &search=Jo*&$filter=DateofBirth ge 2000-01-01 \n" +
                         "<ul><li>This search will bring back all customers where the searchable fields contain 'Jo' and have a Date Of Birth Greater Than or Equal To '2000-01-01'</ul></li>\n" +
 
-                        "\n search=Jo*&$filter=GivenName eq 'John' \n" +
+                        "\n &search=Jo*&$filter=GivenName eq 'John' \n" +
                         "<ul><li>This search will bring back all customers where the searchable fields contain 'Jo' and a Given Name Equal To 'John'</ul></li> \n" +
 
-                        "\n search=Jo*&$filter=GivenName ne 'John' \n" +
+                        "\n &search=Jo*&$filter=GivenName ne 'John' \n" +
                         "<ul><li>This search will bring back all customers where the searchable fields contain 'Jo' and a Given Name Not Equal To 'John'</ul></li> \n" +
 
-                        "\n search=John&$filter=FamilyName eq 'Smith' \n" +
+                        "\n &search=John&$filter=FamilyName eq 'Smith' \n" +
                         "<ul><li>This search will bring back all customers where the searchable fields equals 'John' and a Family Name Equal To 'Smith'</ul></li> \n" + 
 
 
                         "\n <b>Order By Examples:</b> \n" +
 
-                        "\n search=John&$orderby=IntroducedBy asc \n" +
+                        "\n &search=John&$orderby=IntroducedBy asc \n" +
                         "<ul><li>This search will bring back all customers where the searchable fields equals 'John' and is ordered by Introduced By ascending</ul></li> \n" +
 
-                        "\n search=John&$filter=FamilyName eq 'Smith'&$orderby=DateofBirth desc \n" +
+                        "\n &search=John&$filter=FamilyName eq 'Smith'&$orderby=DateofBirth desc \n" +
                         "<ul><li>This search will bring back all customers where the searchable fields equals 'John' and a Family Name Equal To 'Smith', ordered by Date of Birth descending</ul></li> \n";
 
                 operation.responses = GenerateResponseParameterSignature(doc);
