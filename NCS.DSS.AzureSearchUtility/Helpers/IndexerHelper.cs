@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 
-namespace NCS.DSS.AzureSearchUtilities.Helpers
+namespace NCS.DSS.AzureSearchUtility.Helpers
 {
     public static class IndexerHelper
     {
-        public static Indexer CreateIndexer(SearchServiceClient searchService, string customerSearchIndexerName, Index index, string dataSourceName)
+        public static Indexer CreateIndexer(SearchServiceClient searchService, Index index, string indexerName, string dataSourceName, List<FieldMapping> fieldMappings)
         {
-
             if (searchService == null)
                 return null;
 
@@ -17,10 +16,10 @@ namespace NCS.DSS.AzureSearchUtilities.Helpers
                 return null;
 
             var indexer = new Indexer(
-                customerSearchIndexerName,
+                indexerName,
                 dataSourceName,
                 index.Name,
-                fieldMappings: new List<FieldMapping> { new FieldMapping("id", "id") },
+                fieldMappings: fieldMappings,
                 schedule: new IndexingSchedule(TimeSpan.FromHours(2)));
 
             DeleteIndexer(searchService, indexer);
@@ -41,7 +40,7 @@ namespace NCS.DSS.AzureSearchUtilities.Helpers
             var exists = searchService.Indexers.ExistsAsync(indexer.Name).GetAwaiter().GetResult();
             if (exists)
             {
-                searchService.Indexers.ResetAsync(indexer.Name).Wait();
+                searchService.Indexers.DeleteWithHttpMessagesAsync(indexer.Name).Wait();
             }
         }
 

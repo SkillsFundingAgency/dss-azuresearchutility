@@ -1,8 +1,9 @@
 ﻿using System;
+using System.IO;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 
-namespace NCS.DSS.AzureSearchUtilities.Helpers
+namespace NCS.DSS.AzureSearchUtility.Helpers
 {
     public static class SearchHelper
     {
@@ -47,6 +48,33 @@ namespace NCS.DSS.AzureSearchUtilities.Helpers
             {
                 _serviceClient.Indexes.Delete(indexName);
             }
+        }
+
+        public static void UploadSynonymsForGivenName(string synonymPath)
+        {
+            string synonymData;
+
+            try
+            {
+                using (var sr = new StreamReader(synonymPath))
+                {
+                    synonymData = sr.ReadToEnd();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+            var synonymMap = new SynonymMap()
+            {
+                Name = "givenname-synonymmap",
+                ETag = "solr",
+                Synonyms = synonymData
+            };
+
+            _serviceClient.SynonymMaps.CreateOrUpdate(synonymMap);
         }
 
         public static void CreateIndex(Index index)

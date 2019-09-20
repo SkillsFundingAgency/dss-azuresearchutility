@@ -1,6 +1,6 @@
 ﻿using Microsoft.Azure.Search.Models;
 
-namespace NCS.DSS.AzureSearchUtilities.Helpers
+namespace NCS.DSS.AzureSearchUtility.Helpers
 {
     public static class DataSourceHelper
     {
@@ -12,7 +12,7 @@ namespace NCS.DSS.AzureSearchUtilities.Helpers
                 Name = dataSourceName,
                 Container = CreateDataSourceContainer(sqlQuery, collectionName),
                 Credentials = new DataSourceCredentials(dataSourceConnectionString),
-                Type = DataSourceType.DocumentDb,
+                Type = DataSourceType.CosmosDb,
                 DataChangeDetectionPolicy = new HighWaterMarkChangeDetectionPolicy { HighWaterMarkColumnName = "_ts"}
             };
             return dataSource;

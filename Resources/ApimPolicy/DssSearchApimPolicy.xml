@@ -1,0 +1,218 @@
+<policies>
+    <inbound>
+        <rewrite-uri template="/indexes/customer-search-index-v2/docs" />
+        <set-variable name="searchString" value="@{
+            string[] value = new List<string>().ToArray();
+            string searchValue;
+            if(context.Request.Url.Query.TryGetValue("search", out value))
+            {
+                searchValue = System.Net.WebUtility.UrlDecode(value[0]);
+                return searchValue;
+            }
+            else
+            {
+                return "";
+            }
+        }" />
+        <!-- TO DO: test for multiple matches of GivenName and FamilyName -->
+        <set-variable name="givenName" value="@{
+            Regex givenNameRx = new Regex(@"GivenName:(.*?\*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            Match givenNameMatch = givenNameRx.Match(context.Variables.GetValueOrDefault<String>("searchString"));
+            if (givenNameMatch.Groups[0].Value == "")
+            {
+                return false;
+            }
+            else
+            {
+                return givenNameMatch.Groups[1].Value;
+            }
+        }" />
+        <set-variable name="familyName" value="@{
+            Regex familyNameRx = new Regex(@"FamilyName:(.*?\*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            Match familyNameMatch = familyNameRx.Match(context.Variables.GetValueOrDefault<String>("searchString"));
+            if (familyNameMatch.Groups[0].Value == "")
+            {
+                return false;
+            }
+            else
+            {
+                return familyNameMatch.Groups[1].Value;
+            }
+        }" />
+        <set-variable name="allowedSearchString" value="@{
+            String searchString = context.Variables.GetValueOrDefault<String>("searchString");
+            var givenName = context.Variables.GetValueOrDefault<object>("givenName");
+            var familyName = context.Variables.GetValueOrDefault<object>("familyName");
+
+            Boolean givenNameExists = true;
+            String givenNameString = "";
+            if (givenName is bool) {
+                givenNameExists = false;
+            }
+            else if (givenName is String) 
+            {
+                givenNameString = (String) givenName;
+            }
+
+            Boolean familyNameExists = true;
+            String familyNameString = "";
+            if (familyName is bool) {
+                familyNameExists = false;
+            }
+            else if (familyName is String) 
+            {
+                familyNameString = (String) familyName;
+            }
+            
+            if (givenNameExists && familyNameExists && givenNameString.Length >= 3 && familyNameString.Length >= 3)
+            {
+                //search value meets requirements
+                return false;
+            }
+            else if (givenNameExists && !familyNameExists && givenNameString.Length >= 3)
+            {
+                //search value meets requirements
+                return false;
+            }
+            else if (!givenNameExists && familyNameExists && familyNameString.Length >= 3)
+            {
+                //search value meets requirements
+                return false;
+            }
+            else if (!givenNameExists&& !familyNameExists && searchString.Length >= 3) 
+            {
+                //search value meets requirements
+                return false;
+            }
+            else
+            {
+                //search key is too short
+                return true;
+            }
+        }" />
+        <choose>
+            <when condition="@(context.Variables.GetValueOrDefault<bool>("allowedSearchString"))">
+                <return-response>
+                    <set-status code="204" reason="No Content" />
+                    <set-header name="ContainsSearchKey" exists-action="override">
+                        <value>@(context.Request.Url.Query.ContainsKey("search").ToString())</value>
+                    </set-header>
+                    <set-header name="SearchValueTooShort" exists-action="override">
+                        <value>@(context.Variables.GetValueOrDefault<bool>("allowedSearchString").ToString())</value>
+                    </set-header>
+                    <set-header name="SearchKeyValue" exists-action="override">
+                        <value>@(context.Variables.GetValueOrDefault<String>("searchValue"))</value>
+                    </set-header>
+                    <set-header name="givenName" exists-action="override">
+                        <value>
+                            @{
+                                var value = context.Variables.GetValueOrDefault<object>("givenName");
+                                if (value is bool givenNameBool) 
+                                {
+                                    return givenNameBool.ToString();
+                                }
+                                else if  (value is String givenNameString)
+                                {
+                                    return givenNameString;
+                                }
+                                else 
+                                {
+                                    return null;
+                                }
+                            }
+                        </value>
+                    </set-header>
+                    <set-header name="familyName" exists-action="override">
+                        <value>
+                            @{
+                                var value = context.Variables.GetValueOrDefault<object>("familyName");
+                                if (value is bool familyNameBool) 
+                                {
+                                    return familyNameBool.ToString();
+                                }
+                                else if  (value is String familyNameString)
+                                {
+                                    return familyNameString;
+                                }
+                                else 
+                                {
+                                    return null;
+                                }
+                            }
+                        </value>
+                    </set-header>
+                </return-response>
+            </when>
+            <otherwise>
+                <set-header name="api-key" exists-action="override">
+                    <value>__SearchQueryKey__</value>
+                </set-header>
+                <set-query-parameter name="api-version" exists-action="override">
+                    <value>2017-11-11</value>
+                </set-query-parameter>
+                <set-query-parameter name="queryType" exists-action="override">
+                    <value>full</value>
+                </set-query-parameter>
+                <set-query-parameter name="searchMode" exists-action="override">
+                    <value>all</value>
+                </set-query-parameter>
+                <set-query-parameter name="count" exists-action="override">
+                    <value>true</value>
+                </set-query-parameter>
+            </otherwise>
+        </choose>
+        <base />
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <set-header name="SearchValueTooShort" exists-action="override">
+            <value>@(context.Variables.GetValueOrDefault<bool>("allowedSearchString").ToString())</value>
+        </set-header>
+        <set-header name="SearchKeyValue" exists-action="override">
+            <value>@(context.Variables.GetValueOrDefault<String>("searchValue"))</value>
+        </set-header>
+        <set-header name="givenName" exists-action="override">
+            <value>
+                @{
+                    var value = context.Variables.GetValueOrDefault<object>("givenName");
+                    if (value is bool givenNameBool) 
+                    {
+                        return givenNameBool.ToString();
+                    }
+                    else if  (value is String givenNameString)
+                    {
+                        return givenNameString;
+                    }
+                    else 
+                    {
+                        return null;
+                    }
+                }
+            </value>
+        </set-header>
+        <set-header name="familyName" exists-action="override">
+            <value>
+                @{
+                    var value = context.Variables.GetValueOrDefault<object>("familyName");
+                    if (value is bool familyNameBool) 
+                    {
+                        return familyNameBool.ToString();
+                    }
+                    else if  (value is String familyNameString)
+                    {
+                        return familyNameString;
+                    }
+                    else 
+                    {
+                        return null;
+                    }
+                }
+            </value>
+        </set-header>
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>

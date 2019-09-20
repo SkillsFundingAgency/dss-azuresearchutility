@@ -1,9 +1,32 @@
 {
+
   "SearchServiceName": "__SearchServiceName__",
-  "CustomerSearchIndexName": "customer-search-index",
-  "CustomerSearchIndexerName": "customer-search-indexer",
-  "CustomerSearchDataSourceName": "customer-search-data-source",
-  "CustomerSearchDataSourceQuery": "SELECT * FROM c WHERE c._ts >= @HighWaterMark Order By c._ts",
-  "CustomerCollectionId": "customers",
-  "CustomerDatabaseId": "customers"
+  "SearchIndexName": "customer-search-index-v2",
+  "CosmosDBConnectionString": "__CosmosDBConnectionString__",
+  "SynonymPath": "__SynonymPath__",
+
+  "CustomerSearchConfig": {
+    "SearchIndexerName": "customer-search-indexer-v2",
+    "SearchDataSourceName": "customer-search-data-source-v2",
+    "SearchDataSourceQuery": "SELECT * FROM c WHERE c._ts >= @HighWaterMark Order By c._ts",
+    "CollectionId": "customers",
+    "DatabaseId": "customers"
+  },
+
+  "AddressSearchConfig": {
+    "SearchIndexerName": "address-search-indexer-v2",
+    "SearchDataSourceName": "address-search-data-source-v2",
+    "SearchDataSourceQuery": "SELECT a.CustomerId, a.Address1, a.Postcode, a._ts FROM a WHERE a._ts >= @HighWaterMark Order By a._ts",
+    "CollectionId": "addresses",
+    "DatabaseId": "addresses"
+  },
+
+  "ContactDetailsSearchConfig": {
+    "SearchIndexerName": "contacts-search-indexer-v2",
+    "SearchDataSourceName": "contacts-search-data-source-v2",
+    "SearchDataSourceQuery": "SELECT c.CustomerId, c.EmailAddress, c.MobileNumber, c.HomeNumber, c.AlternativeNumber, c._ts  FROM c WHERE c._ts >= @HighWaterMark Order By c._ts",
+    "CollectionId": "contacts",
+    "DatabaseId": "contacts"
+  }
+
 }

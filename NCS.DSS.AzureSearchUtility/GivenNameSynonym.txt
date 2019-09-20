@@ -1,0 +1,1082 @@
+"erin, ronnie, ron, aaron \n " +
+"abby, abigail, abbie \n " +
+"abraham, abram, abe \n " +
+"bedney, abednego \n " +
+"ebbie, ab, abe, eb, abel \n " +
+"ab, abiel \n " +
+"gabby, abby, gail, abigail \n " +
+"ab, bige, abijah \n " +
+"ab, abner \n " +
+"ab, abe, abraham \n " +
+"ab, abram \n " +
+"app, ab, abbie, absalom \n " +
+"addy, ada \n " +
+"delia, lena, dell, addy, ada, adaline \n " +
+"edie, ade, adam \n " +
+"adele, addy \n " +
+"della, adela \n " +
+"heidi, adele, dell, addy, della, adelaide \n " +
+"del, albert, delbert, bert, adelbert \n " +
+"dell, adele \n " +
+"delia, lena, dell, addy, ada, adeline \n " +
+"philly, delphia, adele, dell, addy, adelphia \n " +
+"dolph, ado, adolph, adolphus \n " +
+"rian, adrian \n " +
+"adrian, adrienne \n " +
+"aggy, agatha \n " +
+"inez, aggy, nessa, agnes \n " +
+"lena, allie, aileen \n " +
+"albert, bert, alex, al \n " +
+"al, alan \n " +
+"al, lanson, alanson \n " +
+"al, alastair \n " +
+"ali, alazama \n " +
+"bert, al, albert \n " +
+"bert, allie, bertie, alberta \n " +
+"al, aldo \n " +
+"riche, rich, aldrich \n " +
+"levy, leve, aleva \n " +
+"alexandra, alexander, alex \n " +
+"alex, al, sandy, alexander \n " +
+"alex, sandy, alla, sandra, alexandra \n " +
+"drina, alexander, alla, sandra, alexandria \n " +
+"lexi, alexis \n " +
+"al, alfonse \n " +
+"freddy, al, fred, alfred \n " +
+"freddy, alfy, freda, frieda, alfreda \n " +
+"algy, algernon \n " +
+"lisa, elsie, allie, alice \n " +
+"lisa, elsie, allie, alicia \n " +
+"adeline, aline \n " +
+"ali, alison \n " +
+"al, allan \n " +
+"al, allen \n " +
+"allie, allisandra \n " +
+"mena, allie, almena \n " +
+"minnie, almina \n " +
+"myra, almira \n " +
+"lon, al, lonzo, alonzo \n " +
+"alphus, alphinias \n " +
+"virdie, vert, alverta \n " +
+"lissia, al, ally, alyssa \n " +
+"zada, alzada \n " +
+"mandy, manda, amanda \n " +
+"brose, ambrose \n " +
+"amy, mel, millie, emily, amelia \n " +
+"moses, amos \n " +
+"ana, stacy, anastasia \n " +
+"andy, anderson \n " +
+"drea, rea, andrew, andrea \n " +
+"andy, drew, andrew \n " +
+"andrew, drew, andy \n " +
+"angelica, angelina, angel, angeline, jane, angie, angela \n " +
+"lina, angelina \n " +
+"nana, nan, nancy, annie, nanny, ann \n " +
+"anne, ann, annie, anna \n " +
+"annie, nana, ann, nan, nanny, nancy, anne \n " +
+"anna, nettie, annette \n " +
+"ann, anna, annie \n " +
+"ansel, selma, anse, ance, anselm \n " +
+"tony, anthony \n " +
+"tony, netta, ann, antoinette \n " +
+"tony, netta, ann, antonia \n " +
+"appy, appie, appoline \n " +
+"quil, quillie, aquilla \n " +
+"belle, arry, ara \n " +
+"ara, bella, arry, belle, arabella \n " +
+"ara, bella, arry, belle, arabelle \n " +
+"armida, middie, ruminta, minty, araminta \n " +
+"archie, archibald \n " +
+"kill, killis, archilles \n " +
+"arie, ariadne \n " +
+"arie, arielle \n " +
+"telly, aristotle \n " +
+"onie, ona, arizona \n " +
+"arly, lena, arlene \n " +
+"mandy, armanda \n " +
+"mena, arry, armena \n " +
+"milly, armilda \n " +
+"mindie, arminda \n " +
+"minite, minnie, arminta \n " +
+"arnie, arnold \n " +
+"arthur, art \n " +
+"epsey, artelepsa \n " +
+"art, artemus \n " +
+"art, arthur \n " +
+"thursa, arthusa \n " +
+"zaddi, arzada \n " +
+"asa, asahel \n " +
+"asa, asaph \n " +
+"sene, assene, natty, asenath \n " +
+"bree, aubrey \n " +
+"dee, audrey \n " +
+"gus, august \n " +
+"tina, aggy, gatsy, gussie, augusta \n " +
+"tina, aggy, gatsy, gussie, augustina \n " +
+"gus, austin, august, augustine \n " +
+"gus, austin, august, augustus \n " +
+"ree, rilly, orilla, aurilla, ora, aurelia \n " +
+"rilla, avarilla \n " +
+"riah, aze, azariah \n " +
+"barby, bab \n " +
+"barby, barbara, bab, babs \n " +
+"barby, babs, bab, bobbie, barbara \n " +
+"barbara, barbery \n " +
+"barbara, barbie \n " +
+"barney, barnabas \n " +
+"barnabas, barney \n " +
+"bartholomew, bart \n " +
+"bartel, bat, meus, bart, mees, bartholomew \n " +
+"bart, barticus \n " +
+"basil, bazaleel \n " +
+"beatrice, bea \n " +
+"bea, trisha, trixie, trix, beatrice \n " +
+"beck, becca \n " +
+"becky, beck \n " +
+"delia, bridgit, bedelia \n " +
+"belle, linda, belinda \n " +
+"belle, arabella, isabella, bella \n " +
+"benjamin, bennie, ben \n " +
+"bennie, ben, benedict \n " +
+"benjy, jamie, bennie, ben, benjamin \n " +
+"benjamin, benjy \n " +
+"barney, bernie, berney, bernard \n " +
+"bernie, berney \n " +
+"bertie, bob, bobby, bert \n " +
+"bert, birdie, bertie, bertha \n " +
+"bert, bertram \n " +
+"bessie, bess \n " +
+"betsy, betty, elizabeth, beth \n " +
+"beth, thaney, bethena \n " +
+"bev, beverly \n " +
+"zeely, bezaleel \n " +
+"biddy, biddie \n " +
+"william, billy, robert, willie, fred, bill \n " +
+"william, robert, fred, billy \n " +
+"bea, blanche \n " +
+"rob, robert, bob \n " +
+"rob, bob, bobby \n " +
+"bo, boetius \n " +
+"bradford, ford, brad \n " +
+"ford, brad, bradford \n " +
+"brody, brady \n " +
+"brandy, brenda \n " +
+"bryan, bryant, brian \n " +
+"bridie, biddy, bridgie, biddie, bridget \n " +
+"britt, brittany \n " +
+"ricky, brody, brady, rick, broderick \n " +
+"calvin, cal \n " +
+"calliedona, caldonia \n " +
+"cal, caleb \n " +
+"callie, california \n " +
+"kissy, calista \n " +
+"cally, calpurnia \n " +
+"vin, vinny, cal, calvin \n " +
+"ron, cam, ronny, cameron \n " +
+"millie, cammie, camille \n " +
+"cam, campbell \n " +
+"candy, dacey, candace \n " +
+"lottie, carlotta \n " +
+"carl, carlton \n " +
+"mellia, carmellia \n " +
+"charm, cammie, carm, carmon \n " +
+"lynn, carrie, carolann, cassie, caroline, carole, carol \n " +
+"carol, carole, carolann \n " +
+"lynn, carol, carrie, cassie, carole, caroline \n " +
+"lynn, carrie, cassie, carolyn \n " +
+"cassie, carrie \n " +
+"etta, etty, carthaette \n " +
+"k.c., casey \n " +
+"jasper, casper \n " +
+"sandy, cassie, sandra, cassandra \n " +
+"cassandra, cassie \n " +
+"cass, caswell \n " +
+"kathy, katy, lena, kittie, kit, trina, cathy, kay, cassie, catherine \n " +
+"kathy, katy, lena, kittie, kit, trina, cathy, kay, cassie, cathleen \n " +
+"kathy, cathleen, catherine, cathy \n " +
+"cissy, celia, cecilia \n " +
+"ced, rick, ricky, cedric \n " +
+"lessie, celia, celeste \n " +
+"linda, lynn, lindy, celinda \n " +
+"chat, charity \n " +
+"charlie, chuck, carl, chick, charles \n " +
+"charles, chuck, charlie \n " +
+"char, sherry, lottie, lotta, charlotte \n " +
+"chan, chauncey \n " +
+"sher, cher \n " +
+"sheryl, cheryl \n " +
+"chet, chesley \n " +
+"chet, chester \n " +
+"chester, chet \n " +
+"charlotte, caroline, chuck, chick \n " +
+"clo, chloe \n " +
+"christina, christopher, christine, chris \n " +
+"chris, christa \n " +
+"chris, kit, christian \n " +
+"kris, kristy, ann, tina, christy, chris, crissy, christiana \n " +
+"kris, kristy, tina, christy, chris, crissy, christina \n " +
+"kris, kristy, chrissy, tina, chris, crissy, christine \n " +
+"chris, kit, christopher \n " +
+"crissy, christy \n " +
+"cilla, cicely \n " +
+"arilla, rella, cindy, rilla, cinderella \n " +
+"cinderlla, cindy \n " +
+"clair, clare, clara, claire \n " +
+"clarissa, clara \n " +
+"clara, clare \n " +
+"clare, clair, clarence \n " +
+"clara, clarinda \n " +
+"cissy, clara, clarissa \n " +
+"claud, claudia \n " +
+"cleat, cleatus \n " +
+"clem, clement \n " +
+"clement, clem, clementine \n " +
+"clifford, cliff, cliff \n " +
+"ford, cliff, clifford \n " +
+"tony, cliff, clifton \n " +
+"colie, cole \n " +
+"clum, columbus \n " +
+"conny, con \n " +
+"conny, con, conrad \n " +
+"connie, constance \n " +
+"cordy, delia, cordelia \n " +
+"coco, cordy, ree, corey \n " +
+"cora, ora, corinne \n " +
+"nelly, cornie, nelia, corny, nelle, cornelia \n " +
+"conny, niel, corny, con, cornelius \n " +
+"coco, cordy, ree, cory \n " +
+"curt, court, courtney \n " +
+"chris, tal, stal, crys, crystal \n " +
+"curtis, curt \n " +
+"curt, curtis \n " +
+"cyrus, cy \n " +
+"cintha, cindy, cynthia \n " +
+"swene, cy, serene, renius, cene, cyrenius \n " +
+"cy, cyrus \n " +
+"margaret, daisy \n " +
+"dahl, dal \n " +
+"dahl, dalton \n " +
+"danny, daniel, dan \n " +
+"dan, danny, daniel \n " +
+"ellie, dani, danielle \n " +
+"daniel, danny \n " +
+"daph, daphie, daphne \n " +
+"lena, darry, darlene \n " +
+"david, dave \n " +
+"david, davey \n " +
+"dave, day, davey, david \n " +
+"ann, dee, deanne \n " +
+"deborah, debra, deb \n " +
+"deb, debra, deborah, debby, debbie \n " +
+"deb, debby \n " +
+"deb, debbie, debby, debora \n " +
+"deb, debbie, debby, deborah \n " +
+"deb, debbie, debra \n " +
+"deedee, deidre \n " +
+"bert, del, delbert \n " +
+"fidelia, cordelia, delius, delia \n " +
+"lil, lila, dell, della, delilah \n " +
+"delly, dilly, della, deliverance \n " +
+"della, dell \n " +
+"adela, delilah, adelaide, della \n " +
+"lolly, lola, della, dee, dell, delores \n " +
+"philadelphia, delpha \n " +
+"delphi, del, delf, delphine \n " +
+"dea, maris, mary, demaris \n " +
+"dea, maris, mary, demerias \n " +
+"mock, democrates \n " +
+"dennis, denise \n " +
+"denny, dennis \n " +
+"denny, dennison \n " +
+"ricky, eric, rick, derrick \n " +
+"duty, deuteronomy \n " +
+"dicey, didi, di, diana \n " +
+"dicey, didi, di, diane \n " +
+"dicie, dicey \n " +
+"rick, richard, dick \n " +
+"dick, dickson \n " +
+"dom, domenic \n " +
+"dom, dominic \n " +
+"donald, don \n " +
+"dony, donnie, don, donny, donald \n " +
+"donald, donny, donnie \n " +
+"donald, donny \n " +
+"darkey, dorcus \n " +
+"dorothea, dora, dorinda \n " +
+"dora, doris \n " +
+"doda, dora, dorothea \n " +
+"dortha, dolly, dot, dotty, dorothy \n " +
+"dotty, dot \n " +
+"dotty, dotha \n " +
+"doug, douglas \n " +
+"andrew, drew \n " +
+"silla, drusilla \n " +
+"dunk, duncan \n " +
+"ernestine, ernie, earnest \n " +
+"ebbie, eb \n " +
+"ebbie, eben, eb, ebenezer \n " +
+"eddie, eddy, ed \n " +
+"eddy, eddie \n " +
+"ed, eddie, eddy, edgar \n " +
+"edie, edye, edith \n " +
+"ed, eddie, eddy, edmond \n " +
+"ed, eddie, ted, eddy, ned, edmund \n " +
+"edny, edna \n " +
+"ed, eddie, eddy, eduardo \n " +
+"teddy, ed, ned, ted, eddy, eddie, edward \n " +
+"ed, eddie, win, eddy, ned, edwin \n " +
+"edwin, edwina \n " +
+"edie, edye, edyth \n " +
+"edie, edye, edythe \n " +
+"bert, burt, egbert \n " +
+"athy, eighta \n " +
+"helen, eileen \n " +
+"lainie, helen, elaine \n " +
+"albert, elbert \n " +
+"elbert, bert, elbertson \n " +
+"lanna, nora, nelly, ellie, elaine, ellen, lenora, eleanor \n " +
+"lazar, eleazer \n " +
+"helen, elena \n " +
+"eli, lee, lias, elias \n " +
+"lige, eli, elijah \n " +
+"life, eliphalel \n " +
+"left, eliphalet \n " +
+"lisa, elisa \n " +
+"lish, eli, elisha \n " +
+"elizabeth, eliza \n " +
+"libby, lisa, lib, lizzie, eliza, betsy, liza, betty, bessie, bess, beth, liz, elizabeth \n " +
+"ellen, ella \n " +
+"nellie, nell, helen, ellen \n " +
+"nellie, ellen, helen, ellender \n " +
+"elly, ellie \n " +
+"elsey, ellswood \n " +
+"minnie, elminie \n " +
+"ellie, elly, mira, elmira \n " +
+"nora, elnora \n " +
+"heloise, louise, eloise \n " +
+"louise, elouise \n " +
+"elsey, elsie \n " +
+"elsey, elswood \n " +
+"elvie, elvira \n " +
+"woody, elwood \n " +
+"lisa, elysia \n " +
+"elsey, elze \n " +
+"manuel, manny, emanuel \n " +
+"em, emmy, emma, milly, emily, emeline \n " +
+"emily, emil \n " +
+"emmy, millie, emma, mel, emily \n " +
+"emmy, emma \n " +
+"dite, ditus, eppa, dyche, dyce, epaphroditius \n " +
+"eph, ephraim \n " +
+"raze, rasmus, erasmus \n " +
+"rick, ricky, eric \n " +
+"ernie, ernest \n " +
+"teeny, ernest, tina, erna, ernestine \n " +
+"irwin, erwin \n " +
+"senie, eseneth \n " +
+"es, essy \n " +
+"essy, stella, estella \n " +
+"essy, stella, estelle \n " +
+"hester, essie, esther \n " +
+"dicey, eudicy \n " +
+"dora, eudora \n " +
+"dossie, dosie, eudoris \n " +
+"gene, eugene \n " +
+"nicie, eunice \n " +
+"effie, effy, euphemia \n " +
+"dicey, eurydice \n " +
+"stacia, stacy, eustacia \n " +
+"eve, eva \n " +
+"eva, lena, eve, evaline \n " +
+"ev, evan, vangie, evangeline \n " +
+"evelina, ev, eve, evelyn \n " +
+"exie, experience \n " +
+"zeke, ez, ezekiel \n " +
+"ez, ezideen \n " +
+"ez, ezra \n " +
+"fay, faith \n " +
+"fel, felix, feli, felicia \n " +
+"flick, tick, felicity \n " +
+"felty, feltie \n " +
+"freddie, freddy, ferdie, fred, ferdinand \n " +
+"nando, ferdie, fred, ferdinando \n " +
+"delia, fidelia \n " +
+"florence, flo \n " +
+"florence, flora \n " +
+"flossy, flora, flo, florence \n " +
+"lloyd, floyd \n " +
+"frannie, fran \n " +
+"sis, cissy, frankie, franniey, fran, francie, frannie, fanny, frances \n " +
+"francine, francie \n " +
+"franniey, fran, frannie, francie, francine \n " +
+"fran, frankie, frank, francis \n " +
+"franklin, frank \n " +
+"frank, francis, frankie \n " +
+"fran, frank, franklin \n " +
+"frank, franklind \n " +
+"freddy, frederick, fred \n " +
+"frieda, freda \n " +
+"frederick, frederica \n " +
+"freddie, freddy, fritz, fred, frederick \n " +
+"freddy, ricka, freda, frieda, fredericka \n " +
+"freddie, freddy, fred, frieda \n " +
+"gabriella, gabe, gabrielle, gabby \n " +
+"gabriel, gabe \n " +
+"gabe, gabby, gabriel \n " +
+"ella, gabby, gabriella \n " +
+"ella, gabby, gabrielle \n " +
+"jean, eve, jenny, genevieve \n " +
+"geoffrey, jeffrey, jeff, geoff \n " +
+"geoff, jeff, geoffrey \n " +
+"jorge, georgiana, george \n " +
+"george, georgiana, georgia \n " +
+"gerry, jerry, gerald \n " +
+"gerry, gerrie, jerry, dina, geraldine \n " +
+"gay, gerhardt \n " +
+"geraldine, gerrie \n " +
+"gerald, geraldine, jerry, gerry \n " +
+"gertie, gert \n " +
+"gertrude, gertie \n " +
+"gertie, gert, trudy, gertrude \n " +
+"gilbert, gil \n " +
+"bert, gil, wilber, gilbert \n " +
+"glory, gloria \n " +
+"govie, governor \n " +
+"green, berry, greenberry \n " +
+"greg, gregory \n " +
+"margaret, gretchen \n " +
+"grissel, griselda \n " +
+"monty, gum \n " +
+"gussie, gus \n " +
+"gus, gustavus \n " +
+"gwendolyn, wendy, gwen \n " +
+"gwen, wendy, gwendolyn \n " +
+"ham, hamilton \n " +
+"nan, nanny, anna, hannah \n " +
+"hal, harry, harold \n " +
+"hattie, harriet \n " +
+"harold, henry, harry \n " +
+"hassie, haseltine \n " +
+"hetty, heather \n " +
+"lena, ella, ellen, ellie, helen \n " +
+"eileen, lena, nell, nellie, eleanor, elaine, ellen, aileen, helena \n " +
+"lena, ella, ellen, ellie, helene \n " +
+"lois, eloise, elouise, heloise \n " +
+"hank, etta, etty, retta, nettie, henrietta \n " +
+"hank, hal, harry, henry \n " +
+"hipsie, hephsibah \n " +
+"hipsie, hepsibah \n " +
+"herbert, herb \n " +
+"bert, herb, herbert \n " +
+"harman, dutch, herman \n " +
+"hermie, hermione \n " +
+"hessy, esther, hetty, hester \n " +
+"hy, hez, kiah, hezekiah \n " +
+"hy, hiram \n " +
+"honey, nora, norry, norah, honora \n " +
+"hopp, hop, hopkins \n " +
+"horry, horace \n " +
+"harty, tensey, hortense \n " +
+"hosey, hosie, hosea \n " +
+"hal, howie, howard \n " +
+"bert, hugh, hub, hubert \n " +
+"john, ian \n " +
+"natius, iggy, nate, nace, ignatius \n " +
+"naz, iggy, nace, ignatzio \n " +
+"manuel, emmanuel, immanuel \n " +
+"indie, indy, india \n " +
+"agnes, inez \n " +
+"onnie, iona \n " +
+"rena, irene \n " +
+"irving, irvin \n " +
+"irv, irving \n " +
+"erwin, irwin \n " +
+"ike, zeke, isaac \n " +
+"tibbie, bell, nib, belle, bella, nibby, ib, issy, isabel \n " +
+"tibbie, nib, belle, bella, nibby, ib, issy, isabella \n " +
+"tibbie, nib, belle, bella, nibby, ib, issy, isabelle \n " +
+"issy, dora, isadora \n " +
+"zadie, zay, isaiah \n " +
+"izzy, isidore \n " +
+"ivy, iva \n " +
+"john, ivan \n " +
+"jack, jackson \n " +
+"jaap, jake, jay, jacob \n " +
+"jacob, jacobus \n " +
+"jackie, jack, jacqueline \n " +
+"hody, hodie, hoda, jahoda \n " +
+"jimmy, jim, jamie, jimmie, jem, james \n " +
+"james, jamie \n " +
+"janie, jessie, jean, jennie, jane \n " +
+"jan, jessie, janet \n " +
+"jan, janice \n " +
+"nettie, jannett \n " +
+"jap, casper, jasper \n " +
+"jay, jayme \n " +
+"jane, jeannie, jean \n " +
+"jessie, jean, janet, nettie, jeanette \n " +
+"jane, jeannie, jeanne \n " +
+"jebadiah, jeb \n " +
+"dyer, jed, diah, jedediah \n " +
+"jed, jedidiah \n " +
+"geoffrey, jeffrey, jeff \n " +
+"jeff, jefferey \n " +
+"sonny, jeff, jefferson \n " +
+"geoff, jeff, jeffrey \n " +
+"hiel, jehiel \n " +
+"hugh, gee, jehu \n " +
+"mima, jemima \n " +
+"jessie, jenny, jennet \n " +
+"jennie, jennifer \n " +
+"jennifer, jenny \n " +
+"jereme, jerry, jeremiah \n " +
+"rita, jerita \n " +
+"jereme, geraldine, jerry \n " +
+"jessie, jessica \n " +
+"jane, jess, janet, jessie \n " +
+"jimmie, jim \n " +
+"jane, jincy \n " +
+"jane, jinsy \n " +
+"jo, nonie, joan \n " +
+"jo, joann \n " +
+"hannah, jody, jo, joan, joanna \n " +
+"jo, joanne \n " +
+"jo, jody \n " +
+"joseph, joey, joe \n " +
+"joseph, joey \n " +
+"jo, johanna \n " +
+"hannah, jody, joan, nonie, johannah \n " +
+"jonathan, john, johnny, johannes \n " +
+"jack, johnny, jock, john \n " +
+"john, nathan, jon \n " +
+"john, nathan, jonathan \n " +
+"jody, jos, joe, joey, joseph \n " +
+"fina, jody, jo, josey, joey, josephine \n " +
+"jettie, josetta \n " +
+"josophine, josey \n " +
+"joshua, josh \n " +
+"jos, josh, joshua \n " +
+"jos, josiah \n " +
+"joy, joyce \n " +
+"nita, nettie, juanita \n " +
+"juder, jude, judah \n " +
+"judie, juda, judy, judi, jude, judith \n " +
+"sonny, jud, judson \n " +
+"judith, judy \n " +
+"julie, jill, julia \n " +
+"jule, julian \n " +
+"jule, julias \n " +
+"julia, jule, julie \n " +
+"junius, june \n " +
+"junie, june, jr, junior \n " +
+"justus, justina, justin \n " +
+"karon, karen, carrie, happy, karonhappuck \n " +
+"k.c., kasey \n " +
+"catherine, tina, katarina \n " +
+"kay, kate \n " +
+"kay, kate, kaye, katelin \n " +
+"kay, kate, kaye, katelyn \n " +
+"kathy, katy, lena, kittie, kaye, kit, trina, cathy, kay, kate, cassie, katherine \n " +
+"kathy, katy, lena, kittie, kit, trina, cathy, kay, cassie, kathleen \n " +
+"kathy, kathryn \n " +
+"kathy, katy \n " +
+"kay, kayla \n " +
+"kenneth, ken \n " +
+"ken, kenny, kendall \n " +
+"kenj, kenji, kay, kenny, kendra \n " +
+"ken, kenny, kendrick \n " +
+"ken, kenny, kendrick, kenneth \n " +
+"ken, kenneth, kenny \n " +
+"ken, kenny, kendrick, kent \n " +
+"kizza, kizzie, keziah \n " +
+"kimberly, kimberley, kim \n " +
+"kim, kimberley \n " +
+"kim, kimberly \n " +
+"king, kingsley \n " +
+"king, kingston \n " +
+"kittie, kit \n " +
+"chris, kris \n " +
+"kris, kristel \n " +
+"chris, kristen \n " +
+"chris, kristin \n " +
+"kris, kristy, tina, christy, chris, crissy, kristine \n " +
+"chris, kris, kristopher \n " +
+"chris, kristy \n " +
+"laffie, fate, lafayette \n " +
+"monty, lamont \n " +
+"dicy, cenia, laodicia \n " +
+"laurence, lawrence, larry \n " +
+"ren, laurie, lauren \n " +
+"lorry, larry, lon, lonny, lorne, laurence \n " +
+"laura, lawrence, laurinda \n " +
+"laurie, lauryn \n " +
+"veda, laveda \n " +
+"vernon, verna, laverne \n " +
+"vina, viney, ina, lavina \n " +
+"vina, viney, ina, lavinia \n " +
+"vina, vonnie, wyncha, viney, lavonia \n " +
+"von, lavonne \n " +
+"lorry, larry, lon, lonny, lorne, lawrence \n " +
+"lea, annie, leanne \n " +
+"curg, lecurgus \n " +
+"lem, lemuel \n " +
+"ellen, lena \n " +
+"nora, lee, lenora \n " +
+"leon, leo \n " +
+"lineau, leo, leon, len, lenny, leonard \n " +
+"lee, leon, leonidas \n " +
+"nora, nell, nellie, leonora \n " +
+"nora, honor, elenor, leonore \n " +
+"roy, lee, l.r., leroy \n " +
+"lester, les \n " +
+"les, leslie \n " +
+"les, lester \n " +
+"tish, titia, lettice, lettie, letitia \n " +
+"lee, levi \n " +
+"vicy, levicy \n " +
+"von, levone \n " +
+"libby, lib \n " +
+"lyddy, lidia \n " +
+"lilly, lily, lil \n " +
+"lil, lilly, lily, lolly, lillah \n " +
+"lil, lilly, lolly, lillian \n " +
+"lily, lilly \n " +
+"link, lincoln \n " +
+"lindy, lynn, linda \n " +
+"lynn, lindy \n " +
+"leon, lionel \n " +
+"lizzie, alice, liz, melissa, lisa \n " +
+"little, berry, l.b., littleberry \n " +
+"elizabeth, liz \n " +
+"elizabeth, liz, lizzie \n " +
+"lou, louise, lois \n " +
+"lonzo, lon \n " +
+"loren, lorenzo \n " +
+"etta, lorrie, retta, loretta \n " +
+"lorrie, lorraine \n " +
+"lottie, lotta \n " +
+"louis, lu, lou \n " +
+"lewis, louise, louie, lou, louis \n " +
+"eliza, lou, lois, louisa \n " +
+"eliza, lou, lois, louise \n " +
+"vina, vonnie, wyncha, viney, louvinia \n " +
+"luke, lucas \n " +
+"lucy, lucius, lucia \n " +
+"luke, lucias \n " +
+"cille, lu, lucy, lou, lucille \n " +
+"sinah, lucina \n " +
+"lu, lucy, cindy, lou, lucinda \n " +
+"creasey, lucretia \n " +
+"lucinda, lucy \n " +
+"lula, ella, lu, luella \n " +
+"lucas, luke \n " +
+"nettie, lunetta \n " +
+"lura, lurana \n " +
+"luke, luther \n " +
+"lyddy, lydia \n " +
+"lindy, lynn, lyndon \n " +
+"mehitabel, amabel, mabel \n " +
+"mc, mac \n " +
+"mac, mc, mack \n " +
+"kenzy, mac, mack, mackenzie \n " +
+"madelyn, madeline, madge, maddy \n " +
+"maggie, lena, magda, maddy, madge, madeline \n " +
+"madeline, madelyn, madie \n " +
+"mattie, maddy, madison \n " +
+"maggie, lena, magdalena \n " +
+"lena, magda, madge, magdelina \n " +
+"hallie, mahala \n " +
+"mally, malachi \n " +
+"mac, mal, malc, malcolm \n " +
+"lindy, malinda \n " +
+"mandy, manda \n " +
+"amanda, mandy \n " +
+"minerva, nervie, eve, nerva, manerva \n " +
+"manuel, manny \n " +
+"noah, manoah \n " +
+"nonnie, manola \n " +
+"emanuel, manny, manuel \n " +
+"mark, marcus \n " +
+"maggie, meg, peg, midge, margy, margie, madge, peggy, maggy, marge, daisy, margery, gretta, rita, margaret \n " +
+"maggie, meg, peg, midge, margie, madge, peggy, marge, daisy, margery, gretta, rita, margaretta \n " +
+"maggie, meg, metta, midge, greta, megan, maisie, madge, marge, daisy, peggie, rita, margo, margarita \n " +
+"margery, margaret, margaretta, marge \n " +
+"marjorie, margie, margie \n " +
+"peggy, marguerite \n " +
+"marjorie, margy \n " +
+"mary, maria, mariah \n " +
+"marianna, marion, marian \n " +
+"mae, marie \n " +
+"mariah, mercy, polly, may, molly, mitzi, minnie, mollie, mae, maureen, marion, marie, mamie, mary, maria, marietta \n " +
+"mary, marilyn \n " +
+"mary, marion \n " +
+"rissa, marissa \n " +
+"margy, margie, marjorie \n " +
+"marcie, mary, marsha \n " +
+"marty, mattie, mat, patsy, patty, martha \n " +
+"marty, martin \n " +
+"tina, martina \n " +
+"tine, martine \n " +
+"marvin, marv \n " +
+"marv, marvin \n " +
+"mamie, molly, mae, polly, mitzi, mary \n " +
+"mattie, mat \n " +
+"tillie, patty, mathilda \n " +
+"tilly, maud, matty, matilda \n " +
+"mathew, matthew, matt \n " +
+"thys, matt, thias, mattie, matty, matthew \n " +
+"thys, matt, thias, matthias \n " +
+"middy, maud \n " +
+"mary, maureen \n " +
+"morey, maurice \n " +
+"mave, mavery \n " +
+"mave, mavine \n " +
+"max, maxine \n " +
+"mae, may \n " +
+"ken, kenna, meaka, mckenna \n " +
+"dora, medora \n " +
+"meg, megan \n " +
+"hetty, mitty, mabel, hitty, mehitabel \n " +
+"mellie, melanie \n " +
+"zadock, dick, melchizedek \n " +
+"linda, mel, lynn, mindy, lindy, melinda \n " +
+"lisa, mel, missy, milly, lissa, melissa \n " +
+"mellia, mellony \n " +
+"lodi, melody \n " +
+"mel, melvin \n " +
+"vina, melvina \n " +
+"merci, sadie, mercy, mercedes \n " +
+"mervin, merv \n " +
+"merv, mervyn \n " +
+"cage, micajah \n " +
+"micky, mike, micah, mick, michael \n " +
+"mickey, michelle \n " +
+"micky, mick \n " +
+"micky, mick, michael, mike \n " +
+"milly, mildred \n " +
+"missy, milly, millicent \n " +
+"minnie, minerva \n " +
+"wilhelmina, minnie \n " +
+"randy, mandy, mira, miranda \n " +
+"mimi, mitzi, mitzie, miriam \n " +
+"melissa, missy \n " +
+"mitchell, mitch \n " +
+"mitch, mitchell \n " +
+"mary, mittie, mitty, mitzi \n " +
+"mittie, mitty, mitzie \n " +
+"nettie, monet \n " +
+"monna, monnie, monica \n " +
+"monte, monteleon \n " +
+"monty, montesque \n " +
+"monty, gum, montgomery \n " +
+"lamont, monty \n " +
+"morey, morris \n " +
+"mort, mortimer \n " +
+"amos, mose, moss, moses \n " +
+"mur, muriel \n " +
+"myrt, myrti, mert, myrtle \n " +
+"nada, deedee, nadine \n " +
+"ann, nan, nanny, nancy \n " +
+"omi, naomi \n " +
+"nap, nappy, leon, napoleon \n " +
+"natty, nettie, natalie \n " +
+"tasha, nat, natasha \n " +
+"nate, nat, nathan \n " +
+"than, nathan, nate, nat, natty, nathaniel \n " +
+"nelly, nelle \n " +
+"nels, nelson \n " +
+"newton, newt \n " +
+"nick, claes, claas, nicholas \n " +
+"nik, nicholas, nick \n " +
+"nicholas, nickie \n " +
+"nick, nicodemus \n " +
+"nole, nikki, cole, nicole \n " +
+"nick, nik \n " +
+"nonie, nora \n " +
+"bert, norby, norbert \n " +
+"noel, nowell \n " +
+"dyer, obed, obie, diah, obadiah \n " +
+"obed, beda, beedy, biddie, obedience \n " +
+"obediah, obie \n " +
+"tave, tavia, octavia \n " +
+"odo, odell \n " +
+"nollie, livia, ollie, olive \n " +
+"ollie, oliver \n " +
+"nollie, livia, ollie, olivia \n " +
+"oliver, ollie \n " +
+"cyphorus, osaforus, syphorous, one, cy, osaforum, onicyphorous \n " +
+"rilly, ora, orilla \n " +
+"roland, orlando \n " +
+"phelia, orphelia \n " +
+"ozzy, ossy \n " +
+"ozzy, waldo, ossy, oswald \n " +
+"ode, ote, otis \n " +
+"oswald, ozzy \n " +
+"pam, pamela \n " +
+"dora, pandora \n " +
+"amelia, milly, melia, parmelia \n " +
+"teeny, parsuny, pasoonie, phenie, parthenia \n " +
+"patrick, pat, patricia, pat \n " +
+"pat, patty, patience \n " +
+"tricia, pat, patsy, patty, patricia \n " +
+"pate, peter, pat, patsy, paddy, patrick \n " +
+"patty, patsy \n " +
+"patricia, patty \n " +
+"polly, paula, pauline, paul \n " +
+"polly, lina, paula \n " +
+"polly, lina, paulina \n " +
+"polly, pauline \n " +
+"peggy, peg \n " +
+"perry, pelegrine \n " +
+"penny, penelope \n " +
+"percy, percival \n " +
+"perry, peregrine \n " +
+"melly, milly, mellie, permelia \n " +
+"nettie, pernetta \n " +
+"seph, sephy, persephone \n " +
+"peter, pete \n " +
+"pete, pate, peter \n " +
+"nellie, petronella \n " +
+"josephine, pheney \n " +
+"pherbia, ferbie, pheriba \n " +
+"phillip, philip, phil \n " +
+"delphia, philadelphia \n " +
+"fie, philander \n " +
+"leet, phil, philetus \n " +
+"linda, lynn, lindy, philinda \n " +
+"phil, philip \n " +
+"phoebe, penie, philipina \n " +
+"phil, phillip \n " +
+"delphia, philly \n " +
+"menaalmena, philomena \n " +
+"fifi, phoebe \n " +
+"pink, pinckney \n " +
+"ples, pleasant \n " +
+"pokey, pocahontas \n " +
+"humey, posthuma \n " +
+"scotty, scott, pres, prescott \n " +
+"prissy, cissy, cilla, priscilla \n " +
+"provy, providence \n " +
+"prue, prudy, prudence \n " +
+"prudence, prudy \n " +
+"shelly, rachel \n " +
+"rafa, rafaela \n " +
+"mona, ramona \n " +
+"dolph, randy, randolph \n " +
+"ralph, raphael \n " +
+"raymond, ray \n " +
+"ray, raymond \n " +
+"beck, becca, reba \n " +
+"beck, becca, reba, becky, rebecca \n " +
+"reggie, reg \n " +
+"reginald, reggie \n " +
+"reggie, gina, regina \n " +
+"reggie, naldo, reg, renny, reginald \n " +
+"leafa, relief \n " +
+"rube, reuben \n " +
+"reginald, reynold \n " +
+"rodie, rhoda \n " +
+"della, rhodella \n " +
+"rhynie, rhyna \n " +
+"rick, ricky, ricardo \n " +
+"dick, rick, riche, richard, rich \n " +
+"dick, dickon, dickie, dicky, rick, rich, ricky, richard \n " +
+"richard, richie \n " +
+"ricky, rick \n " +
+"dick, rich, ricky \n " +
+"hob, hobkin, dob, rob, bobby, dobbin, bob, robert \n " +
+"robbie, bert, bobbie, birdie, bertie, roberta \n " +
+"rod, erick, rickie, roderick \n " +
+"roge, bobby, hodge, rod, robby, rupert, robin, rodger \n " +
+"roge, bobby, hodge, rod, robby, rupert, robin, roger \n " +
+"rollo, lanny, orlando, rolly, roland \n " +
+"ronald, ronnie, ronny, ron \n " +
+"naldo, ron, ronny, ronald \n " +
+"ronald, ronnie \n " +
+"ronald, ronny \n " +
+"rose, rosa \n " +
+"belle, roz, rosa, rose, rosabel \n " +
+"belle, roz, rosa, rose, rosabella \n " +
+"linda, roz, rosa, rose, rosalinda \n " +
+"linda, roz, rosa, rose, rosalyn \n " +
+"ross, roscoe \n " +
+"rosie, rose \n " +
+"rose, ann, rosie, roz, roseann \n " +
+"rose, ann, rosie, roz, roseanna \n " +
+"ann, roseanne \n " +
+"sina, rosina \n " +
+"rox, roxie, roxane \n " +
+"roxie, rose, ann, roxanna \n " +
+"roxie, rose, ann, roxanne \n " +
+"rosalyn, roz \n " +
+"reuben, rube \n " +
+"dolph, rudy, olph, rolf, rudolph \n " +
+"dolph, rudy, olph, rolf, rudolphus \n " +
+"rudolph, rudy \n " +
+"russell, russ \n " +
+"russ, rusty, russell \n " +
+"russell, rusty \n " +
+"ry, ryan \n " +
+"brina, sabrina \n " +
+"loomie, salome \n " +
+"sal, salvador \n " +
+"sammy, samuel, sam \n " +
+"sammy, sam, mantha, samantha \n " +
+"samuel, sammy \n " +
+"sam, sampson \n " +
+"sam, samson \n " +
+"sammy, sam, samuel \n " +
+"myra, samyra \n " +
+"sandy, cassandra, sandra \n " +
+"sandra, sandy \n " +
+"sandy, sanford \n " +
+"sally, sadie, sarah \n " +
+"silla, sarilla \n " +
+"vannie, anna, savannah \n " +
+"scotty, sceeter, squat, scottie, scott \n " +
+"sebby, seb, sebastian \n " +
+"anselm, selma \n " +
+"rena, serena \n " +
+"rilla, serilla \n " +
+"see, morey, seymour \n " +
+"sha, shay, shaina \n " +
+"sha, shay, sharon \n " +
+"cecilia, sheila \n " +
+"shelly, sheldon \n " +
+"tony, shel, shelly, shelton \n " +
+"dan, danny, sher, sheridan \n " +
+"sher, sheryl \n " +
+"sherry, lee, shirl, shirley \n " +
+"sybill, sibbie, sibbell, sibbilla \n " +
+"syd, sid, sidney \n " +
+"sid, sigfired \n " +
+"sid, sigfrid \n " +
+"sig, sigismund \n " +
+"si, silas \n " +
+"liley, silence \n " +
+"vester, si, sly, vest, syl, silvester \n " +
+"si, sion, simeon \n " +
+"si, sion, simon \n " +
+"sylvester, sly \n " +
+"smitty, smith \n " +
+"crate, socrates \n " +
+"sal, salmon, sol, solly, saul, zolly, solomon \n " +
+"dre, sonnie, sondra \n " +
+"sophie, sophia \n " +
+"frona, sophia, fronia, sophronia \n " +
+"steve, stephan \n " +
+"stephen, stephie, annie, steph, stephanie \n " +
+"steve, steph, stephen \n " +
+"stephen, steven, steve \n " +
+"steve, steph, steven \n " +
+"stu, stuart \n " +
+"susie, susan, sue \n " +
+"sully, van, sullivan \n " +
+"sullivan, sully \n " +
+"hannah, susie, sue, sukey, suzie, susan \n " +
+"hannah, susie, sue, sukey, susannah \n " +
+"suzie, susie \n " +
+"suki, sue, susie, suzanne \n " +
+"sibbie, sybill \n " +
+"sid, sydney \n " +
+"sly, syl, sylvanus \n " +
+"sy, sly, vet, syl, vester, si, vessie, sylvester \n " +
+"tabitha, tabby \n " +
+"tabby, tabitha \n " +
+"tammy, tamarra \n " +
+"tanny, tanafra \n " +
+"tash, tashie, tasha \n " +
+"teddy, ted \n " +
+"tempy, temperance \n " +
+"terry, terence \n " +
+"terry, teresa \n " +
+"terence, terry \n " +
+"teresa, theresa, tess \n " +
+"teresa, theresa, tessa \n " +
+"thaddeus, thad \n " +
+"thad, thaddeus \n " +
+"theodore, theo \n " +
+"dora, theodora \n " +
+"theo, ted, teddy, theodore \n " +
+"theo, dosia, theodosius, theodosia \n " +
+"ophi, theophilus \n " +
+"otha, theotha \n " +
+"tessie, thirza, tessa, terry, tracy, tess, thursa, theresa \n " +
+"thomas, tommy, tom, thom \n " +
+"thom, tommy, tom, thomas \n " +
+"tamzine, thomasa \n " +
+"tiff, tiffy, tiffany \n " +
+"tillie, tilford \n " +
+"timothy, timmy, tim \n " +
+"timothy, timmy \n " +
+"tim, timmy, timothy \n " +
+"christina, tina \n " +
+"bias, toby, tobias \n " +
+"thomas, tommy, tom \n " +
+"thomas, tommy \n " +
+"anthony, tony \n " +
+"trannie, quilla, tranquilla \n " +
+"patricia, trisha \n " +
+"trixie, trix \n " +
+"gertrude, trudy \n " +
+"phena, tryphena \n " +
+"eunice, nicie, unice \n " +
+"riah, uriah \n " +
+"sulie, sula, ursula \n " +
+"felty, vallie, val, valentina \n " +
+"felty, valentine \n " +
+"val, valeri \n " +
+"val, valerie \n " +
+"buren, vanburen \n " +
+"vannie, vandalia \n " +
+"essa, vanna, nessa, vanessa \n " +
+"nicey, vernisee \n " +
+"vonnie, ron, ronna, ronie, frony, franky, ronnie, veronica \n " +
+"vicki, victor, vicky, vic \n " +
+"vicky, victoria, vicki \n " +
+"victoria, vickie \n " +
+"victoria, vicky \n " +
+"vic, victor \n " +
+"torie, vic, vicki, tory, vicky, victoria \n " +
+"vinny, vin \n " +
+"vinnie, vince \n " +
+"vic, vince, vinnie, vin, vinny, vincent \n " +
+"vic, vinnie, vin, vinny, vincenzo \n " +
+"vinny, vinson \n " +
+"ola, vi, viola \n " +
+"lettie, violetta \n " +
+"jane, jennie, ginny, virgy, ginger, virginia \n " +
+"vi, viv, vivian \n " +
+"ozzy, ossy, waldo \n " +
+"wally, wallace \n " +
+"walt, wally \n " +
+"wally, walt, walter \n " +
+"wash, washington \n " +
+"webb, webster \n " +
+"wen, wendy \n " +
+"will, bert, wilber \n " +
+"willy, willie, wilbur \n " +
+"willie, wilda \n " +
+"will, willie, fred, wilfred \n " +
+"mina, wilma, willie, minnie, wilhelmina \n " +
+"bill, willie, wilbur, fred, will \n " +
+"willy, bell, bela, bill, will, billy, willie, william \n " +
+"william, fred, willie \n " +
+"willy, bill, willis \n " +
+"william, billiewilhelm, wilma \n " +
+"will, willy, willie, wilson \n " +
+"field, winny, win, winfield \n " +
+"freddie, winnie, winnet, winifred \n " +
+"winnifred, winnie \n " +
+"freddie, freddy, winny, winnie, fred, winnifred \n " +
+"winnifred, winny \n " +
+"wint, winton \n " +
+"woody, wood, drew, woodrow \n " +
+"onie, ona, yeona \n " +
+"lan, yul, yulan \n " +
+"vonna, yvonne \n " +
+"zachariah, zach \n " +
+"zachy, zach, zeke, zachariah \n " +
+"zeb, zebedee \n " +
+"dyer, zed, diah, zedediah \n " +
+"zeph, zephaniah, \n "

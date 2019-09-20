@@ -1,18 +1,15 @@
 using System;
 using System.Net;
-using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Azure.Search;
-using Microsoft.Azure.Search.Models;
-using Microsoft.Rest.Azure;
-using NCS.DSS.AzureSearchUtilities.Helpers;
-using NCS.DSS.AzureSearchUtilities.Models;
+using NCS.DSS.AzureSearchUtility.CreateIndexer;
+using NCS.DSS.AzureSearchUtility.Helpers;
+using NCS.DSS.AzureSearchUtility.Models;
 
-namespace NCS.DSS.AzureSearchUtilities.CreateIndex
+namespace NCS.DSS.AzureSearchUtility.CreateIndex
 {
     public class CreateCustomerSearchIndex
     {
-        public async Task CreateIndex(string searchAdminKey, string cosmosConnectionString, SearchConfig searchConfig)
+        public async Task CreateIndex(string searchAdminKey, SearchConfig searchConfig, string synonymPath)
         {
 
             Console.WriteLine("{0}", "Retrieving Search Service\n");
@@ -23,97 +20,94 @@ namespace NCS.DSS.AzureSearchUtilities.CreateIndex
                 throw new WebException("Unable to find Search Service");
             }
 
-            Console.WriteLine("{0}", "Deleting Index...\n");
-            SearchHelper.DeleteIndexIfExists(searchConfig.CustomerSearchIndexName);
+            Console.WriteLine("{0}", "Deleting Customer Search Index...\n");
+            SearchHelper.DeleteIndexIfExists(searchConfig.SearchIndexName);
 
-            Console.WriteLine("{0}", "Creating Index Model...\n");
-            var indexModelForCustomer = IndexModelHelper.CreateIndexModelForCustomer(searchConfig.CustomerSearchIndexName);
+            Console.WriteLine("{0}", "Creating Customer Search Index Model...\n");
+            var indexModelForCustomer = IndexModelHelper.CreateIndexModelForCustomer(searchConfig.SearchIndexName);
 
             if (indexModelForCustomer == null)
             {
                 Console.WriteLine("Unable to create Index Model");
-                throw new Exception("Unable to create Index Model");
+                throw new NullReferenceException("indexModelForCustomer");
             }
 
-            Console.WriteLine("{0}", "Creating Index...\n");
+            Console.WriteLine("{0}", "Attempting to Create Customer Synonym Map...\n");
+            IndexModelHelper.AddSynonymMapsToFields(indexModelForCustomer);
+
+            Console.WriteLine("{0}", "Add Customer Synonym Map to service client...\n");
+            SearchHelper.UploadSynonymsForGivenName(synonymPath);
+
+            Console.WriteLine("{0}", "Creating Index for Customer Search...\n");
             SearchHelper.CreateIndex(indexModelForCustomer);
 
-            Console.WriteLine("{0}", "Creating Data Source object...\n");
-            var dataSource = DataSourceHelper.CreateDataSource(searchConfig.CustomerSearchDataSourceQuery, searchConfig.CustomerCollectionId,
-                searchConfig.CustomerSearchIndexName, searchConfig.CustomerSearchDataSourceName, cosmosConnectionString);
-
             try
             {
-                Console.WriteLine("{0}", "Attempting to Create/Update Data Source...\n");
-                await azureSearchService.DataSources.CreateOrUpdateWithHttpMessagesAsync(dataSource);
+
+                Console.WriteLine("{0}", "Attempting to Create Customer Indexer...\n");
+                var response = await CreateCustomerIndexer.RunCreateCustomerIndexer(searchAdminKey, searchConfig, indexModelForCustomer);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("{0}", "Successfully Created Customer Indexer...\n");
+                }
+                else
+                {
+                    Console.WriteLine("{0}", "Error Creating Customer Indexer...\n");
+                    return;
+                }
+
             }
-            catch (CloudException e)
+            catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                Console.WriteLine("{0} Error: {1}", "Error Creating Customer Indexer...\n", e);
                 throw;
             }
 
-            Indexer indexer;
-
             try
             {
-                Console.WriteLine("{0}", "Attempting to Create Indexer...\n");
-                indexer = IndexerHelper.CreateIndexer(azureSearchService, searchConfig.CustomerSearchIndexerName, indexModelForCustomer, searchConfig.CustomerSearchDataSourceName);
+
+                Console.WriteLine("{0}", "Attempting to Create Address Indexer...\n");
+                var response = await CreateAddressIndexer.RunCreateAddressIndexer(searchAdminKey, searchConfig, indexModelForCustomer);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("{0}", "Successfully Created Address Indexer...\n");
+                }
+                else
+                {
+                    Console.WriteLine("{0}", "Error Creating Address Indexer...\n");
+                    return;
+                }
 
             }
-            catch (CloudException e)
+            catch (Exception e)
             {
-                Console.WriteLine("{0}{1}", "Unable to Create Indexer...\n", e);
+                Console.WriteLine("{0} Error: {1}", "Error Creating Address Indexer...\n", e);
                 throw;
             }
 
-            Console.WriteLine("{0}", "Run Indexer...\n");
             try
             {
-                azureSearchService.Indexers.Run(indexer.Name);
+
+                Console.WriteLine("{0}", "Attempting to Create Contact Details Indexer...\n");
+                var response = await CreateContactDetailsIndexer.RunCreateContactDetailsIndexer(searchAdminKey, searchConfig, indexModelForCustomer);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("{0}", "Successfully Created Contact Details Indexer...\n");
+                }
+                else
+                {
+                    Console.WriteLine("{0}", "Error Creating Contact Details Indexer...\n");
+                    return;
+                }
+
             }
-            catch (CloudException e)
+            catch (Exception e)
             {
-                Console.WriteLine("{0} {1}", "Unable to get data for the Indexer...\n", e);
+                Console.WriteLine("{0} Error: {1}", "Error Creating Contact Details Indexer...\n", e);
                 throw;
-            }
-
-            var running = true;
-            Console.WriteLine("{0}", "Synchronization running...\n");
-            while (running)
-            {
-                IndexerExecutionInfo status = null;
-
-                try
-                {
-                    status = azureSearchService.Indexers.GetStatus(indexer.Name);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error polling for indexer status: {0}", ex.Message);
-                    throw;
-                }
-
-                var lastResult = status.LastResult;
-                if (lastResult != null)
-                {
-                    switch (lastResult.Status)
-                    {
-                        case IndexerExecutionStatus.Reset:
-                        case IndexerExecutionStatus.InProgress:
-                            Console.WriteLine("{0} Status: {1}, Item Count: {2}", "Synchronization running...\n", lastResult.Status, lastResult.ItemCount);
-                            Thread.Sleep(1000);
-                            break;
-                        case IndexerExecutionStatus.Success:
-                            running = false;
-                            Console.WriteLine("Synchronized {0} rows...\n", lastResult.ItemCount.ToString());
-                            break;
-                        default:
-                            running = false;
-                            Console.WriteLine("Synchronization failed: {0}\n", lastResult.ErrorMessage);
-                            break;
-                    }
-                }
             }
 
             Console.WriteLine("{0} Status: {1}", "Completed... ", HttpStatusCode.Created);
