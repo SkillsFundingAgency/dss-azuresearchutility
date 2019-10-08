@@ -24,7 +24,7 @@
             }
             else
             {
-                return givenNameMatch.Groups[1].Value.;
+                return givenNameMatch.Groups[1].Value;
             }
         }" />
         <set-variable name="familyName" value="@{
