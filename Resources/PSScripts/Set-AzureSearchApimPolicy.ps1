@@ -111,7 +111,7 @@ elseif (!$PrimaryKey -and !$SecondaryKey){
 }
 else {
 
-    throw "Error, both primary and secondary keys exist"
+    throw "Error, both primary and secondary keys exist.  Manually delete the key that's not in use and redeploy."
 
 }
 
