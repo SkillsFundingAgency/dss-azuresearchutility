@@ -55,7 +55,7 @@ function Set-AzureSearchApimPolicyKey {
     }
     else {
 
-        throw "KeyToReplace parameter is not a valid value, must be either 'primary' or 'seconday'."
+        throw "KeyToReplace parameter is not a valid value, must be either 'primary' or 'secondary'."
 
     }
 
@@ -63,6 +63,7 @@ function Set-AzureSearchApimPolicyKey {
     $NewQueryKey = New-AzSearchQueryKey -Name "$QueryKeyBaseName-$KeyToCreate" -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-sch"
 
     # tokenise policy with new key
+    Write-Verbose -Message "Tokenising Apim policy file ..."
     $ApimPolicyXml = Get-Content -Path $PolicyFilePath
     $ApimPolicyXml = $ApimPolicyXml.Replace("__SearchQueryKey__", $NewQueryKey.Key)
     Set-Content -Path $PolicyFilePath -Value $ApimPolicyXml
@@ -70,6 +71,7 @@ function Set-AzureSearchApimPolicyKey {
     # apply policy
     $Context = New-AzApiManagementContext -ResourceGroupName "dss-$Environment-shared-rg" -ServiceName "dss-$Environment-shared-apim"
     $ApiId = "search-$DssApiVersion"
+    Write-Verbose -Message "Setting Apim policy ..."
     Set-AzApiManagementPolicy -Context $Context -Format application/vnd.ms-azure-apim.policy.raw+xml -ApiId $ApiId -PolicyFilePath $PolicyFilePath  -Verbose
 
     if ($KeyToDelete -ne "none") {
