@@ -16,7 +16,7 @@
         }" />
         <!-- TO DO: test for multiple matches of GivenName and FamilyName -->
         <set-variable name="givenName" value="@{
-            Regex givenNameRx = new Regex(@"GivenName:(.*?\*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            Regex givenNameRx = new Regex(@"GivenName:\s*(.*?\*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             Match givenNameMatch = givenNameRx.Match(context.Variables.GetValueOrDefault<String>("searchString"));
             if (givenNameMatch.Groups[0].Value == "")
             {
@@ -28,7 +28,7 @@
             }
         }" />
         <set-variable name="familyName" value="@{
-            Regex familyNameRx = new Regex(@"FamilyName:(.*?\*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            Regex familyNameRx = new Regex(@"FamilyName:\s*(.*?\*)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             Match familyNameMatch = familyNameRx.Match(context.Variables.GetValueOrDefault<String>("searchString"));
             if (familyNameMatch.Groups[0].Value == "")
             {
