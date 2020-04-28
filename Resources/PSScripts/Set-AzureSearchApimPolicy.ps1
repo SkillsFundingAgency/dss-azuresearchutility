@@ -9,28 +9,6 @@ param(
     $PolicyFilePath
 )
 
-function Use-PowerShellModule {
-    param(
-        [Parameter(Mandatory=$true)]    
-        $ModuleName
-    )
-
-    if((Get-Module $ModuleName)) {
-
-        Write-Verbose "Importing $ModuleName module"
-        Import-Module $ModuleName
-    
-    }
-    else {
-    
-        Write-Verbose "Installing $ModuleName module for current user"
-        Install-Module -Name $ModuleName -Scope CurrentUser -AllowClobber
-        Write-Verbose "Importing $ModuleName module"
-        Import-Module $ModuleName
-    
-    }
-}
-
 function Set-AzureSearchApimPolicyKey {
     param(
         [Parameter(Mandatory=$true)]
@@ -82,9 +60,6 @@ function Set-AzureSearchApimPolicyKey {
     }
 
 }
-
-Use-PowerShellModule -ModuleName "Az.Search"
-Use-PowerShellModule -ModuleName "Az.ApiManagement"
 
 $QueryKeyBaseName = "dss-$($Environment.ToLower())-searchapimapi-qk"
 
