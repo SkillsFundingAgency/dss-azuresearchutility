@@ -16,7 +16,7 @@
   "AddressSearchConfig": {
     "SearchIndexerName": "address-search-indexer-v2",
     "SearchDataSourceName": "address-search-data-source-v2",
-    "SearchDataSourceQuery": "SELECT a.CustomerId, a.Address1, a.Postcode, a._ts FROM a WHERE a._ts >= @HighWaterMark Order By a._ts",
+    "SearchDataSourceQuery": "SELECT a.CustomerId, a.Address1, a.PostCode, a._ts FROM a WHERE a._ts >= @HighWaterMark Order By a._ts",
     "CollectionId": "addresses",
     "DatabaseId": "addresses"
   },
