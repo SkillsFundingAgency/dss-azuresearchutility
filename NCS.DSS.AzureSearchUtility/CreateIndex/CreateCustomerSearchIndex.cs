@@ -48,7 +48,7 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndex
                 Console.WriteLine("{0}", "Deleting Customer Indexer...\n");
                 if (await azureSearchService.Indexers.ExistsAsync(searchConfig.CustomerSearchConfig.SearchIndexerName))
                 {
-                    await azureSearchService.Indexers.ExistsAsync(searchConfig.CustomerSearchConfig.SearchIndexerName);
+                    await azureSearchService.Indexers.DeleteAsync(searchConfig.CustomerSearchConfig.SearchIndexerName);
                 }
 
             }
@@ -87,7 +87,7 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndex
                 Console.WriteLine("{0}", "Deleting Address Indexer...\n");
                 if (await azureSearchService.Indexers.ExistsAsync(searchConfig.AddressSearchConfig.SearchIndexerName))
                 {
-                    await azureSearchService.Indexers.ExistsAsync(searchConfig.AddressSearchConfig.SearchIndexerName);
+                    await azureSearchService.Indexers.DeleteAsync(searchConfig.AddressSearchConfig.SearchIndexerName);
                 }
             }
             catch (Exception e)
@@ -125,7 +125,7 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndex
                 Console.WriteLine("{0}", "Deleting Contact Search Details Indexer...\n");
                 if (await azureSearchService.Indexers.ExistsAsync(searchConfig.ContactDetailsSearchConfig.SearchIndexerName))
                 {
-                    await azureSearchService.Indexers.ExistsAsync(searchConfig.ContactDetailsSearchConfig.SearchIndexerName);
+                    await azureSearchService.Indexers.DeleteAsync(searchConfig.ContactDetailsSearchConfig.SearchIndexerName);
                 }
 
             }
