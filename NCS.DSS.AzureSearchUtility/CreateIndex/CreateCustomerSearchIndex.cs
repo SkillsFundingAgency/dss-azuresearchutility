@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.Azure.Search;
 using NCS.DSS.AzureSearchUtility.CreateIndexer;
 using NCS.DSS.AzureSearchUtility.Helpers;
 using NCS.DSS.AzureSearchUtility.Models;
@@ -44,6 +45,23 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndex
             try
             {
 
+                Console.WriteLine("{0}", "Deleting Customer Indexer...\n");
+                if (await azureSearchService.Indexers.ExistsAsync(searchConfig.CustomerSearchConfig.SearchIndexerName))
+                {
+                    await azureSearchService.Indexers.DeleteAsync(searchConfig.CustomerSearchConfig.SearchIndexerName);
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("{0} Error: {1}", "Error Deleting Customer Indexer...\n", e);
+                throw;
+            }
+
+
+            try
+            {
+
                 Console.WriteLine("{0}", "Attempting to Create Customer Indexer...\n");
                 var response = await CreateCustomerIndexer.RunCreateCustomerIndexer(searchAdminKey, searchConfig, indexModelForCustomer);
 
@@ -61,6 +79,20 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndex
             catch (Exception e)
             {
                 Console.WriteLine("{0} Error: {1}", "Error Creating Customer Indexer...\n", e);
+                throw;
+            }
+
+            try
+            {
+                Console.WriteLine("{0}", "Deleting Address Indexer...\n");
+                if (await azureSearchService.Indexers.ExistsAsync(searchConfig.AddressSearchConfig.SearchIndexerName))
+                {
+                    await azureSearchService.Indexers.DeleteAsync(searchConfig.AddressSearchConfig.SearchIndexerName);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("{0} Error: {1}", "Error Deleting Address Indexer...\n", e);
                 throw;
             }
 
@@ -84,6 +116,22 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndex
             catch (Exception e)
             {
                 Console.WriteLine("{0} Error: {1}", "Error Creating Address Indexer...\n", e);
+                throw;
+            }
+
+            try
+            {
+
+                Console.WriteLine("{0}", "Deleting Contact Search Details Indexer...\n");
+                if (await azureSearchService.Indexers.ExistsAsync(searchConfig.ContactDetailsSearchConfig.SearchIndexerName))
+                {
+                    await azureSearchService.Indexers.DeleteAsync(searchConfig.ContactDetailsSearchConfig.SearchIndexerName);
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("{0} Error: {1}", "Error Deleting Contact Details Indexer...\n", e);
                 throw;
             }
 
