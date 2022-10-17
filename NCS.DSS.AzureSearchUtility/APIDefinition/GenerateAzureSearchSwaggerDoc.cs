@@ -313,7 +313,7 @@ namespace NCS.DSS.AzureSearchUtility.APIDefinition
             var eoTop = new ExpandoObject();
             var opTopParam = (IDictionary<string, object>) eoTop;
             opTopParam.Add("in", "query");
-            opTopParam.Add("name", "&$top");
+            opTopParam.Add("name", "$top");
             opTopParam.Add("required", false);
             opTopParam.Add("description", "The number of search results to retrieve.");
             opTopParam.Add("x-example", "100");
@@ -323,7 +323,7 @@ namespace NCS.DSS.AzureSearchUtility.APIDefinition
             dynamic eoSearch = new ExpandoObject();
             var opSearchParam = (IDictionary<string, object>) eoSearch;
             opSearchParam.Add("in", "query");
-            opSearchParam.Add("name", "&search");
+            opSearchParam.Add("name", "search");
             opSearchParam.Add("required", false);
 
             opSearchParam.Add("description", "The text to search for. All searchable fields are searched by default unless searchFields is specified. " +
@@ -338,7 +338,7 @@ namespace NCS.DSS.AzureSearchUtility.APIDefinition
             dynamic eoFilter = new ExpandoObject();
             var opFilterParam = (IDictionary<string, object>) eoFilter;
             opFilterParam.Add("in", "query");
-            opFilterParam.Add("name", "&$filter");
+            opFilterParam.Add("name", "$filter");
             opFilterParam.Add("required", false);
             opFilterParam.Add("description", "A structured search expression in standard OData syntax. To search DOB you need to preform a filter on the index. \n");
 
@@ -349,7 +349,7 @@ namespace NCS.DSS.AzureSearchUtility.APIDefinition
             dynamic eoOrderBy = new ExpandoObject();
             var opOrderByParam = (IDictionary<string, object>) eoOrderBy;
             opOrderByParam.Add("in", "query");
-            opOrderByParam.Add("name", "&$orderby");
+            opOrderByParam.Add("name", "$orderby");
             opOrderByParam.Add("required", false);
             opOrderByParam.Add("description", "A list of comma-separated expressions to sort the results by.");
             opOrderByParam.Add("x-example", "GivenName");
@@ -359,7 +359,7 @@ namespace NCS.DSS.AzureSearchUtility.APIDefinition
             dynamic eoSelect = new ExpandoObject();
             var opSelectParam = (IDictionary<string, object>) eoSelect;
             opSelectParam.Add("in", "query");
-            opSelectParam.Add("name", "&$select");
+            opSelectParam.Add("name", "$select");
             opSelectParam.Add("required", false);
             opSelectParam.Add("description", "A list of comma-separated fields to include in the result set.");
             opSelectParam.Add("x-example", "CustomerId, GivenName, FamilyName");
@@ -369,7 +369,7 @@ namespace NCS.DSS.AzureSearchUtility.APIDefinition
             dynamic eoSkip = new ExpandoObject();
             var opSkipParam = (IDictionary<string, object>) eoSkip;
             opSkipParam.Add("in", "query");
-            opSkipParam.Add("name", "&$skip");
+            opSkipParam.Add("name", "$skip");
             opSkipParam.Add("required", false);
             opSkipParam.Add("description", "The number of search results to skip.");
             opSkipParam.Add("x-example", "100");
