@@ -7,7 +7,7 @@ namespace NCS.DSS.AzureSearchUtility.Helpers
 {
     public static class IndexerHelper
     {
-        public static Indexer CreateIndexer(SearchServiceClient searchService, Index index, string indexerName, string dataSourceName, List<FieldMapping> fieldMappings)
+        public static Indexer CreateIndexer(SearchServiceClient searchService, Microsoft.Azure.Search.Models.Index index, string indexerName, string dataSourceName, List<FieldMapping> fieldMappings)
         {
             if (searchService == null)
                 return null;

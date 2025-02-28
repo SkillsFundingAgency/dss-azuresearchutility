@@ -14,7 +14,7 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndexer
 {
     public static class CreateAddressIndexer
     {
-        public static async Task<HttpResponseMessage> RunCreateAddressIndexer(string searchAdminKey, SearchConfig searchConfig, Index customerSearchIndex)
+        public static async Task<HttpResponseMessage> RunCreateAddressIndexer(string searchAdminKey, SearchConfig searchConfig, Microsoft.Azure.Search.Models.Index customerSearchIndex)
         {
             Console.WriteLine("{0}", "Retrieving Search Service for Address Indexer\n");
             var azureSearchService = SearchHelper.GetSearchServiceClient(searchConfig.SearchServiceName, searchAdminKey);

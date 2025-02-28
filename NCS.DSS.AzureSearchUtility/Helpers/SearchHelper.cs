@@ -77,7 +77,7 @@ namespace NCS.DSS.AzureSearchUtility.Helpers
             _serviceClient.SynonymMaps.CreateOrUpdate(synonymMap);
         }
 
-        public static void CreateIndex(Index index)
+        public static void CreateIndex(Microsoft.Azure.Search.Models.Index index)
         {
             _serviceClient?.Indexes?.Create(index);
         }
