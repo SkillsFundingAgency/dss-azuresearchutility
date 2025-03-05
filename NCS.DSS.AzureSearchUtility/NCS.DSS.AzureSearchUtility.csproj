@@ -15,16 +15,15 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Azure.Core" Version="1.45.0" />
     <PackageReference Include="Azure.Search.Documents" Version="11.6.0" />
     <PackageReference Include="DFC.Swagger.Standard" Version="0.1.35" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.20" />
-    <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure" Version="3.3.19" />
-    <PackageReference Include="Microsoft.Spatial" Version="7.5.4" />
+    <PackageReference Include="Microsoft.Spatial" Version="8.2.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-    <PackageReference Include="System.Net.Http.WinHttpHandler" Version="8.0.2" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+    <PackageReference Include="System.Net.Http.WinHttpHandler" Version="9.0.2" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.2" />
   </ItemGroup>
 </Project>
