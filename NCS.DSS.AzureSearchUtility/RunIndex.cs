@@ -1,13 +1,13 @@
-﻿using System;
-using System.IO;
-using NCS.DSS.AzureSearchUtility.CreateIndex;
+﻿using NCS.DSS.AzureSearchUtility.CreateIndex;
 using NCS.DSS.AzureSearchUtility.Helpers;
 using NCS.DSS.AzureSearchUtility.Models;
 using Newtonsoft.Json;
+using System;
+using System.IO;
 
 namespace NCS.DSS.AzureSearchUtility
 {
-    public class RunIndex
+    public static class RunIndex
     {
         /// <param name="args"> Command line arguments: /SearchAdminKey:blah /SearchConfigFile:pathtoblah /EnvironmentName:AT</param>
         public static void Main(string[] args)
@@ -18,7 +18,9 @@ namespace NCS.DSS.AzureSearchUtility
             var synonymPath = string.Empty;
 
             if (args.Length == 0)
+            {
                 throw (new NotSupportedException("Missing arguments"));
+            }
 
             foreach (var arg in args)
             {
@@ -40,21 +42,29 @@ namespace NCS.DSS.AzureSearchUtility
                 }
                 else
                 {
-                    throw (new NotSupportedException(string.Format("Argument: {0} is invalid", arg)));
+                    throw (new NotSupportedException($"Argument: {arg} is invalid"));
                 }
             }
 
             if (string.IsNullOrEmpty(searchAdminKey))
-                throw new ArgumentNullException("Check /SearchAdminKey: has a valid value");
+            {
+                throw new ArgumentNullException(searchAdminKey);
+            }
 
             if (string.IsNullOrEmpty(searchConfigFile))
-                throw new ArgumentNullException("Check /SearchConfigFile: is a valid path");
+            {
+                throw new ArgumentNullException(searchConfigFile);
+            }
 
             if (string.IsNullOrEmpty(environmentName))
-                throw new ArgumentNullException("Check /EnvironmentName: is supplied");
+            {
+                throw new ArgumentNullException(environmentName);
+            }
 
             if (string.IsNullOrEmpty(synonymPath))
-                throw new ArgumentNullException("Check /SynonymPath: is supplied");
+            {
+                throw new ArgumentNullException(synonymPath);
+            }
 
             var searchConfig = RunIndex.GetAppConfig(searchConfigFile);
 
@@ -63,26 +73,24 @@ namespace NCS.DSS.AzureSearchUtility
             Console.WriteLine("Generate Swagger File Name");
             var fileName = FileHelper.GenerateSwaggerFileName(environmentName);
 
-            Console.WriteLine(string.Format("Generate File Path for Swagger Doc:{0}", fileName));
+            Console.WriteLine($"Generate File Path for Swagger Doc:{fileName}");
             var destPath = FileHelper.GenerateFilePath(fileName);
 
             Console.WriteLine("Generating Swagger Doc");
             var swaggerDoc = APIDefinition.GenerateAzureSearchSwaggerDoc.GenerateSwaggerDoc(searchConfig.SearchServiceName);
 
-            Console.WriteLine(string.Format("Generate File for Swagger Doc: {0}", destPath));
+            Console.WriteLine($"Generate File for Swagger Doc: {destPath}");
             FileHelper.GenerateFileOnServer(destPath, swaggerDoc);
         }
 
         private static SearchConfig GetAppConfig(string filePath)
         {
-            SearchConfig config = new SearchConfig();
+            var config = new SearchConfig();
             try
             {
-                using (var sr = new StreamReader(filePath))
-                {
-                    var json = sr.ReadToEnd();
-                    config = JsonConvert.DeserializeObject<SearchConfig>(json);
-                }
+                using var sr = new StreamReader(filePath);
+                var json = sr.ReadToEnd();
+                config = JsonConvert.DeserializeObject<SearchConfig>(json);
             }
             catch (Exception e)
             {
@@ -91,60 +99,96 @@ namespace NCS.DSS.AzureSearchUtility
             }
 
             if (string.IsNullOrWhiteSpace(config.SearchServiceName))
-                throw new ArgumentNullException("SearchServiceName is missing from /SearchConfigFile file");
+            {
+                throw new ArgumentNullException(config.SearchServiceName);
+            }
 
             if (string.IsNullOrWhiteSpace(config.SearchIndexName))
-                throw new ArgumentNullException("SearchIndexName is missing from /SearchConfigFile file");
+            {
+                throw new ArgumentNullException(config.SearchIndexName);
+            }
 
             if (string.IsNullOrWhiteSpace(config.CosmosDbConnectionString))
-                throw new ArgumentNullException("CosmosDBConnectionString is missing from /SearchConfigFile file");
+            {
+                throw new ArgumentNullException(config.CosmosDbConnectionString);
+            }
 
             if (string.IsNullOrWhiteSpace(config.CustomerSearchConfig.SearchIndexerName))
-                throw new ArgumentNullException("CustomerSearchConfig.SearchIndexerName is missing from /SearchConfigFile file");
+            {
+                throw new ArgumentNullException(config.CustomerSearchConfig.SearchIndexerName);
+            }
 
             if (string.IsNullOrWhiteSpace(config.CustomerSearchConfig.SearchDataSourceName))
-                throw new ArgumentNullException("CustomerSearchConfig.SearchDataSourceName is missing from /SearchConfigFile file");
+            {
+                throw new ArgumentNullException(config.CustomerSearchConfig.SearchDataSourceName);
+            }
 
             if (string.IsNullOrWhiteSpace(config.CustomerSearchConfig.SearchDataSourceQuery))
-                throw new ArgumentNullException("CustomerSearchConfig.SearchDataSourceQuery is missing from /SearchConfigFile file");
+            {
+                throw new ArgumentNullException(config.CustomerSearchConfig.SearchDataSourceQuery);
+            }
 
             if (string.IsNullOrEmpty(config.CustomerSearchConfig.CollectionId))
-                throw new ArgumentNullException("CustomerSearchConfig.CollectionId is missing from /SearchConfigFile file");
+            {
+                throw new ArgumentNullException(config.CustomerSearchConfig.CollectionId);
+            }
 
             if (string.IsNullOrEmpty(config.CustomerSearchConfig.DatabaseId))
-                throw new ArgumentNullException("CustomerSearchConfig.DatabaseId is missing from /SearchConfigFile file");
-            
+            {
+                throw new ArgumentNullException(config.CustomerSearchConfig.DatabaseId);
+            }
+
 
             if (string.IsNullOrEmpty(config.AddressSearchConfig.SearchIndexerName))
-                throw new ArgumentNullException("AddressSearchConfig.SearchIndexerName is missing from /SearchConfigFile file");
+            {
+                throw new ArgumentNullException(config.AddressSearchConfig.SearchIndexerName);
+            }
 
             if (string.IsNullOrEmpty(config.AddressSearchConfig.SearchDataSourceName))
-                throw new ArgumentNullException("AddressSearchConfig.SearchDataSourceName is missing from /SearchConfigFile file");
+            {
+                throw new ArgumentNullException(config.AddressSearchConfig.SearchIndexerName);
+            }
 
             if (string.IsNullOrEmpty(config.AddressSearchConfig.SearchDataSourceQuery))
-                throw new ArgumentNullException("AddressSearchConfig.SearchDataSourceQuery is missing from /SearchConfigFile file");
+            {
+                throw new ArgumentNullException(config.AddressSearchConfig.SearchDataSourceQuery);
+            }
 
             if (string.IsNullOrEmpty(config.AddressSearchConfig.CollectionId))
-                throw new ArgumentNullException("AddressSearchConfig.CollectionId is missing from /SearchConfigFile file");
+            {
+                throw new ArgumentNullException(config.AddressSearchConfig.CollectionId);
+            }
 
             if (string.IsNullOrEmpty(config.AddressSearchConfig.DatabaseId))
-                throw new ArgumentNullException("AddressSearchConfig.DatabaseId is missing from /SearchConfigFile file");
+            {
+                throw new ArgumentNullException(config.AddressSearchConfig.DatabaseId);
+            }
 
 
             if (string.IsNullOrEmpty(config.ContactDetailsSearchConfig.SearchIndexerName))
-                throw new ArgumentNullException("ContactDetailsSearchConfig.SearchIndexerName is missing from /SearchConfigFile file");
+            {
+                throw new ArgumentNullException(config.ContactDetailsSearchConfig.SearchIndexerName);
+            }
 
             if (string.IsNullOrEmpty(config.ContactDetailsSearchConfig.SearchDataSourceName))
-                throw new ArgumentNullException("ContactDetailsSearchConfig.SearchDataSourceName is missing from /SearchConfigFile file");
+            {
+                throw new ArgumentNullException(config.ContactDetailsSearchConfig.SearchDataSourceName);
+            }
 
             if (string.IsNullOrEmpty(config.ContactDetailsSearchConfig.SearchDataSourceQuery))
-                throw new ArgumentNullException("ContactDetailsSearchConfig.SearchDataSourceQuery is missing from /SearchConfigFile file");
+            {
+                throw new ArgumentNullException(config.ContactDetailsSearchConfig.SearchDataSourceQuery);
+            }
 
             if (string.IsNullOrEmpty(config.ContactDetailsSearchConfig.CollectionId))
-                throw new ArgumentNullException("ContactDetailsSearchConfig.CollectionId is missing from /SearchConfigFile file");
+            {
+                throw new ArgumentNullException(config.ContactDetailsSearchConfig.CollectionId);
+            }
 
             if (string.IsNullOrEmpty(config.ContactDetailsSearchConfig.DatabaseId))
-                throw new ArgumentNullException("ContactDetailsSearchConfig.DatabaseId is missing from /SearchConfigFile file");
+            {
+                throw new ArgumentNullException(config.ContactDetailsSearchConfig.DatabaseId);
+            }
 
             PopulateConnectionStrings(config);
 
@@ -158,9 +202,9 @@ namespace NCS.DSS.AzureSearchUtility
             var customerDatabaseId = config.CustomerSearchConfig.DatabaseId;
             var contactDetailsDatabaseId = config.ContactDetailsSearchConfig.DatabaseId;
 
-            config.AddressSearchConfig.ConnectionString = string.Format("{0}Database={1};", cosmosDbConnectionString, addressDatabaseId);
-            config.CustomerSearchConfig.ConnectionString = string.Format("{0}Database={1};", cosmosDbConnectionString, customerDatabaseId);
-            config.ContactDetailsSearchConfig.ConnectionString = string.Format("{0}Database={1};", cosmosDbConnectionString, contactDetailsDatabaseId);
+            config.AddressSearchConfig.ConnectionString = $"{cosmosDbConnectionString}Database={addressDatabaseId};";
+            config.CustomerSearchConfig.ConnectionString = $"{cosmosDbConnectionString}Database={customerDatabaseId};";
+            config.ContactDetailsSearchConfig.ConnectionString = $"{cosmosDbConnectionString}Database={contactDetailsDatabaseId};";
         }
     }
 }

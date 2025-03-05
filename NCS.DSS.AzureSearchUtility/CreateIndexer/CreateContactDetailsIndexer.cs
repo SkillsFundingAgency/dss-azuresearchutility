@@ -1,46 +1,51 @@
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Azure.Search;
-using Microsoft.Azure.Search.Models;
-using Microsoft.Rest.Azure;
+using Azure;
+using Azure.Search.Documents.Indexes.Models;
 using NCS.DSS.AzureSearchUtility.Helpers;
 using NCS.DSS.AzureSearchUtility.Models;
+using System;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace NCS.DSS.AzureSearchUtility.CreateIndexer
 {
     public static class CreateContactDetailsIndexer
     {
-        public static async Task<HttpResponseMessage> RunCreateContactDetailsIndexer(string searchAdminKey, SearchConfig searchConfig, Microsoft.Azure.Search.Models.Index customerSearchIndex)
+        public static async Task<HttpResponseMessage> RunCreateContactDetailsIndexer(string searchAdminKey, SearchConfig searchConfig, SearchIndex customerSearchIndex)
         {
-            Console.WriteLine("{0}", "Retrieving Search Service for Contact Details Indexer\n");
-            var azureSearchService = SearchHelper.GetSearchServiceClient(searchConfig.SearchServiceName, searchAdminKey);
+            Console.WriteLine("Retrieving Search Service for Contact Details Indexer\n");
 
-            if (azureSearchService == null)
+            var searchIndexerClient = SearchHelper.GetSearchServiceClient(searchConfig.SearchServiceName, searchAdminKey);
+
+            if (searchIndexerClient == null)
             {
                 throw new WebException("Unable to find Search Service");
             }
 
-            Console.WriteLine("{0}", "Deleting old Contact Data Source ...\n");
+            Console.WriteLine("Deleting old Contact Data Source...\n");
 
             try
             {
-                if (await azureSearchService.DataSources.ExistsAsync(searchConfig.ContactDetailsSearchConfig.SearchDataSourceName))
+                var dataSourceExists = await searchIndexerClient.GetDataSourceConnectionAsync(searchConfig.ContactDetailsSearchConfig.SearchDataSourceName) != null;
+
+                if (dataSourceExists)
                 {
-                    await azureSearchService.DataSources.DeleteAsync(searchConfig.ContactDetailsSearchConfig.SearchDataSourceName);
+                    await searchIndexerClient.DeleteDataSourceConnectionAsync(searchConfig.ContactDetailsSearchConfig.SearchDataSourceName);
                 }
             }
-            catch (CloudException e)
+            catch (RequestFailedException e) when (e.Status == (int)HttpStatusCode.NotFound)
             {
-                Console.WriteLine(e.ToString());
+                Console.WriteLine($"Data source '{searchConfig.ContactDetailsSearchConfig.SearchDataSourceName}' not found, skipping delete.");
+            }
+            catch (RequestFailedException e)
+            {
+                Console.WriteLine($"Error deleting data source: {e}");
                 throw;
             }
 
-            Console.WriteLine("{0}", "Creating Contact Details Data Source object...\n");
-            var dataSource = DataSourceHelper.CreateDataSource(searchConfig.ContactDetailsSearchConfig.SearchDataSourceQuery,
+            Console.WriteLine("Creating Contact Details Data Source object...\n");
+            var dataSource = DataSourceHelper.CreateDataSource(
+                searchConfig.ContactDetailsSearchConfig.SearchDataSourceQuery,
                 searchConfig.ContactDetailsSearchConfig.CollectionId,
                 searchConfig.SearchIndexName,
                 searchConfig.ContactDetailsSearchConfig.SearchDataSourceName,
@@ -48,62 +53,67 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndexer
 
             try
             {
-                Console.WriteLine("{0}", "Attempting to Create/Update Contact Details Data Source...\n");
-                await azureSearchService.DataSources.CreateOrUpdateWithHttpMessagesAsync(dataSource);
+                Console.WriteLine("Attempting to Create/Update Contact Details Data Source...\n");
+                await searchIndexerClient.CreateOrUpdateDataSourceConnectionAsync(dataSource);
             }
-            catch (CloudException e)
+            catch (RequestFailedException e)
             {
-                Console.WriteLine(e.ToString());
+                Console.WriteLine($"Error creating/updating data source: {e}");
                 throw;
             }
 
-            Indexer indexer;
+            SearchIndexer indexer;
+            FieldMapping fieldMapping = new("CustomerId")
+            {
+                TargetFieldName = "CustomerId"
+            };
 
             try
             {
-                indexer = IndexerHelper.CreateIndexer(
-                    azureSearchService,
+                indexer = await IndexerHelper.CreateIndexerAsync(
+                    searchIndexerClient,
                     customerSearchIndex,
                     searchConfig.ContactDetailsSearchConfig.SearchIndexerName,
                     searchConfig.ContactDetailsSearchConfig.SearchDataSourceName,
-                    new List<FieldMapping> { new FieldMapping("CustomerId", "CustomerId") });
+                    fieldMapping);
             }
             catch (Exception e)
             {
-                Console.WriteLine("{0}{1}", "Unable to Create Contact Details Indexer...\n", e);
+                Console.WriteLine("Unable to Create Contact Details Indexer...\n" + e);
                 throw;
             }
 
             if (indexer == null)
             {
-                Console.WriteLine("{0}", "Unable to find Contact Details Indexer...\n");
+                Console.WriteLine("Unable to find Contact Details Indexer...\n");
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
 
-            Console.WriteLine("{0}", "Run Contact Details Indexer...\n");
+            Console.WriteLine("Run Contact Details Indexer...\n");
             try
             {
-                azureSearchService.Indexers.Run(indexer.Name);
+                await searchIndexerClient.RunIndexerAsync(indexer.Name);
             }
-            catch (CloudException e)
+            catch (RequestFailedException e)
             {
-                Console.WriteLine("{0} {1}", "Unable to get data for Contact Details Indexer...\n", e);
+                Console.WriteLine($"Unable to run Contact Details Indexer: {e}");
                 throw;
             }
 
             var running = true;
-            Console.WriteLine("{0}", "Synchronization running...\n");
+            Console.WriteLine("Synchronization running...\n");
+
             while (running)
             {
-                IndexerExecutionInfo status = null;
+                SearchIndexerStatus status;
 
                 try
                 {
-                    status = azureSearchService.Indexers.GetStatus(indexer.Name);
+                    status = await searchIndexerClient.GetIndexerStatusAsync(indexer.Name);
                 }
-                catch (Exception ex)
+                catch (RequestFailedException ex)
                 {
-                    Console.WriteLine("Error polling for indexer status: {0}", ex.Message);
+                    Console.WriteLine($"Error polling for indexer status: {ex.Message}");
                     throw;
                 }
 
@@ -114,23 +124,22 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndexer
                     {
                         case IndexerExecutionStatus.Reset:
                         case IndexerExecutionStatus.InProgress:
-                            Console.WriteLine("{0}Status: {1}, Item Count: {2}", "Synchronization running...\n", lastResult.Status, lastResult.ItemCount);
-                            Thread.Sleep(1000);
+                            Console.WriteLine($"Synchronization running...\nStatus: {lastResult.Status}, Item Count: {lastResult.ItemCount}");
+                            await Task.Delay(1000);
                             break;
                         case IndexerExecutionStatus.Success:
                             running = false;
-                            Console.WriteLine("Synchronized {0} rows...\n", lastResult.ItemCount.ToString());
+                            Console.WriteLine($"Synchronized {lastResult.ItemCount} rows...\n");
                             break;
                         default:
                             running = false;
-                            Console.WriteLine("Synchronization failed: {0}\n", lastResult.ErrorMessage);
+                            Console.WriteLine($"Synchronization failed: {lastResult.ErrorMessage}\n");
                             break;
                     }
                 }
             }
 
             return new HttpResponseMessage(HttpStatusCode.Created);
-
         }
     }
 }

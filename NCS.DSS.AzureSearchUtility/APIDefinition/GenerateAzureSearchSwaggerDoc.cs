@@ -6,7 +6,7 @@ using System.Dynamic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using NCS.DSS.AzureSearchUtility.Annotations;
+using DFC.Swagger.Standard.Annotations;
 using Newtonsoft.Json;
 using HttpStatusCode = System.Net.HttpStatusCode;
 

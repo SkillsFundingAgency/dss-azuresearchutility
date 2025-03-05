@@ -1,10 +1,9 @@
-using System;
-using System.Net;
-using System.Threading.Tasks;
-using Microsoft.Azure.Search;
 using NCS.DSS.AzureSearchUtility.CreateIndexer;
 using NCS.DSS.AzureSearchUtility.Helpers;
 using NCS.DSS.AzureSearchUtility.Models;
+using System;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace NCS.DSS.AzureSearchUtility.CreateIndex
 {
@@ -27,12 +26,6 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndex
             Console.WriteLine("{0}", "Creating Customer Search Index Model...\n");
             var indexModelForCustomer = IndexModelHelper.CreateIndexModelForCustomer(searchConfig.SearchIndexName);
 
-            if (indexModelForCustomer == null)
-            {
-                Console.WriteLine("Unable to create Index Model");
-                throw new NullReferenceException("indexModelForCustomer");
-            }
-
             Console.WriteLine("{0}", "Attempting to Create Customer Synonym Map...\n");
             IndexModelHelper.AddSynonymMapsToFields(indexModelForCustomer);
 
@@ -46,9 +39,9 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndex
             {
 
                 Console.WriteLine("{0}", "Deleting Customer Indexer...\n");
-                if (await azureSearchService.Indexers.ExistsAsync(searchConfig.CustomerSearchConfig.SearchIndexerName))
+                if (await azureSearchService.GetIndexerAsync(searchConfig.CustomerSearchConfig.SearchIndexerName) != null)
                 {
-                    await azureSearchService.Indexers.DeleteAsync(searchConfig.CustomerSearchConfig.SearchIndexerName);
+                    await azureSearchService.DeleteIndexerAsync(searchConfig.CustomerSearchConfig.SearchIndexerName);
                 }
 
             }
@@ -85,9 +78,9 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndex
             try
             {
                 Console.WriteLine("{0}", "Deleting Address Indexer...\n");
-                if (await azureSearchService.Indexers.ExistsAsync(searchConfig.AddressSearchConfig.SearchIndexerName))
+                if (await azureSearchService.GetIndexerAsync(searchConfig.AddressSearchConfig.SearchIndexerName) != null)
                 {
-                    await azureSearchService.Indexers.DeleteAsync(searchConfig.AddressSearchConfig.SearchIndexerName);
+                    await azureSearchService.DeleteIndexerAsync(searchConfig.AddressSearchConfig.SearchIndexerName);
                 }
             }
             catch (Exception e)
@@ -123,9 +116,9 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndex
             {
 
                 Console.WriteLine("{0}", "Deleting Contact Search Details Indexer...\n");
-                if (await azureSearchService.Indexers.ExistsAsync(searchConfig.ContactDetailsSearchConfig.SearchIndexerName))
+                if (await azureSearchService.GetIndexerAsync(searchConfig.ContactDetailsSearchConfig.SearchIndexerName) != null)
                 {
-                    await azureSearchService.Indexers.DeleteAsync(searchConfig.ContactDetailsSearchConfig.SearchIndexerName);
+                    await azureSearchService.DeleteIndexerAsync(searchConfig.ContactDetailsSearchConfig.SearchIndexerName);
                 }
 
             }

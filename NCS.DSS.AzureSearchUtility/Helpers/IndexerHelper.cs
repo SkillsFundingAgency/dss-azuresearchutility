@@ -1,58 +1,77 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Azure.Search;
-using Microsoft.Azure.Search.Models;
+﻿using Azure;
+using Azure.Search.Documents.Indexes;
+using Azure.Search.Documents.Indexes.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace NCS.DSS.AzureSearchUtility.Helpers
 {
     public static class IndexerHelper
     {
-        public static Indexer CreateIndexer(SearchServiceClient searchService, Microsoft.Azure.Search.Models.Index index, string indexerName, string dataSourceName, List<FieldMapping> fieldMappings)
+        public static async Task<SearchIndexer> CreateIndexerAsync(SearchIndexerClient searchIndexerClient, SearchIndex index, string indexerName, string dataSourceName, FieldMapping fieldMapping)
         {
-            if (searchService == null)
+            if (searchIndexerClient == null || index == null)
+            {
                 return null;
+            }
 
-            if (index == null)
-                return null;
+            var indexer = new SearchIndexer(
+                name: indexerName,
+                dataSourceName: dataSourceName,
+                targetIndexName: index.Name
+            )
+            {
+                Schedule = new IndexingSchedule(TimeSpan.FromHours(2)),
+                FieldMappings =
+                {
+                    fieldMapping
+                }
+            };
 
-            var indexer = new Indexer(
-                indexerName,
-                dataSourceName,
-                index.Name,
-                fieldMappings: fieldMappings,
-                schedule: new IndexingSchedule(TimeSpan.FromHours(2)));
-
-            DeleteIndexer(searchService, indexer);
-
-            CreateIndexerOnSearchService(searchService, indexer);
+            await DeleteIndexerAsync(searchIndexerClient, indexer);
+            await CreateIndexerOnSearchServiceAsync(searchIndexerClient, indexer);
 
             return indexer;
         }
 
-        private static void DeleteIndexer(SearchServiceClient searchService, Indexer indexer)
+        private static async Task DeleteIndexerAsync(SearchIndexerClient searchIndexerClient, SearchIndexer indexer)
         {
-            if (searchService == null)
-                return;
-
-            if (indexer == null)
-                return;
-
-            var exists = searchService.Indexers.ExistsAsync(indexer.Name).GetAwaiter().GetResult();
-            if (exists)
+            if (searchIndexerClient == null || indexer == null)
             {
-                searchService.Indexers.DeleteWithHttpMessagesAsync(indexer.Name).Wait();
+                return;
+            }
+
+            try
+            {
+                await searchIndexerClient.DeleteIndexerAsync(indexer.Name);
+            }
+            catch (RequestFailedException e) when (e.Status == 404)
+            {
+                Console.WriteLine($"Indexer '{indexer.Name}' not found, skipping delete.");
+            }
+            catch (RequestFailedException e)
+            {
+                Console.WriteLine($"Error deleting indexer: {e.Message}");
+                throw;
             }
         }
 
-        private static void CreateIndexerOnSearchService(SearchServiceClient searchService, Indexer indexer)
+        private static async Task CreateIndexerOnSearchServiceAsync(SearchIndexerClient searchIndexerClient, SearchIndexer indexer)
         {
-            if (searchService == null)
+            if (searchIndexerClient == null || indexer == null)
+            {
                 return;
+            }
 
-            if (indexer == null)
-                return;
-
-            searchService.Indexers.CreateOrUpdateAsync(indexer).Wait();
+            try
+            {
+                await searchIndexerClient.CreateOrUpdateIndexerAsync(indexer);
+            }
+            catch (RequestFailedException e)
+            {
+                Console.WriteLine($"Error creating/updating indexer: {e.Message}");
+                throw;
+            }
         }
     }
 }
