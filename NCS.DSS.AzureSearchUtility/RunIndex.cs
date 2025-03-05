@@ -66,9 +66,9 @@ namespace NCS.DSS.AzureSearchUtility
                 throw new ArgumentNullException(synonymPath);
             }
 
-            var searchConfig = RunIndex.GetAppConfig(searchConfigFile);
+            var searchConfig = GetAppConfig(searchConfigFile);
 
-            new CreateCustomerSearchIndex().CreateIndex(searchAdminKey, searchConfig, synonymPath).GetAwaiter().GetResult();
+            CreateCustomerSearchIndex.CreateIndex(searchAdminKey, searchConfig, synonymPath).GetAwaiter().GetResult();
 
             Console.WriteLine("Generate Swagger File Name");
             var fileName = FileHelper.GenerateSwaggerFileName(environmentName);
