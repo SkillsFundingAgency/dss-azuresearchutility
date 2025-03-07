@@ -2,6 +2,7 @@
 using NCS.DSS.AzureSearchUtility.ReferenceData;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace NCS.DSS.AzureSearchUtility.Models
 {
@@ -11,7 +12,7 @@ namespace NCS.DSS.AzureSearchUtility.Models
 
         [Display(Description = "Unique identifier of a customer")]
         [Example(Description = "b8592ff8-af97-49ad-9fb2-e5c3c717fd85")]
-        [Newtonsoft.Json.JsonProperty(PropertyName = "id")]
+        [JsonPropertyName("id")]
         public Guid? CustomerId { get; set; }
 
         [Display(Description = "Date and time the customer was first recognised by the National Careers Service")]

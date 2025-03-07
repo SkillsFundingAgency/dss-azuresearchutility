@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DFC.Swagger.Standard.Annotations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -6,8 +7,7 @@ using System.Dynamic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using DFC.Swagger.Standard.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json;
 using HttpStatusCode = System.Net.HttpStatusCode;
 
 namespace NCS.DSS.AzureSearchUtility.APIDefinition
@@ -40,7 +40,7 @@ namespace NCS.DSS.AzureSearchUtility.APIDefinition
             doc.paths = GeneratePaths(assembly, doc);
             doc.securityDefinitions = GenerateSecurityDefinitions();
 
-            return JsonConvert.SerializeObject(doc);
+            return JsonSerializer.Serialize(doc);
         }
 
         private static dynamic GenerateSecurityDefinitions()

@@ -1,15 +1,15 @@
 ﻿using NCS.DSS.AzureSearchUtility.CreateIndex;
 using NCS.DSS.AzureSearchUtility.Helpers;
 using NCS.DSS.AzureSearchUtility.Models;
-using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.Text.Json;
 
 namespace NCS.DSS.AzureSearchUtility
 {
     public static class RunIndex
     {
-        /// <param name="args"> Command line arguments: /SearchAdminKey:blah /SearchConfigFile:pathtoblah /EnvironmentName:AT</param>
+        /// <param name="args"> Command line arguments: /SearchAdminKey:foo /SearchConfigFile:bar /EnvironmentName:AT /SynonymPath:baz</param>
         public static void Main(string[] args)
         {
             var searchAdminKey = string.Empty;
@@ -90,7 +90,7 @@ namespace NCS.DSS.AzureSearchUtility
             {
                 using var sr = new StreamReader(filePath);
                 var json = sr.ReadToEnd();
-                config = JsonConvert.DeserializeObject<SearchConfig>(json);
+                config = JsonSerializer.Deserialize<SearchConfig>(json);
             }
             catch (Exception e)
             {
