@@ -7,7 +7,7 @@ namespace NCS.DSS.AzureSearchUtility.Helpers
     {
         public static string GenerateSwaggerFileName(string environmentName)
         {
-            return string.Format("{0}{1}{2}{3}{4:yyyyMMdd-hhmmss}{5}", "dss-", environmentName, "-searchutility", "-fa_swagger-def_", DateTime.Now, ".json");
+            return $"dss-{environmentName}-searchutility-fa_swagger-def_{DateTime.Now:yyyyMMdd-hhmmss}.json";
         }
 
         public static string GenerateFilePath(string fileName)

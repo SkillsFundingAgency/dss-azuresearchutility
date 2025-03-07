@@ -1,26 +1,29 @@
-﻿using Microsoft.Azure.Search.Models;
+﻿using Azure.Search.Documents.Indexes.Models;
 
 namespace NCS.DSS.AzureSearchUtility.Helpers
 {
     public static class DataSourceHelper
     {
-
-        public static DataSource CreateDataSource(string sqlQuery, string collectionName, string indexName, string dataSourceName, string dataSourceConnectionString)
+        public static SearchIndexerDataSourceConnection CreateDataSource(string sqlQuery, string collectionName, string indexName, string dataSourceName, string dataSourceConnectionString)
         {
-            var dataSource = new DataSource
+            var dataSource = new SearchIndexerDataSourceConnection(
+                name: dataSourceName,
+                type: SearchIndexerDataSourceType.CosmosDb,
+                connectionString: dataSourceConnectionString,
+                container: CreateDataSourceContainer(sqlQuery, collectionName))
             {
-                Name = dataSourceName,
-                Container = CreateDataSourceContainer(sqlQuery, collectionName),
-                Credentials = new DataSourceCredentials(dataSourceConnectionString),
-                Type = DataSourceType.CosmosDb,
-                DataChangeDetectionPolicy = new HighWaterMarkChangeDetectionPolicy { HighWaterMarkColumnName = "_ts"}
+                DataChangeDetectionPolicy = new HighWaterMarkChangeDetectionPolicy("_ts")
             };
+
             return dataSource;
         }
 
-        private static DataContainer CreateDataSourceContainer(string sqlQuery, string collectionName)
+        private static SearchIndexerDataContainer CreateDataSourceContainer(string sqlQuery, string collectionName)
         {
-            var container = new DataContainer { Query = sqlQuery, Name = collectionName };
+            var container = new SearchIndexerDataContainer(collectionName)
+            {
+                Query = sqlQuery
+            };
             return container;
         }
     }
