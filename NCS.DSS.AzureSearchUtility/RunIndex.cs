@@ -9,7 +9,11 @@ namespace NCS.DSS.AzureSearchUtility
 {
     public static class RunIndex
     {
-        /// <param name="args"> Command line arguments: /SearchAdminKey:foo /SearchConfigFile:bar /EnvironmentName:AT /SynonymPath:baz</param>
+        /// <summary>
+        /// Command-line arguments format:
+        /// /SearchAdminKey:foo /SearchConfigFile:bar /EnvironmentName:AT /SynonymPath:baz
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             var searchAdminKey = string.Empty;
@@ -199,6 +203,7 @@ namespace NCS.DSS.AzureSearchUtility
 
             PopulateConnectionStrings(config);
 
+            Console.WriteLine($"Finished configuring settings for {nameof(AzureSearchUtility)}");
             return config;
         }
 
