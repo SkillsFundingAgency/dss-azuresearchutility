@@ -14,7 +14,7 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndexer
         public static async Task<HttpResponseMessage> RunCreateCustomerIndexer(string searchAdminKey, SearchConfig searchConfig, SearchIndex customerSearchIndex)
         {
             Console.WriteLine("Retrieving Search Service for Customer Indexer\n");
-            var searchIndexerClient = SearchHelper.GetSearchServiceClient(searchConfig.SearchServiceName, searchAdminKey);
+            var searchIndexerClient = SearchHelper.GetSearchServiceClient(searchConfig.SearchServiceEndpoint, searchAdminKey);
 
             if (searchIndexerClient == null)
             {

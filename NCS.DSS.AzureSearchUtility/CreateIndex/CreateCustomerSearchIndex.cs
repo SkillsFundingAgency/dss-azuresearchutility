@@ -13,7 +13,7 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndex
         {
 
             Console.WriteLine("Retrieving Search Service\n");
-            var azureSearchService = SearchHelper.GetSearchServiceClient(searchConfig.SearchServiceName, searchAdminKey);
+            var azureSearchService = SearchHelper.GetSearchServiceClient(searchConfig.SearchServiceEndpoint, searchAdminKey);
 
             if (azureSearchService == null)
             {

@@ -15,7 +15,7 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndexer
         {
             Console.WriteLine("Retrieving Search Service for Contact Details Indexer\n");
 
-            var searchIndexerClient = SearchHelper.GetSearchServiceClient(searchConfig.SearchServiceName, searchAdminKey);
+            var searchIndexerClient = SearchHelper.GetSearchServiceClient(searchConfig.SearchServiceEndpoint, searchAdminKey);
 
             if (searchIndexerClient == null)
             {
