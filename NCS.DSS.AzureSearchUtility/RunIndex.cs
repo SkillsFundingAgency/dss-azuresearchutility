@@ -85,6 +85,7 @@ namespace NCS.DSS.AzureSearchUtility
 
         private static SearchConfig GetAppConfig(string filePath)
         {
+            Console.WriteLine($"Attempting to read appconfig.json at path {filePath}");
             var config = new SearchConfig();
             try
             {
@@ -97,10 +98,16 @@ namespace NCS.DSS.AzureSearchUtility
                 Console.WriteLine("The file could not be read:");
                 Console.WriteLine(e.Message);
             }
+            Console.WriteLine($"Successfully read appconfig.json at path {filePath}");
 
             if (string.IsNullOrWhiteSpace(config.SearchServiceName))
             {
                 throw new ArgumentNullException(config.SearchServiceName);
+            }
+
+            if (string.IsNullOrWhiteSpace(config.SearchServiceEndpoint))
+            {
+                throw new ArgumentNullException(config.SearchServiceEndpoint);
             }
 
             if (string.IsNullOrWhiteSpace(config.SearchIndexName))
