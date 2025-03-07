@@ -21,7 +21,7 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndex
             }
 
             Console.WriteLine("Deleting Customer Search Index...\n");
-            SearchHelper.DeleteIndexIfExists(searchConfig.SearchIndexName);
+            SearchHelper.DeleteIndexIfExists(searchConfig.SearchServiceEndpoint, searchAdminKey, searchConfig.SearchIndexName);
 
             Console.WriteLine("Creating Customer Search Index Model...\n");
             var indexModelForCustomer = IndexModelHelper.CreateIndexModelForCustomer(searchConfig.SearchIndexName);

@@ -24,12 +24,21 @@ namespace NCS.DSS.AzureSearchUtility.Helpers
             return _indexerClient;
         }
 
-        public static void DeleteIndexIfExists(string indexName)
+        public static SearchIndexClient GetIndexClient(string searchServiceEndpoint, string searchServiceKey)
         {
-            if (_indexClient == null)
+            if (_indexClient != null)
             {
-                throw new ArgumentNullException($"{_indexClient} is null");
+                return _indexClient;
             }
+
+            _indexClient = new SearchIndexClient(new Uri(searchServiceEndpoint), new AzureKeyCredential(searchServiceKey));
+
+            return _indexClient;
+        }
+
+        public static void DeleteIndexIfExists(string searchServiceEndpoint, string searchServiceKey, string indexName)
+        {
+            _indexClient = GetIndexClient(searchServiceEndpoint, searchServiceKey);
 
             if (_indexClient.GetIndexNames().Contains(indexName))
             {
