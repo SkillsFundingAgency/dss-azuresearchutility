@@ -15,12 +15,20 @@ namespace NCS.DSS.AzureSearchUtility.Helpers
             if (index == null)
                 return null;
 
+
+            var indexerConfiguration = new Dictionary<string, object>()
+            {
+                {  "executionEnvironment", "Private" }
+            };
+
             var indexer = new Indexer(
                 indexerName,
                 dataSourceName,
                 index.Name,
                 fieldMappings: fieldMappings,
-                schedule: new IndexingSchedule(TimeSpan.FromHours(2)));
+                schedule: new IndexingSchedule(TimeSpan.FromHours(2)),
+                parameters: new IndexingParameters() { Configuration = indexerConfiguration } 
+            );
 
             DeleteIndexer(searchService, indexer);
 
