@@ -25,6 +25,12 @@ namespace NCS.DSS.AzureSearchUtility.Helpers
                 FieldMappings =
                 {
                     fieldMapping
+                },
+                Parameters = new IndexingParameters { 
+                    IndexingParametersConfiguration = new IndexingParametersConfiguration()
+                    {
+                        ExecutionEnvironment = "Private"
+                    } 
                 }
             };
 
