@@ -1,17 +1,18 @@
-﻿using System;
-using NCS.DSS.AzureSearchUtility.Annotations;
+﻿using DFC.Swagger.Standard.Annotations;
 using NCS.DSS.AzureSearchUtility.ReferenceData;
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace NCS.DSS.AzureSearchUtility.Models
 {
     public class CustomerSearch
     {
-        //customer
+        // Customer
 
         [Display(Description = "Unique identifier of a customer")]
         [Example(Description = "b8592ff8-af97-49ad-9fb2-e5c3c717fd85")]
-        [Newtonsoft.Json.JsonProperty(PropertyName = "id")]
+        [JsonPropertyName("id")]
         public Guid? CustomerId { get; set; }
 
         [Display(Description = "Date and time the customer was first recognised by the National Careers Service")]
@@ -86,7 +87,7 @@ namespace NCS.DSS.AzureSearchUtility.Models
         [Example(Description = "0000000001")]
         public string LastModifiedTouchpointId { get; set; }
 
-        //address
+        // Address
         [Display(Description = "Customer home address line 1")]
         [Example(Description = "Adddress Line 1")]
         public string Address1 { get; set; }
@@ -94,7 +95,7 @@ namespace NCS.DSS.AzureSearchUtility.Models
         [Example(Description = "AA11AA")]
         public string PostCode { get; set; }
 
-        //contact Details
+        // Contact Details
         [StringLength(20)]
         [Display(Description = "Customer UK mobile phone number")]
         [Example(Description = "UK mobile phone number with optional +44 national code, also allows optional brackets and spaces at appropriate positions e.g.   07222 555555 , (07222) 555555 , +44 7222 555 555 or 07222 55555, (07222) 55555, +44 7222 555 55")]
