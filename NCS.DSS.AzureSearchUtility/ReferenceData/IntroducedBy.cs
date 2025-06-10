@@ -54,6 +54,10 @@ namespace NCS.DSS.AzureSearchUtility.ReferenceData
         WorldSkillsUKLive = 24,
         [Description("National Retraining Scheme")]
         NationalRetrainingScheme = 25,
+        [Description("Job Centre Plus WITH Data")]
+        JCPWithData = 27,
+        [Description("Job Centre Plus WITHOUT Data")]
+        JCPWithoutData = 28,
         [Description("Other")]
         Other = 98,
         [Description("Not provided")]
