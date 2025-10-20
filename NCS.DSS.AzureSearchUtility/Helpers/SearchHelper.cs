@@ -1,52 +1,48 @@
-﻿using System;
+﻿using Azure;
+using Azure.Search.Documents.Indexes;
+using Azure.Search.Documents.Indexes.Models;
+using System;
 using System.IO;
-using Microsoft.Azure.Search;
-using Microsoft.Azure.Search.Models;
+using System.Linq;
 
 namespace NCS.DSS.AzureSearchUtility.Helpers
 {
     public static class SearchHelper
     {
-        private static string _searchServiceKey;
-        private static SearchServiceClient _serviceClient;
-        private static ISearchIndexClient _indexClient;
+        private static SearchIndexerClient _indexerClient;
+        private static SearchIndexClient _indexClient;
 
-        public static SearchServiceClient GetSearchServiceClient(string searchServiceName, string searchServiceKey)
+        public static SearchIndexerClient GetSearchServiceClient(string searchServiceEndpoint, string searchServiceKey)
         {
-            _searchServiceKey = searchServiceKey;
+            if (_indexerClient != null)
+            {
+                return _indexerClient;
+            }
 
-            if (_serviceClient != null)
-                return _serviceClient;
+            _indexerClient = new SearchIndexerClient(new Uri(searchServiceEndpoint), new AzureKeyCredential(searchServiceKey));
 
-            _serviceClient = new SearchServiceClient(searchServiceName, new SearchCredentials(_searchServiceKey));
-
-            if (_serviceClient == null)
-                throw new ArgumentNullException("_serviceClient doesn't exist");
-
-            return _serviceClient;
+            return _indexerClient;
         }
-        
-        public static ISearchIndexClient GetIndexClient(string indexName)
+
+        public static SearchIndexClient GetIndexClient(string searchServiceEndpoint, string searchServiceKey)
         {
             if (_indexClient != null)
+            {
                 return _indexClient;
+            }
 
-            _indexClient = _serviceClient?.Indexes?.GetClient(indexName);
-
-            if(_indexClient == null)
-                throw new ArgumentNullException("_indexClient doesn't exist");
+            _indexClient = new SearchIndexClient(new Uri(searchServiceEndpoint), new AzureKeyCredential(searchServiceKey));
 
             return _indexClient;
         }
 
-        public static void DeleteIndexIfExists(string indexName)
+        public static void DeleteIndexIfExists(string searchServiceEndpoint, string searchServiceKey, string indexName)
         {
-            if (_serviceClient == null)
-                throw new ArgumentNullException("_serviceClient doesn't exist");
+            _indexClient = GetIndexClient(searchServiceEndpoint, searchServiceKey);
 
-            if (_serviceClient.Indexes.Exists(indexName))
+            if (_indexClient.GetIndexNames().Contains(indexName))
             {
-                _serviceClient.Indexes.Delete(indexName);
+                _indexClient.DeleteIndex(indexName);
             }
         }
 
@@ -54,12 +50,15 @@ namespace NCS.DSS.AzureSearchUtility.Helpers
         {
             string synonymData;
 
+            if (!File.Exists(synonymPath))
+            {
+                throw new FileNotFoundException($"Synonym file not found: {synonymPath}");
+            }
+
             try
             {
-                using (var sr = new StreamReader(synonymPath))
-                {
-                    synonymData = sr.ReadToEnd();
-                }
+                using var sr = new StreamReader(synonymPath);
+                synonymData = sr.ReadToEnd();
             }
             catch (Exception e)
             {
@@ -67,19 +66,19 @@ namespace NCS.DSS.AzureSearchUtility.Helpers
                 throw;
             }
 
-            var synonymMap = new SynonymMap()
+            if (string.IsNullOrWhiteSpace(synonymData))
             {
-                Name = "givenname-synonymmap",
-                ETag = "solr",
-                Synonyms = synonymData
-            };
+                throw new InvalidOperationException("Synonym file is empty.");
+            }
 
-            _serviceClient.SynonymMaps.CreateOrUpdate(synonymMap);
+            var synonymMap = new SynonymMap("givenname-synonymmap", synonymData);
+
+            _indexClient.CreateOrUpdateSynonymMap(synonymMap);
         }
 
-        public static void CreateIndex(Index index)
+        public static void CreateIndex(SearchIndex index)
         {
-            _serviceClient?.Indexes?.Create(index);
+            _indexClient.CreateOrUpdateIndex(index);
         }
     }
 }
