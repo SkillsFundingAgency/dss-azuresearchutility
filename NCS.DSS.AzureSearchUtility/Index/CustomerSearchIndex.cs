@@ -1,13 +1,13 @@
-using NCS.DSS.AzureSearchUtility.CreateIndexer;
+using NCS.DSS.AzureSearchUtility.Indexer;
 using NCS.DSS.AzureSearchUtility.Helpers;
 using NCS.DSS.AzureSearchUtility.Models;
 using System;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace NCS.DSS.AzureSearchUtility.CreateIndex
+namespace NCS.DSS.AzureSearchUtility.Index
 {
-    public static class CreateCustomerSearchIndex
+    public static class CustomerSearchIndex
     {
         public static async Task CreateIndex(string searchAdminKey, SearchConfig searchConfig, string synonymPath)
         {
@@ -56,7 +56,7 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndex
             {
 
                 Console.WriteLine("Attempting to Create Customer Indexer...\n");
-                var response = await CreateCustomerIndexer.RunCreateCustomerIndexer(searchAdminKey, searchConfig, indexModelForCustomer);
+                var response = await CustomerIndexer.RunCreateCustomerIndexer(searchAdminKey, searchConfig, indexModelForCustomer);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -93,7 +93,7 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndex
             {
 
                 Console.WriteLine("Attempting to Create Address Indexer...\n");
-                var response = await CreateAddressIndexer.RunCreateAddressIndexer(searchAdminKey, searchConfig, indexModelForCustomer);
+                var response = await AddressIndexer.RunCreateAddressIndexer(searchAdminKey, searchConfig, indexModelForCustomer);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -132,7 +132,7 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndex
             {
 
                 Console.WriteLine("Attempting to Create Contact Details Indexer...\n");
-                var response = await CreateContactDetailsIndexer.RunCreateContactDetailsIndexer(searchAdminKey, searchConfig, indexModelForCustomer);
+                var response = await ContactDetailsIndexer.RunCreateContactDetailsIndexer(searchAdminKey, searchConfig, indexModelForCustomer);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -153,5 +153,129 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndex
 
             Console.WriteLine($"Completed...  Status: {HttpStatusCode.Created}");
         }
+
+        public static async Task UpdateIndex(string searchAdminKey, SearchConfig searchConfig)
+        {
+
+            Console.WriteLine("Retrieving Search Service\n");
+            var indexerClient = SearchHelper.GetSearchServiceClient(searchConfig.SearchServiceEndpoint, searchAdminKey);
+
+            if (indexerClient == null)
+            {
+                throw new WebException("Unable to find Search Service");
+            }
+
+            var indexClient = SearchHelper.GetIndexClient(searchConfig.SearchServiceEndpoint, searchAdminKey);
+
+
+
+            Console.WriteLine("Getting Customer Search Index...\n");
+
+            var index = await indexClient.GetIndexAsync(searchConfig.SearchIndexName);
+            var indexer = await indexerClient.GetIndexerAsync(searchConfig.CustomerSearchConfig.SearchIndexerName);
+
+            
+            try
+            {
+
+                Console.WriteLine("Attempting to Update Customer Indexer...\n");
+                var response = await CustomerIndexer.RunUpdateCustomerIndexer(searchAdminKey, searchConfig, index);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Successfully Updated Customer Indexer...\n");
+                }
+                else
+                {
+                    Console.WriteLine("Error Updating Customer Indexer...\n");
+                    return;
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error Creating Customer Indexer...\n Error: {e}");
+                throw;
+            }
+
+            try
+            {
+                Console.WriteLine("Deleting Address Indexer...\n");
+                if (await indexerClient.GetIndexerAsync(searchConfig.AddressSearchConfig.SearchIndexerName) != null)
+                {
+                    await indexerClient.DeleteIndexerAsync(searchConfig.AddressSearchConfig.SearchIndexerName);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error Deleting Address Indexer...\n Error: {e}");
+                throw;
+            }
+
+            try
+            {
+
+                Console.WriteLine("Attempting to Create Address Indexer...\n");
+                var response = await AddressIndexer.RunCreateAddressIndexer(searchAdminKey, searchConfig, index);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Successfully Created Address Indexer...\n");
+                }
+                else
+                {
+                    Console.WriteLine("Error Creating Address Indexer...\n");
+                    return;
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error Creating Address Indexer...\n Error: {e}");
+                throw;
+            }
+
+            try
+            {
+
+                Console.WriteLine("Deleting Contact Search Details Indexer...\n");
+                if (await indexerClient.GetIndexerAsync(searchConfig.ContactDetailsSearchConfig.SearchIndexerName) != null)
+                {
+                    await indexerClient.DeleteIndexerAsync(searchConfig.ContactDetailsSearchConfig.SearchIndexerName);
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error Deleting Contact Details Indexer...\n Error: {e}");
+                throw;
+            }
+
+            try
+            {
+
+                Console.WriteLine("Attempting to Create Contact Details Indexer...\n");
+                var response = await ContactDetailsIndexer.RunCreateContactDetailsIndexer(searchAdminKey, searchConfig, index);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Successfully Created Contact Details Indexer...\n");
+                }
+                else
+                {
+                    Console.WriteLine("Error Creating Contact Details Indexer...\n");
+                    return;
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error Creating Contact Details Indexer...\n Error: {e}");
+                throw;
+            }
+
+            Console.WriteLine($"Completed...  Status: {HttpStatusCode.Created}");
+        }
+
     }
 }
