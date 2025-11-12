@@ -194,83 +194,53 @@ namespace NCS.DSS.AzureSearchUtility.Index
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Error Creating Customer Indexer...\n Error: {e}");
-                throw;
-            }
-
-            try
-            {
-                Console.WriteLine("Deleting Address Indexer...\n");
-                if (await indexerClient.GetIndexerAsync(searchConfig.AddressSearchConfig.SearchIndexerName) != null)
-                {
-                    await indexerClient.DeleteIndexerAsync(searchConfig.AddressSearchConfig.SearchIndexerName);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Error Deleting Address Indexer...\n Error: {e}");
+                Console.WriteLine($"Error Updating Customer Indexer...\n Error: {e}");
                 throw;
             }
 
             try
             {
 
-                Console.WriteLine("Attempting to Create Address Indexer...\n");
-                var response = await AddressIndexer.RunCreateAddressIndexer(searchAdminKey, searchConfig, index);
+                Console.WriteLine("Attempting to Update Address Indexer...\n");
+                var response = await AddressIndexer.RunUpdateAddressIndexer(searchAdminKey, searchConfig, index);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    Console.WriteLine("Successfully Created Address Indexer...\n");
+                    Console.WriteLine("Successfully Updated Address Indexer...\n");
                 }
                 else
                 {
-                    Console.WriteLine("Error Creating Address Indexer...\n");
+                    Console.WriteLine("Error Updating Address Indexer...\n");
                     return;
                 }
 
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Error Creating Address Indexer...\n Error: {e}");
+                Console.WriteLine($"Error Updating Address Indexer...\n Error: {e}");
                 throw;
             }
 
             try
             {
 
-                Console.WriteLine("Deleting Contact Search Details Indexer...\n");
-                if (await indexerClient.GetIndexerAsync(searchConfig.ContactDetailsSearchConfig.SearchIndexerName) != null)
-                {
-                    await indexerClient.DeleteIndexerAsync(searchConfig.ContactDetailsSearchConfig.SearchIndexerName);
-                }
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Error Deleting Contact Details Indexer...\n Error: {e}");
-                throw;
-            }
-
-            try
-            {
-
-                Console.WriteLine("Attempting to Create Contact Details Indexer...\n");
-                var response = await ContactDetailsIndexer.RunCreateContactDetailsIndexer(searchAdminKey, searchConfig, index);
+                Console.WriteLine("Attempting to Update Contact Details Indexer...\n");
+                var response = await ContactDetailsIndexer.RunUpdateContactDetailsIndexer(searchAdminKey, searchConfig, index);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    Console.WriteLine("Successfully Created Contact Details Indexer...\n");
+                    Console.WriteLine("Successfully Updated Contact Details Indexer...\n");
                 }
                 else
                 {
-                    Console.WriteLine("Error Creating Contact Details Indexer...\n");
+                    Console.WriteLine("Error Updating Contact Details Indexer...\n");
                     return;
                 }
 
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Error Creating Contact Details Indexer...\n Error: {e}");
+                Console.WriteLine($"Error Updating Contact Details Indexer...\n Error: {e}");
                 throw;
             }
 

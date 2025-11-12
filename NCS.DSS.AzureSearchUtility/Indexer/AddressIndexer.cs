@@ -153,27 +153,6 @@ namespace NCS.DSS.AzureSearchUtility.Indexer
                 throw new WebException("Unable to find Search Service");
             }
 
-            Console.WriteLine("Deleting old Address Data Source...\n");
-
-            try
-            {
-                var dataSourceExists = await searchIndexerClient.GetDataSourceConnectionAsync(searchConfig.AddressSearchConfig.SearchDataSourceName) != null;
-
-                if (dataSourceExists)
-                {
-                    await searchIndexerClient.DeleteDataSourceConnectionAsync(searchConfig.AddressSearchConfig.SearchDataSourceName);
-                }
-            }
-            catch (RequestFailedException e) when (e.Status == (int)HttpStatusCode.NotFound)
-            {
-                Console.WriteLine($"Data source '{searchConfig.AddressSearchConfig.SearchDataSourceName}' does not exist, skipping delete.");
-            }
-            catch (RequestFailedException e)
-            {
-                Console.WriteLine($"Error deleting data source: {e}");
-                throw;
-            }
-
             Console.WriteLine("Creating Address Data Source object...\n");
             var dataSource = DataSourceHelper.CreateDataSource(
                 searchConfig.AddressSearchConfig.SearchDataSourceQuery,
@@ -193,37 +172,33 @@ namespace NCS.DSS.AzureSearchUtility.Indexer
                 throw;
             }
 
-            SearchIndexer indexer;
-            FieldMapping fieldMapping = new("CustomerId")
-            {
-                TargetFieldName = "CustomerId"
-            };
+            var indexer = await searchIndexerClient.GetIndexerAsync(searchConfig.AddressSearchConfig.SearchIndexerName);
 
-            try
-            {
-                indexer = await IndexerHelper.CreateIndexerAsync(
-                    searchIndexerClient,
-                    customerSearchIndex,
-                    searchConfig.AddressSearchConfig.SearchIndexerName,
-                    searchConfig.AddressSearchConfig.SearchDataSourceName,
-                    fieldMapping);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Unable to Create Address Indexer...\n" + e);
-                throw;
-            }
-
-            if (indexer == null)
+            if (indexer.Value == null)
             {
                 Console.WriteLine("Unable to find Address Indexer...\n");
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
 
+            if (indexer.Value.DataSourceName != dataSource.Name)
+            {
+
+                try
+                {
+                    Console.WriteLine("Attempting to Update Address Indexers data source...\n");
+                    indexer.Value.DataSourceName = dataSource.Name;
+                    await searchIndexerClient.CreateOrUpdateIndexerAsync(indexer);
+                }
+                catch (RequestFailedException e)
+                {
+                    Console.WriteLine($"Error updating Address Indexers data source: {e}");
+                }
+            }
+
             Console.WriteLine("Run Address Indexer...\n");
             try
             {
-                await searchIndexerClient.RunIndexerAsync(indexer.Name);
+                await searchIndexerClient.RunIndexerAsync(indexer.Value.Name);
             }
             catch (RequestFailedException e)
             {
@@ -240,7 +215,7 @@ namespace NCS.DSS.AzureSearchUtility.Indexer
 
                 try
                 {
-                    status = await searchIndexerClient.GetIndexerStatusAsync(indexer.Name);
+                    status = await searchIndexerClient.GetIndexerStatusAsync(indexer.Value.Name);
                 }
                 catch (RequestFailedException ex)
                 {
@@ -270,7 +245,7 @@ namespace NCS.DSS.AzureSearchUtility.Indexer
                 }
             }
 
-            return new HttpResponseMessage(HttpStatusCode.Created);
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }

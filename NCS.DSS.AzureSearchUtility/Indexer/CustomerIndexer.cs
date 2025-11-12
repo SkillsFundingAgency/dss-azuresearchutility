@@ -159,18 +159,18 @@ namespace NCS.DSS.AzureSearchUtility.Indexer
 
             try
             {
-                Console.WriteLine("Attempting to Update Customer Data Source...\n");
+                Console.WriteLine("Attempting to Create/Update Customer Data Source...\n");
                 await searchIndexerClient.CreateOrUpdateDataSourceConnectionAsync(dataSource);
             }
             catch (RequestFailedException e)
             {
-                Console.WriteLine($"Error updating data source: {e}");
+                Console.WriteLine($"Error creating/updating data source: {e}");
             }
 
             var indexer = await searchIndexerClient.GetIndexerAsync(searchConfig.CustomerSearchConfig.SearchIndexerName);
 
             
-            if (indexer == null)
+            if (indexer.Value == null)
             {
                 Console.WriteLine("Unable to find Customer Indexer...\n");
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
@@ -181,13 +181,13 @@ namespace NCS.DSS.AzureSearchUtility.Indexer
                 
                 try
                 {
-                    Console.WriteLine("Attempting to Update Indexers data source...\n");
+                    Console.WriteLine("Attempting to Update Customer Indexers data source...\n");
                     indexer.Value.DataSourceName = dataSource.Name;
                     await searchIndexerClient.CreateOrUpdateIndexerAsync(indexer);
                 }
                 catch (RequestFailedException e)
                 {
-                    Console.WriteLine($"Error updating Indexers data source: {e}");
+                    Console.WriteLine($"Error updating Customer Indexers data source: {e}");
                 }
             }
 

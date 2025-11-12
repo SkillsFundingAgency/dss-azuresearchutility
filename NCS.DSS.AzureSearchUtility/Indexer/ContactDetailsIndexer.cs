@@ -153,27 +153,6 @@ namespace NCS.DSS.AzureSearchUtility.Indexer
                 throw new WebException("Unable to find Search Service");
             }
 
-            Console.WriteLine("Deleting old Contact Data Source...\n");
-
-            try
-            {
-                var dataSourceExists = await searchIndexerClient.GetDataSourceConnectionAsync(searchConfig.ContactDetailsSearchConfig.SearchDataSourceName) != null;
-
-                if (dataSourceExists)
-                {
-                    await searchIndexerClient.DeleteDataSourceConnectionAsync(searchConfig.ContactDetailsSearchConfig.SearchDataSourceName);
-                }
-            }
-            catch (RequestFailedException e) when (e.Status == (int)HttpStatusCode.NotFound)
-            {
-                Console.WriteLine($"Data source '{searchConfig.ContactDetailsSearchConfig.SearchDataSourceName}' not found, skipping delete.");
-            }
-            catch (RequestFailedException e)
-            {
-                Console.WriteLine($"Error deleting data source: {e}");
-                throw;
-            }
-
             Console.WriteLine("Creating Contact Details Data Source object...\n");
             var dataSource = DataSourceHelper.CreateDataSource(
                 searchConfig.ContactDetailsSearchConfig.SearchDataSourceQuery,
@@ -193,37 +172,33 @@ namespace NCS.DSS.AzureSearchUtility.Indexer
                 throw;
             }
 
-            SearchIndexer indexer;
-            FieldMapping fieldMapping = new("CustomerId")
-            {
-                TargetFieldName = "CustomerId"
-            };
+            var indexer = await searchIndexerClient.GetIndexerAsync(searchConfig.ContactDetailsSearchConfig.SearchIndexerName);
 
-            try
-            {
-                indexer = await IndexerHelper.CreateIndexerAsync(
-                    searchIndexerClient,
-                    customerSearchIndex,
-                    searchConfig.ContactDetailsSearchConfig.SearchIndexerName,
-                    searchConfig.ContactDetailsSearchConfig.SearchDataSourceName,
-                    fieldMapping);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Unable to Create Contact Details Indexer...\n" + e);
-                throw;
-            }
-
-            if (indexer == null)
+            if (indexer.Value == null)
             {
                 Console.WriteLine("Unable to find Contact Details Indexer...\n");
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
 
+            if (indexer.Value.DataSourceName != dataSource.Name)
+            {
+
+                try
+                {
+                    Console.WriteLine("Attempting to Update Contact Details Indexers data source...\n");
+                    indexer.Value.DataSourceName = dataSource.Name;
+                    await searchIndexerClient.CreateOrUpdateIndexerAsync(indexer);
+                }
+                catch (RequestFailedException e)
+                {
+                    Console.WriteLine($"Error updating Contact Details Indexers data source: {e}");
+                }
+            }
+
             Console.WriteLine("Run Contact Details Indexer...\n");
             try
             {
-                await searchIndexerClient.RunIndexerAsync(indexer.Name);
+                await searchIndexerClient.RunIndexerAsync(indexer.Value.Name);
             }
             catch (RequestFailedException e)
             {
@@ -240,7 +215,7 @@ namespace NCS.DSS.AzureSearchUtility.Indexer
 
                 try
                 {
-                    status = await searchIndexerClient.GetIndexerStatusAsync(indexer.Name);
+                    status = await searchIndexerClient.GetIndexerStatusAsync(indexer.Value.Name);
                 }
                 catch (RequestFailedException ex)
                 {
@@ -270,7 +245,7 @@ namespace NCS.DSS.AzureSearchUtility.Indexer
                 }
             }
 
-            return new HttpResponseMessage(HttpStatusCode.Created);
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
     }
