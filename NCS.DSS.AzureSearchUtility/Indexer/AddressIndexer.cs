@@ -7,9 +7,9 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace NCS.DSS.AzureSearchUtility.CreateIndexer
+namespace NCS.DSS.AzureSearchUtility.Indexer
 {
-    public static class CreateAddressIndexer
+    public static class AddressIndexer
     {
         public static async Task<HttpResponseMessage> RunCreateAddressIndexer(string searchAdminKey, SearchConfig searchConfig, SearchIndex customerSearchIndex)
         {
@@ -141,5 +141,112 @@ namespace NCS.DSS.AzureSearchUtility.CreateIndexer
 
             return new HttpResponseMessage(HttpStatusCode.Created);
         }
+
+        public static async Task<HttpResponseMessage> RunUpdateAddressIndexer(string searchAdminKey, SearchConfig searchConfig, SearchIndex customerSearchIndex)
+        {
+            Console.WriteLine("Retrieving Search Service for Address Indexer\n");
+
+            var searchIndexerClient = SearchHelper.GetSearchServiceClient(searchConfig.SearchServiceEndpoint, searchAdminKey);
+
+            if (searchIndexerClient == null)
+            {
+                throw new WebException("Unable to find Search Service");
+            }
+
+            Console.WriteLine("Creating Address Data Source object...\n");
+            var dataSource = DataSourceHelper.CreateDataSource(
+                searchConfig.AddressSearchConfig.SearchDataSourceQuery,
+                searchConfig.AddressSearchConfig.CollectionId,
+                searchConfig.SearchIndexName,
+                searchConfig.AddressSearchConfig.SearchDataSourceName,
+                searchConfig.AddressSearchConfig.ConnectionString);
+
+            try
+            {
+                Console.WriteLine("Attempting to Create/Update Address Data Source...\n");
+                await searchIndexerClient.CreateOrUpdateDataSourceConnectionAsync(dataSource);
+            }
+            catch (RequestFailedException e)
+            {
+                Console.WriteLine($"Error creating/updating data source: {e}");
+                throw;
+            }
+
+            var indexer = await searchIndexerClient.GetIndexerAsync(searchConfig.AddressSearchConfig.SearchIndexerName);
+
+            if (indexer.Value == null)
+            {
+                Console.WriteLine("Unable to find Address Indexer...\n");
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+
+            if (indexer.Value.DataSourceName != dataSource.Name)
+            {
+
+                try
+                {
+                    Console.WriteLine("Attempting to Update Address Indexers data source...\n");
+                    indexer.Value.DataSourceName = dataSource.Name;
+                    await searchIndexerClient.CreateOrUpdateIndexerAsync(indexer);
+                }
+                catch (RequestFailedException e)
+                {
+                    Console.WriteLine($"Error updating Address Indexers data source: {e}");
+                }
+            }
+
+            Console.WriteLine("Run Address Indexer...\n");
+            try
+            {
+                await searchIndexerClient.RunIndexerAsync(indexer.Value.Name);
+            }
+            catch (RequestFailedException e)
+            {
+                Console.WriteLine("Unable to get data for Address Indexer...\n" + e);
+                throw;
+            }
+
+            var running = true;
+            Console.WriteLine("Synchronization running...\n");
+
+            while (running)
+            {
+                SearchIndexerStatus status;
+
+                try
+                {
+                    status = await searchIndexerClient.GetIndexerStatusAsync(indexer.Value.Name);
+                }
+                catch (RequestFailedException ex)
+                {
+                    Console.WriteLine($"Error polling for indexer status: {ex.Message}");
+                    throw;
+                }
+
+                var lastResult = status.LastResult;
+                if (lastResult != null)
+                {
+                    switch (lastResult.Status)
+                    {
+                        case IndexerExecutionStatus.Reset:
+                        case IndexerExecutionStatus.InProgress:
+                            Console.WriteLine($"Synchronization running...\nStatus: {lastResult.Status}, Item Count: {lastResult.ItemCount}");
+                            await Task.Delay(1000);
+                            break;
+                        case IndexerExecutionStatus.Success:
+                            running = false;
+                            Console.WriteLine($"Synchronized {lastResult.ItemCount} rows...\n");
+                            break;
+                        default:
+                            running = false;
+                            Console.WriteLine($"Synchronization failed: {lastResult.ErrorMessage}\n");
+                            break;
+                    }
+                }
+            }
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
     }
 }
+

@@ -1,4 +1,4 @@
-﻿using NCS.DSS.AzureSearchUtility.CreateIndex;
+﻿using NCS.DSS.AzureSearchUtility.Index;
 using NCS.DSS.AzureSearchUtility.Helpers;
 using NCS.DSS.AzureSearchUtility.Models;
 using System;
@@ -20,6 +20,8 @@ namespace NCS.DSS.AzureSearchUtility
             var searchConfigFile = string.Empty;
             var environmentName = string.Empty;
             var synonymPath = string.Empty;
+            var recreateOrUpdate = string.Empty;
+
 
             if (args.Length == 0)
             {
@@ -43,6 +45,10 @@ namespace NCS.DSS.AzureSearchUtility
                 else if (arg.StartsWith("/SynonymPath:"))
                 {
                     synonymPath = arg.Split(':')[1];
+                }
+                else if (arg.StartsWith("/RecreateOrUpdate:"))
+                {
+                    recreateOrUpdate = arg.Split(':')[1];
                 }
                 else
                 {
@@ -70,9 +76,25 @@ namespace NCS.DSS.AzureSearchUtility
                 throw new ArgumentNullException(synonymPath);
             }
 
+            if (string.IsNullOrEmpty(recreateOrUpdate))
+            {
+                throw new ArgumentNullException(recreateOrUpdate);
+            }
+
             var searchConfig = GetAppConfig(searchConfigFile);
 
-            CreateCustomerSearchIndex.CreateIndex(searchAdminKey, searchConfig, synonymPath).GetAwaiter().GetResult();
+            if (recreateOrUpdate == "Recreate")
+            { 
+                CustomerSearchIndex.CreateIndex(searchAdminKey, searchConfig, synonymPath).GetAwaiter().GetResult(); 
+            }
+            else if (recreateOrUpdate == "Update")
+            {
+                CustomerSearchIndex.UpdateIndex(searchAdminKey, searchConfig).GetAwaiter().GetResult();
+            }
+            else
+            {
+                throw (new NotSupportedException($"RecreateOrUpdate argument: {recreateOrUpdate} is invalid"));
+            }
 
             Console.WriteLine("Generate Swagger File Name");
             var fileName = FileHelper.GenerateSwaggerFileName(environmentName);
